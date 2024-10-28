@@ -11,7 +11,6 @@ package dev.kordex.core.i18n
 import dev.kordex.core.i18n.types.Bundle
 import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.i18n.types.PlaceholderPosition
-import dev.kordex.core.types.TranslatableContext
 import java.util.Locale
 
 private val translationKeyMap: MutableMap<String, Key> = mutableMapOf()
@@ -50,6 +49,3 @@ public fun String.toKey(bundle: Bundle): Key =
 
 public fun String.toKey(bundle: String): Key =
 	toKey(Bundle(bundle))
-
-public suspend fun Key.withContext(context: TranslatableContext) =
-	withLocale(context.getLocale())

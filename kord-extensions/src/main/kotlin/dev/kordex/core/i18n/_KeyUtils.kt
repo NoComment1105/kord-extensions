@@ -10,6 +10,7 @@ package dev.kordex.core.i18n
 
 import dev.kordex.core.builders.ExtensibleBotBuilder
 import dev.kordex.core.i18n.types.Key
+import dev.kordex.core.types.TranslatableContext
 import dev.kordex.core.utils.capitalizeWords
 import dev.kordex.core.utils.getKoin
 import java.util.Locale
@@ -41,3 +42,6 @@ public fun Key.lowercase(): Key = withPostProcessor {
 public fun Key.uppercase(): Key = withPostProcessor {
 	it.uppercase(locale ?: getDefaultLocale())
 }
+
+public suspend fun Key.withContext(context: TranslatableContext) =
+	withLocale(context.getLocale())
