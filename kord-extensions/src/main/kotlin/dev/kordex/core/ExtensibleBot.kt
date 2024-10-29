@@ -226,33 +226,40 @@ public open class ExtensibleBot(
 			start()
 		}
 
-	/** This function sets up all of the bot's default event listeners. **/
+	@Suppress("TooGenericExceptionCaught")
 	public open suspend fun registerListeners() {
 		val eventJson = Json {
 			ignoreUnknownKeys = true
 		}
 
 		on<ReadyEvent> {
-			dataCollector.start()
+			try {
+				dataCollector.start()
+			} catch (e: Exception) {
+				logger.warn(e) { "Exception thrown while setting up data collector" }
+			}
 		}
 
 		on<GuildCreateEvent> {
 			withLock {  // If configured, this won't be concurrent, saving larger bots from spammy rate limits
-				if (
-					settings.membersBuilder.guildsToFill == null ||
-					settings.membersBuilder.guildsToFill!!.contains(guild.id)
-				) {
-					logger.debug { "Requesting members for guild: ${guild.name}" }
+				try {
+					if (
+						settings.membersBuilder.guildsToFill == null ||
+						settings.membersBuilder.guildsToFill!!.contains(guild.id)
+					) {
+						logger.debug { "Requesting members for guild: ${guild.name}" }
 
-					guild.requestMembers {
-						presences = settings.membersBuilder.fillPresences
-						requestAllMembers()
-					}.collect()
+						guild.requestMembers {
+							presences = settings.membersBuilder.fillPresences
+							requestAllMembers()
+						}.collect()
+					}
+				} catch (e: Exception) {
+					logger.error(e) { "Exception thrown while requesting guild members" }
 				}
 			}
 		}
 
-		@Suppress("TooGenericExceptionCaught")
 		on<UnknownEvent> {
 			try {
 				val eventObj = when (name) {
@@ -282,20 +289,36 @@ public open class ExtensibleBot(
 		}
 
 		on<ButtonInteractionCreateEvent> {
-			getKoin().get<ComponentRegistry>().handle(this)
+			try {
+				getKoin().get<ComponentRegistry>().handle(this)
+			} catch (e: Exception) {
+				logger.error(e) { "Exception thrown while handling button interaction event" }
+			}
 		}
 
 		on<SelectMenuInteractionCreateEvent> {
-			getKoin().get<ComponentRegistry>().handle(this)
+			try {
+				getKoin().get<ComponentRegistry>().handle(this)
+			} catch (e: Exception) {
+				logger.error(e) { "Exception thrown while handling select menu interaction event" }
+			}
 		}
 
 		on<ModalSubmitInteractionCreateEvent> {
-			getKoin().get<ComponentRegistry>().handle(this)
+			try {
+				getKoin().get<ComponentRegistry>().handle(this)
+			} catch (e: Exception) {
+				logger.error(e) { "Exception thrown while handling modal interaction event" }
+			}
 		}
 
 		if (settings.chatCommandsBuilder.enabled) {
 			on<MessageCreateEvent> {
-				getKoin().get<ChatCommandRegistry>().handleEvent(this)
+				try {
+					getKoin().get<ChatCommandRegistry>().handleEvent(this)
+				} catch (e: Exception) {
+					logger.error(e) { "Exception thrown while handling messsage creation event for chat commands" }
+				}
 			}
 		} else {
 			logger.debug {
@@ -306,22 +329,42 @@ public open class ExtensibleBot(
 
 		if (settings.applicationCommandsBuilder.enabled) {
 			on<ChatInputCommandInteractionCreateEvent> {
-				getKoin().get<ApplicationCommandRegistry>().handle(this)
+				try {
+					getKoin().get<ApplicationCommandRegistry>().handle(this)
+				} catch (e: Exception) {
+					logger.error(e) { "Exception thrown while handling slash command interaction event" }
+				}
 			}
 
 			on<MessageCommandInteractionCreateEvent> {
-				getKoin().get<ApplicationCommandRegistry>().handle(this)
+				try {
+					getKoin().get<ApplicationCommandRegistry>().handle(this)
+				} catch (e: Exception) {
+					logger.error(e) { "Exception thrown while handling message command interaction event" }
+				}
 			}
 
 			on<UserCommandInteractionCreateEvent> {
-				getKoin().get<ApplicationCommandRegistry>().handle(this)
+				try {
+					getKoin().get<ApplicationCommandRegistry>().handle(this)
+				} catch (e: Exception) {
+					logger.error(e) { "Exception thrown while handling user command interaction event" }
+				}
 			}
 
 			on<AutoCompleteInteractionCreateEvent> {
-				getKoin().get<ApplicationCommandRegistry>().handle(this)
+				try {
+					getKoin().get<ApplicationCommandRegistry>().handle(this)
+				} catch (e: Exception) {
+					logger.error(e) { "Exception thrown while handling autocomplete interaction event" }
+				}
 			}
 
-			getKoin().get<ApplicationCommandRegistry>().initialRegistration()
+			try {
+				getKoin().get<ApplicationCommandRegistry>().initialRegistration()
+			} catch (e: Exception) {
+				logger.error(e) { "Exception thrown during initial interaction command registration phase" }
+			}
 		} else {
 			logger.debug {
 				"Application command support is disabled - set `enabled` to `true` in the " +
@@ -332,7 +375,7 @@ public open class ExtensibleBot(
 		if (!initialized) {
 			eventHandlers.forEach { handler ->
 				handler.listenerRegistrationCallable?.invoke() ?: logger.error {
-					"Event handler $handler does not have a listener registration callback. This should never happen!"
+					"Event handler $handler doesn't have a listener registration callback. This should never happen!"
 				}
 			}
 
@@ -378,14 +421,14 @@ public open class ExtensibleBot(
 							try {
 								consumer(it)
 							} catch (t: Throwable) {
-								logger.error(t) { "Error thrown from low-level event handler: $consumer" }
+								logger.error(t) { "Exception thrown from low-level event handler: $consumer" }
 							}
 						}
 					} else {
 						consumer(it)
 					}
-				}.onFailure { logger.error(it) { "Error thrown from low-level event handler: $consumer" } }
-			}.catch { logger.error(it) { "Error thrown from low-level event handler: $consumer" } }
+				}.onFailure { logger.error(it) { "Exception thrown from low-level event handler: $consumer" } }
+			}.catch { logger.error(it) { "Exception thrown from low-level event handler: $consumer" } }
 			.launchIn(kordRef)
 
 	/**
