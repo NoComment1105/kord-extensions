@@ -43,6 +43,10 @@ public suspend fun main() {
 		devMode = true
 		koinLogLevel = Level.DEBUG
 
+		kord {
+			stackTraceRecovery = true
+		}
+
 		about {
 			ephemeral = false
 
