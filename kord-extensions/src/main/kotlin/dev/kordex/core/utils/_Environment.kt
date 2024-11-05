@@ -122,7 +122,12 @@ public inline fun <reified T : Any> envOfOrNull(name: String): T? {
 		return null
 	}
 
-	return serializer<T>().deserializeRaw(value)
+	@Suppress("TooGenericExceptionCaught")
+	return try {
+		serializer<T>().deserializeRaw(value)
+	} catch (_: Exception) {
+		null
+	}
 }
 
 /**
