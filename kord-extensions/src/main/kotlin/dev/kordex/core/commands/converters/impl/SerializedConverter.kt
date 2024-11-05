@@ -23,52 +23,56 @@ import dev.kordex.core.commands.wrapOption
 import dev.kordex.core.i18n.generated.CoreTranslations
 import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.i18n.withContext
+import dev.kordex.core.serialization.deserializeRaw
 import dev.kordex.parser.StringParser
+import io.github.oshai.kotlinlogging.KotlinLogging
+import kotlinx.serialization.KSerializer
 
 /**
- * Converter that simply returns the argument as given.
- *
- * The multi version of this converter (via [toList]) will consume all remaining arguments.
- *
- * @property maxLength The maximum length allowed for this argument.
- * @property minLength The minimum length allowed for this argument.
+ * Converter that attempts to deserialize the argument to the given type.
  */
 @Converter(
-	"string",
+	"serialized",
+
+	imports = [
+		"kotlinx.serialization.KSerializer",
+		"kotlinx.serialization.serializer",
+	],
 
 	types = [ConverterType.DEFAULTING, ConverterType.LIST, ConverterType.OPTIONAL, ConverterType.SINGLE],
 
-	builderFields = [
-		"public var maxLength: Int? = null",
-		"public var minLength: Int? = null",
-	]
+	builderGeneric = "T: Any",
+	builderConstructorArguments = ["public val serializer: KSerializer<T>"],
+	builderFields = ["public lateinit var typeName: Key"],
+
+	functionGeneric = "T: Any",
+	functionBuilderArguments = ["serializer<T>()"],
 )
-public class StringConverter(
-	public val maxLength: Int? = null,
-	public val minLength: Int? = null,
-	override var validator: Validator<String> = null,
-) : SingleConverter<String>() {
-	override val signatureType: Key = CoreTranslations.Converters.String.signatureType
-	override val showTypeInSignature: Boolean = false
+public class SerializedConverter<T : Any>(
+	typeName: Key,
+	public val serializer: KSerializer<T>,
+
+	override var validator: Validator<T> = null,
+) : SingleConverter<T>() {
+	private val logger = KotlinLogging.logger { }
+
+	override val signatureType: Key = typeName
 
 	override suspend fun parse(parser: StringParser?, context: CommandContext, named: String?): Boolean {
 		val arg: String = named ?: parser?.parseNext()?.data ?: return false
 
-		this.parsed = arg
+		@Suppress("TooGenericExceptionCaught")
+		try {
+			this.parsed = serializer.deserializeRaw(arg, context.getLocale())
+		} catch (e: Exception) {
+			logger.error(e) { "Failed to deserialize value: $arg" }
 
-		if (minLength != null && this.parsed.length < minLength) {
 			throw DiscordRelayedException(
-				CoreTranslations.Converters.String.Error.Invalid.tooShort
+				CoreTranslations.Converters.Serialized.error
 					.withContext(context)
-					.withOrdinalPlaceholders(arg, minLength)
-			)
-		}
-
-		if (maxLength != null && this.parsed.length > maxLength) {
-			throw DiscordRelayedException(
-				CoreTranslations.Converters.String.Error.Invalid.tooLong
-					.withContext(context)
-					.withOrdinalPlaceholders(arg, maxLength)
+					.withNamedPlaceholders(
+						"type" to signatureType
+					)
 			)
 		}
 
@@ -77,15 +81,26 @@ public class StringConverter(
 
 	override suspend fun toSlashOption(arg: Argument<*>): OptionWrapper<StringChoiceBuilder> =
 		wrapOption(arg.displayName, arg.description) {
-			this.maxLength = this@StringConverter.maxLength
-			this.minLength = this@StringConverter.minLength
-
 			required = true
 		}
 
 	override suspend fun parseOption(context: CommandContext, option: OptionValue<*>): Boolean {
 		val optionValue = (option as? StringOptionValue)?.value ?: return false
-		this.parsed = optionValue
+
+		@Suppress("TooGenericExceptionCaught")
+		try {
+			this.parsed = serializer.deserializeRaw(optionValue, context.getLocale())
+		} catch (e: Exception) {
+			logger.error(e) { "Failed to deserialize value: $optionValue" }
+
+			throw DiscordRelayedException(
+				CoreTranslations.Converters.Serialized.error
+					.withContext(context)
+					.withNamedPlaceholders(
+						"type" to signatureType
+					)
+			)
+		}
 
 		return true
 	}
