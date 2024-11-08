@@ -92,6 +92,12 @@ public class DataCollector(public val level: DataCollection) : KordExKoinCompone
 	@OptIn(InternalAPI::class)
 	@Suppress("TooGenericExceptionCaught")
 	internal suspend fun collect() {
+		/*
+		 * If you're maintaining a fork of Kord Extensions, add the name of your fork below.
+		 * Fork names should be lowered-kebab-case, ideally containing only lower-case letters, numbers, and dashes.
+		 */
+		val fork: String? = null  // "fork-name"
+
 		if (!::applicationInfo.isInitialized) {
 			applicationInfo = bot.kordRef.getApplicationInfo()
 		}
@@ -105,6 +111,7 @@ public class DataCollector(public val level: DataCollection) : KordExKoinCompone
 				is DataCollection.Minimal ->
 					entity = MinimalDataEntity(
 						id = lastUUID,
+						fork = fork,
 
 						devMode = settings.devMode,
 						kordExVersion = KORDEX_VERSION ?: "Unknown",
@@ -118,6 +125,7 @@ public class DataCollector(public val level: DataCollection) : KordExKoinCompone
 				is DataCollection.Standard ->
 					entity = StandardDataEntity(
 						id = lastUUID,
+						fork = fork,
 
 						devMode = settings.devMode,
 						kordExVersion = KORDEX_VERSION ?: "Unknown",
@@ -175,6 +183,7 @@ public class DataCollector(public val level: DataCollection) : KordExKoinCompone
 
 					entity = ExtraDataEntity(
 						id = lastUUID,
+						fork = fork,
 
 						devMode = settings.devMode,
 						kordExVersion = KORDEX_VERSION ?: "Unknown",
@@ -268,18 +277,6 @@ public class DataCollector(public val level: DataCollection) : KordExKoinCompone
 			}
 
 			logger.debug { "Submitting collected data - level: ${level.readable}, last UUID: $lastUUID" }
-
-			/*
-			 * If you're maintaining a fork of Kord Extensions, uncomment the following block of code and add the
-			 * name of your fork.
-			 *
-			 * Fork names should be lowered-kebab-case, ideally containing only lower-case letters, numbers, and
-			 * dashes.
-			 */
-
-			// entity = entity.copy(
-			//     fork = "fork-name"
-			// )
 
 			val response = DataAPIClient.submit(entity)
 
