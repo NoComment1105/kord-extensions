@@ -577,8 +577,8 @@ public abstract class ApplicationCommandRegistry : KordExKoinComponent {
 		this.name = name
 		this.nameLocalizations = nameLocalizations
 
-		if (this is BaseChoiceBuilder<*, *> && !choices.isNullOrEmpty()) {
-			translate(command, option as ChoiceOptionWrapper<*, *>)
+		if (this is BaseChoiceBuilder<*, *> && option is ChoiceOptionWrapper<*, *> && option.choices.isNotEmpty()) {
+			translate(command, option)
 		}
 	}
 

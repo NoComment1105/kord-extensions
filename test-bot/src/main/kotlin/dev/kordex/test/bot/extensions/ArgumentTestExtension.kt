@@ -19,11 +19,14 @@ import dev.kord.core.entity.Emoji
 import dev.kord.core.entity.GuildEmoji
 import dev.kord.core.entity.channel.Channel
 import dev.kordex.core.commands.Arguments
+import dev.kordex.core.commands.application.slash.converters.ChoiceEnum
+import dev.kordex.core.commands.application.slash.converters.impl.enumChoice
 import dev.kordex.core.commands.application.slash.converters.impl.stringChoice
 import dev.kordex.core.commands.converters.impl.*
 import dev.kordex.core.extensions.Extension
 import dev.kordex.core.extensions.publicSlashCommand
 import dev.kordex.core.i18n.toKey
+import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.utils.suggestStringCollection
 import dev.kordex.core.utils.suggestStringMap
 import dev.kordex.modules.func.mappings.i18n.generated.MappingsTranslations.Argument.MappingsChannel.typeName
@@ -32,6 +35,17 @@ public class ArgumentTestExtension : Extension() {
 	override val name: String = "kordex.test-args"
 
 	override suspend fun setup() {
+		publicSlashCommand(::EnumArguments) {
+			name = "test-enum".toKey()
+			description = "Test the enum choice converter".toKey()
+
+			action {
+				respond {
+					content = "Selected: ${arguments.enumValue.name}"
+				}
+			}
+		}
+
 		publicSlashCommand(::SerializedArguments) {
 			name = "test-serialized".toKey()
 			description = "Test the serialized converter".toKey()
@@ -272,5 +286,19 @@ public class ArgumentTestExtension : Extension() {
 			description = "Snowflake argument".toKey()
 			typeName = "ID".toKey()
 		}
+	}
+
+	public inner class EnumArguments : Arguments() {
+		public val enumValue: TestEnum by enumChoice<TestEnum> {
+			name = "enum".toKey()
+			description = "enum value".toKey()
+			typeName = "enum value".toKey()
+		}
+	}
+
+	public enum class TestEnum(override val readableName: Key) : ChoiceEnum {
+		ONE("one".toKey()),
+		TWO("two".toKey()),
+		THREE("three".toKey()),
 	}
 }
