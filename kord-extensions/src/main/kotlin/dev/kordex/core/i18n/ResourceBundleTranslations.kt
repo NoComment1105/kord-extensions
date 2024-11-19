@@ -8,15 +8,18 @@
 
 package dev.kordex.core.i18n
 
+import com.ibm.icu.message2.MessageFormatter
 import com.ibm.icu.text.MessageFormat
 import dev.kordex.core.builders.ExtensibleBotBuilder
 import dev.kordex.core.i18n.types.Key
+import dev.kordex.core.i18n.types.MessageFormatVersion
 import dev.kordex.core.koin.KordExKoinComponent
 import dev.kordex.core.plugins.PluginManager
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.koin.core.component.inject
 import java.util.*
+import kotlin.Throws
 
 /**
  * Translation provider backed by Java's [ResourceBundle]s. This makes use of `.properties` files that are standard
@@ -199,24 +202,55 @@ public open class ResourceBundleTranslations(
 		}
 	}
 
+	@Suppress("DEPRECATION")
 	override fun translate(
 		key: Key,
 		replacements: Array<Any?>,
 	): String {
 		val locale = key.locale
-
 		val string = getTranslatedString(key)
-		val formatter = MessageFormat(string, locale)
 
-		return formatter.format(replacements)
+		val formattingVersion = key.bundle?.formattingVersion
+			?: MessageFormatVersion.ONE
+
+		return if (formattingVersion == MessageFormatVersion.ONE) {
+			MessageFormat(string, locale)
+				.format(replacements)
+		} else {
+			MessageFormatter.builder().apply {
+				setLocale(locale)
+				setPattern(string)
+			}.build()
+				.formatToString(
+					replacements.mapIndexed { index, value ->
+						0.toString() to value
+					}.toMap()
+				)
+		}
 	}
 
+	@Suppress("DEPRECATION")
 	override fun translateNamed(
 		key: Key,
 		replacements: Map<String, Any?>,
 	): String {
 		val locale = key.locale
 		val string = getTranslatedString(key)
+
+		val formattingVersion = key.bundle?.formattingVersion
+			?: MessageFormatVersion.ONE
+
+		return if (formattingVersion == MessageFormatVersion.ONE) {
+			MessageFormat(string, locale)
+				.format(replacements)
+		} else {
+			MessageFormatter.builder().apply {
+				setLocale(locale)
+				setPattern(string)
+			}.build()
+				.formatToString(replacements)
+		}
+
 		val formatter = MessageFormat(string, locale)
 
 		return formatter.format(replacements)

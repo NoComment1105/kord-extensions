@@ -11,10 +11,7 @@ package dev.kordex.core.i18n.types
 import kotlinx.serialization.Serializable
 
 @Serializable
-public data class Bundle(
-	val name: String,
-	val formattingVersion: MessageFormatVersion = MessageFormatVersion.ONE,
-) {
-	override fun toString(): String =
-		"Bundle $name/v${formattingVersion.version}"
+public enum class MessageFormatVersion(public val version: Int) {
+	ONE(1),
+	TWO(2)
 }
