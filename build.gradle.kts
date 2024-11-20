@@ -3,8 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 buildscript {
 	repositories {
 		maven {
-			name = "Sonatype Snapshots"
-			url = uri("https://oss.sonatype.org/content/repositories/snapshots")
+			name = "Kord Snapshots"
+			url = uri("https://repo.kord.dev/snapshots")
 		}
 	}
 }
@@ -36,8 +36,8 @@ repositories {
 	mavenCentral()
 
 	maven {
-		name = "Sonatype Snapshots"
-		url = uri("https://oss.sonatype.org/content/repositories/snapshots")
+		name = "Kord Snapshots"
+		url = uri("https://repo.kord.dev/snapshots")
 	}
 }
 

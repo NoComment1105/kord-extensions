@@ -22,8 +22,8 @@ metadata {
 
 repositories {
 	maven {
-		name = "Sonatype Snapshots"
-		url = uri("https://oss.sonatype.org/content/repositories/snapshots")
+		name = "Kord Snapshots"
+		url = uri("https://repo.kord.dev/snapshots")
 	}
 }
 
