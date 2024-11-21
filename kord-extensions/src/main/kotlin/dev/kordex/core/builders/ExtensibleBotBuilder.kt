@@ -26,13 +26,7 @@ import dev.kord.gateway.builder.PresenceBuilder
 import dev.kord.gateway.builder.Shards
 import dev.kord.rest.builder.message.allowedMentions
 import dev.kord.rest.builder.message.create.MessageCreateBuilder
-import dev.kordex.core.DATA_COLLECTION
-import dev.kordex.core.DEV_MODE
-import dev.kordex.core.ExtensibleBot
-import dev.kordex.core.KORDEX_GIT_BRANCH
-import dev.kordex.core.KORDEX_GIT_HASH
-import dev.kordex.core.KORDEX_VERSION
-import dev.kordex.core.KORD_VERSION
+import dev.kordex.core.*
 import dev.kordex.core.annotations.BotBuilderDSL
 import dev.kordex.core.annotations.InternalAPI
 import dev.kordex.core.commands.application.ApplicationCommandRegistry
@@ -528,6 +522,16 @@ public open class ExtensibleBotBuilder {
 		logger.info {
 			"Starting bot with Kord Extensions v$KORDEX_VERSION ($KORDEX_GIT_BRANCH@$KORDEX_GIT_HASH) " +
 				"and Kord v$KORD_VERSION"
+		}
+
+		if (devMode) {
+			logger.info {
+				"Running in development mode - enabling development helpers."
+			}
+
+			kord {
+				stackTraceRecovery = true
+			}
 		}
 
 		hooksBuilder.beforeKoinSetup {  // We have to do this super-duper early for safety
