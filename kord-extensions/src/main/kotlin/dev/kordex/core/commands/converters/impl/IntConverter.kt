@@ -43,7 +43,16 @@ private const val DEFAULT_RADIX = 10
 
 		"public var maxValue: Int? = null",
 		"public var minValue: Int? = null",
-	]
+	],
+
+	builderExtraStatements = [
+		"public var range: IntRange",
+		"    get() = (minValue ?: Int.MIN_VALUE) .. (maxValue ?: Int.MAX_VALUE)\n",
+		"    set(value) {\n" +
+		"            minValue = value.first()\n" +
+		"            maxValue = value.last()\n" +
+		"        }",
+	],
 )
 public class IntConverter(
 	private val radix: Int = DEFAULT_RADIX,

@@ -43,7 +43,16 @@ private const val DEFAULT_RADIX = 10
 
 		"public var maxValue: Long? = null",
 		"public var minValue: Long? = null",
-	]
+	],
+
+	builderExtraStatements = [
+		"public var range: LongRange",
+		"    get() = (minValue ?: Long.MIN_VALUE) .. (maxValue ?: Long.MAX_VALUE)\n",
+		"    set(value) {\n" +
+		"            minValue = value.first()\n" +
+		"            maxValue = value.last()\n" +
+		"        }",
+	],
 )
 public class LongConverter(
 	private val radix: Int = DEFAULT_RADIX,

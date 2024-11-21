@@ -29,7 +29,6 @@ import dev.kordex.core.i18n.toKey
 import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.utils.suggestStringCollection
 import dev.kordex.core.utils.suggestStringMap
-import dev.kordex.modules.func.mappings.i18n.generated.MappingsTranslations.Argument.MappingsChannel.typeName
 
 public class ArgumentTestExtension : Extension() {
 	override val name: String = "kordex.test-args"
