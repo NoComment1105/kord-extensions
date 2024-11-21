@@ -478,11 +478,10 @@ public open class ExtensibleBotBuilder {
 	/** @suppress Plugin-loading function. **/
 	@Suppress("TooGenericExceptionCaught")
 	public open suspend fun loadPlugins() {
-		val manager = pluginBuilder.manager(pluginBuilder.pluginPaths)
+		val manager = pluginBuilder.manager(pluginBuilder.pluginPaths, pluginBuilder.enabled)
 
 		loadModule { single { manager } bind PluginManager::class }
 
-		manager.enabled = pluginBuilder.enabled
 		pluginBuilder.managerObj = manager
 
 		if (!manager.enabled) {

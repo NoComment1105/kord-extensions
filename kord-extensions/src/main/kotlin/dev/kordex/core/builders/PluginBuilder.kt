@@ -27,7 +27,7 @@ public class PluginBuilder(public val parent: ExtensibleBotBuilder) {
 	public var enabled: Boolean = true
 
 	/** Plugin manager builder, which you can replace if your needs require it. **/
-	public var manager: (List<Path>) -> PluginManager = ::PluginManager
+	public var manager: (List<Path>, Boolean) -> PluginManager = ::PluginManager
 
 	/** List of paths to load plugin from. Uses `plugins/` in the current working directory by default. **/
 	public val pluginPaths: MutableList<Path> = mutableListOf(
