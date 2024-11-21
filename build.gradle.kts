@@ -14,7 +14,6 @@ plugins {
 
 	kotlin("jvm")
 
-	id("com.github.jakemarsden.git-hooks")
 	id("org.jetbrains.dokka")
 }
 
@@ -39,10 +38,6 @@ repositories {
 		name = "Kord Snapshots"
 		url = uri("https://repo.kord.dev/snapshots")
 	}
-}
-
-gitHooks {
-	setHooks(mapOf("pre-commit" to "applyLicenses detekt"))
 }
 
 subprojects {
