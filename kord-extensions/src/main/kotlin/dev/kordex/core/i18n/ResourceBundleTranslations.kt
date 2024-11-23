@@ -39,6 +39,7 @@ public open class ResourceBundleTranslations(
 ) : TranslationsProvider(defaultLocaleBuilder) {
 	private val logger: KLogger = KotlinLogging.logger { }
 
+	private val botSettings: ExtensibleBotBuilder by inject()
 	private val pluginManager: PluginManager by inject()
 
 	private val bundles: MutableMap<Pair<String, Locale>, ResourceBundle> = mutableMapOf()
@@ -208,6 +209,8 @@ public open class ResourceBundleTranslations(
 		replacements: Array<Any?>,
 	): String {
 		val locale = key.locale
+			?: botSettings.i18nBuilder.defaultLocale
+
 		val string = getTranslatedString(key)
 
 		val formattingVersion = key.bundle?.formattingVersion
@@ -235,6 +238,8 @@ public open class ResourceBundleTranslations(
 		replacements: Map<String, Any?>,
 	): String {
 		val locale = key.locale
+			?: botSettings.i18nBuilder.defaultLocale
+
 		val string = getTranslatedString(key)
 
 		val formattingVersion = key.bundle?.formattingVersion
