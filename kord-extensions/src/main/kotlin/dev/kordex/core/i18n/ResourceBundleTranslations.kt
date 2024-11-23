@@ -255,10 +255,6 @@ public open class ResourceBundleTranslations(
 			}.build()
 				.formatToString(replacements)
 		}
-
-		val formatter = MessageFormat(string, locale)
-
-		return formatter.format(replacements)
 	}
 
 	private fun ResourceBundle.getStringOrNull(key: String): String? {
