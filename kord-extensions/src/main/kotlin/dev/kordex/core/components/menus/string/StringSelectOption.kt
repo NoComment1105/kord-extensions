@@ -30,7 +30,7 @@ public class StringSelectOption(
 			this.description = this@StringSelectOption.description!!.translate()
 		}
 
-		if (this@StringSelectOption.description != null) {
+		if (this@StringSelectOption.emoji != null) {
 			this.emoji = this@StringSelectOption.emoji!!
 		}
 	}

@@ -226,7 +226,7 @@ public open class ResourceBundleTranslations(
 			}.build()
 				.formatToString(
 					replacements.mapIndexed { index, value ->
-						0.toString() to value
+						index.toString() to value
 					}.toMap()
 				)
 		}
