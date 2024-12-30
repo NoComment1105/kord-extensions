@@ -160,6 +160,7 @@ public suspend fun main() {
  			}
 
 			add(::ArgumentTestExtension)
+			add(::BenchmarkExtension)
 			add(::I18nTestExtension)
 			add(::ModalTestExtension)
 			add(::PaginatorTestExtension)
