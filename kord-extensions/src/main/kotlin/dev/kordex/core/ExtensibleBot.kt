@@ -394,7 +394,6 @@ public open class ExtensibleBot(
 				kordRef.launch(interactionCoroutineContext) {
 					try {
 						getKoin().get<ComponentRegistry>().handle(event)
-
 					} catch (e: Exception) {
 						logger.error(e) { "Exception thrown while handling button interaction event" }
 					}
