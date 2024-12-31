@@ -79,6 +79,13 @@ public open class ExtensibleBotBuilder {
 	/** Called to create an [ExtensibleBot], can be set to the constructor of your own subtype if needed. **/
 	public var constructor: (ExtensibleBotBuilder, String) -> ExtensibleBot = ::ExtensibleBot
 
+	/**
+	 * The number of threads to use for interaction event coroutines.
+	 *
+	 * Defaults to double the available CPU cores, as returned by `Runtime.getRuntime().availableProcessors()`.
+	 */
+	public var interactionContextThreads: Int = Runtime.getRuntime().availableProcessors() * 2
+
 	/** @suppress Builder that shouldn't be set directly by the user. **/
 	public val aboutBuilder: AboutBuilder = AboutBuilder()
 
