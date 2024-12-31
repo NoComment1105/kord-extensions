@@ -140,14 +140,14 @@ public open class ExtensibleBot(
 			logger.debug { "Kord event filter predicate not set." }
 
 			kord.on<Event> {
-				send(this@on)
+				sendKord(this@on)
 			}
 		} else {
 			logger.debug { "Kord event filter predicate set, filtering Kord events." }
 
 			kord.on<Event> {
 				if (settings.kordEventFilter!!(this@on)) {
-					send(this@on)
+					sendKord(this@on)
 				}
 			}
 		}
@@ -275,8 +275,8 @@ public open class ExtensibleBot(
 						GuildJoinRequestUpdateEvent(data)
 					}
 
-					else -> null
-				} ?: return@on
+					else -> return@on
+				}
 
 				send(eventObj)
 			} catch (e: Exception) {
@@ -432,10 +432,21 @@ public open class ExtensibleBot(
 			.launchIn(kordRef)
 
 	/**
-	 * @suppress
+	 * @suppress Internal function used to process Kord events. Don't call this yourself.
 	 */
-	public suspend inline fun send(event: Event) {
+	protected suspend inline fun sendKord(event: Event) {
 		eventPublisher.emit(event)
+	}
+
+	/**
+	 * Submit an event, triggering any relevant event handlers.
+	 *
+	 * Events submitted using this function are filtered by [ExtensibleBotBuilder.kordEventFilter].
+	 */
+	public suspend inline fun send(event: Event, filter: Boolean = true) {
+		if (!filter || settings.kordExEventFilter?.invoke(event) != false) {
+			eventPublisher.emit(event)
+		}
 	}
 
 	/**

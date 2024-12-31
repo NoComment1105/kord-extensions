@@ -141,6 +141,9 @@ public open class ExtensibleBotBuilder {
 	public var kordEventFilter: (suspend Event.() -> Boolean)? = null
 
 	/** @suppress Builder that shouldn't be set directly by the user. **/
+	public var kordExEventFilter: (suspend Event.() -> Boolean)? = null
+
+	/** @suppress Builder that shouldn't be set directly by the user. **/
 	public open val extensionsBuilder: ExtensionsBuilder = ExtensionsBuilder()
 
 	/** @suppress Used for late execution of extensions builder calls, so plugins can be loaded first. **/
@@ -201,9 +204,39 @@ public open class ExtensibleBotBuilder {
 	/**
 	 * Set an event-filtering predicate, which may selectively prevent Kord events from being processed by returning
 	 * `false`.
+	 *
+	 * This only filters events created by Kord.
+	 * For events submitted by Kord Extensions or loaded extensions, see [kordExEventFilter].
 	 */
+	@Deprecated(
+		level = DeprecationLevel.ERROR,
+		message = "Disambiguation: Renamed to kordEventFilter.",
+		replaceWith = ReplaceWith("kordEventFilter"),
+	)
 	public fun eventFilter(predicate: suspend Event.() -> Boolean) {
 		kordEventFilter = predicate
+	}
+
+	/**
+	 * Set an event-filtering predicate, which may selectively prevent Kord-created events from being processed by
+	 * returning `false`.
+	 *
+	 * This only filters events created by Kord.
+	 * For events submitted by Kord Extensions or loaded extensions, see [kordExEventFilter].
+	 */
+	public fun kordEventFilter(predicate: suspend Event.() -> Boolean) {
+		kordEventFilter = predicate
+	}
+
+	/**
+	 * Set an event-filtering predicate, which may selectively prevent KordEx-created events from being processed by
+	 * returning `false`.
+	 *
+	 * This only filters events submitted by Kord Extensions or loaded extensions.
+	 * For events created by Kord, see [kordEventFilter].
+	 */
+	public fun kordExEventFilter(predicate: suspend Event.() -> Boolean) {
+		kordExEventFilter = predicate
 	}
 
 	/**
