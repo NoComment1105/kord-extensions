@@ -8,11 +8,11 @@ repositories {
 }
 
 dependencies {
-	implementation(kotlin("gradle-plugin", version = "2.0.21"))
-	implementation(kotlin("serialization", version = "2.0.21"))
+	implementation(kotlin("gradle-plugin", version = "2.1.0"))
+	implementation(kotlin("serialization", version = "2.1.0"))
 
 	implementation("com.github.ben-manes", "gradle-versions-plugin", "0.51.0")
-	implementation("com.google.devtools.ksp", "com.google.devtools.ksp.gradle.plugin", "2.0.21-1.0.25")
+	implementation("com.google.devtools.ksp", "com.google.devtools.ksp.gradle.plugin", "2.1.0-1.0.29")
 	implementation("com.hanggrian", "kotlinpoet-dsl", "0.2")
 	implementation("com.squareup", "kotlinpoet", "1.18.1")
 	implementation("dev.yumi", "yumi-gradle-licenser", "1.2.0")
