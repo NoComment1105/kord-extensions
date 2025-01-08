@@ -512,3 +512,36 @@ public suspend fun CommandContext.waitForResponse(
 
 	return event?.message
 }
+
+/**
+ * Attempt to retrieve the message that the current message is in reply to, if any.
+ *
+ * In some situations, such as when dealing with a cross-posted (forwarded) message, Discord may return an HTTP 403.
+ * This function returns `null` in those situations.
+ *
+ * This function also returns `null` when the messages come from different channels, to avoid cross-posted messages.
+ *
+ * @return Corresponding [Message] object if found, accessible, and correct; `null` otherwise.
+ */
+public suspend fun Message.repliedMessageOrNull(): Message? {
+	val logger = KotlinLogging.logger("dev.kordex.core.utils.repliedMessageOrNull")
+	val reference = messageReference?.message
+
+	if (reference == null) {
+		return null
+	}
+
+	try {
+		val newMessage = reference.asMessageOrNull()
+
+		if (newMessage == null || newMessage.channelId != channelId) {
+			return null
+		}
+
+		return newMessage
+	} catch (e: RestRequestException) {
+		logger.debug(e) { "Failed to retrieve referenced message (${reference.id}) for reply-message ($id)" }
+
+		return null
+	}
+}

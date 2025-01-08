@@ -40,6 +40,7 @@ import dev.kordex.core.storage.StorageType
 import dev.kordex.core.storage.StorageUnit
 import dev.kordex.core.utils.MutableStringKeyedMap
 import dev.kordex.core.utils.kordExUserAgent
+import dev.kordex.core.utils.repliedMessageOrNull
 import dev.kordex.core.utils.scheduling.Scheduler
 import dev.kordex.core.utils.scheduling.Task
 import dev.kordex.modules.pluralkit.api.PluralKit
@@ -142,7 +143,7 @@ class PKExtension(val config: PKConfigBuilder) : Extension() {
 						awaitingEvents[message.id] = event
 					}
 
-					val referencedMessage = message.messageReference?.message?.asMessageOrNull()
+					val referencedMessage = message.repliedMessageOrNull()
 
 					if (referencedMessage != null) {
 						replyCache[message.id] = referencedMessage
