@@ -383,7 +383,8 @@ public open class DefaultApplicationCommandRegistry : ApplicationCommandRegistry
 
 		option ?: return logger.trace { "Autocomplete event for command $command doesn't have a focused option." }
 
-		val arguments = command.arguments!!()
+		val arguments = command.cachedArguments
+			?: return logger.trace { "Command $command doesn't have a cached arguments object for some reason." }
 
 		val arg = arguments.args.firstOrNull {
 			it.getDefaultTranslatedDisplayName() == option.first

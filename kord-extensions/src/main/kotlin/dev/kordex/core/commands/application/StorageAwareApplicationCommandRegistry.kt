@@ -117,7 +117,7 @@ public open class StorageAwareApplicationCommandRegistry(
 
 		option ?: return logger.trace { "Autocomplete event for command $command doesn't have a focused option." }
 
-		val arguments = command.arguments!!()
+		val arguments = command.cachedArguments!!
 
 		val arg = arguments.args.firstOrNull {
 			it.getDefaultTranslatedDisplayName() == option.first
