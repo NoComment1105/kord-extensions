@@ -80,6 +80,13 @@ public open class ExtensibleBotBuilder {
 	public var constructor: (ExtensibleBotBuilder, String) -> ExtensibleBot = ::ExtensibleBot
 
 	/**
+	 * The number of threads to use for autocomplete event coroutines.
+	 *
+	 * Defaults to the available CPU cores, as returned by `Runtime.getRuntime().availableProcessors()`.
+	 */
+	public var autoCompleteContextThreads: Int = Runtime.getRuntime().availableProcessors()
+
+	/**
 	 * The number of threads to use for interaction event coroutines.
 	 *
 	 * Defaults to double the available CPU cores, as returned by `Runtime.getRuntime().availableProcessors()`.

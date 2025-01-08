@@ -53,6 +53,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromJsonElement
 import org.koin.core.component.inject
 import org.koin.dsl.bind
+import java.util.concurrent.Executors
 import kotlin.Throws
 import kotlin.concurrent.thread
 
@@ -75,9 +76,20 @@ public open class ExtensibleBot(
 	override var mutex: Mutex? = Mutex()
 	override var locking: Boolean = settings.membersBuilder.lockMemberRequests
 
-	@OptIn(DelicateCoroutinesApi::class)
+	protected var autoCompleteCoroutineThreads: Int = 0
+	protected var interactionCoroutineThreads: Int = 0
+
+	public val autoCompleteCoroutineContext: CoroutineDispatcher =
+		Executors.newFixedThreadPool(settings.autoCompleteContextThreads) { r ->
+			autoCompleteCoroutineThreads++
+			Thread(r, "kordex-interactions-${autoCompleteCoroutineThreads - 1}")
+		}.asCoroutineDispatcher()
+
 	public val interactionCoroutineContext: CoroutineDispatcher =
-		newFixedThreadPoolContext(settings.interactionContextThreads, "kord-extensions-interactions")
+		Executors.newFixedThreadPool(settings.interactionContextThreads) { r ->
+			interactionCoroutineThreads++
+			Thread(r, "kordex-autocomplete-${interactionCoroutineThreads - 1}")
+		}.asCoroutineDispatcher()
 
 	/** @suppress Meant for internal use by public inline function. **/
 	public val kordRef: Kord by inject()
@@ -453,7 +465,7 @@ public open class ExtensibleBot(
 
 			is AutoCompleteInteractionCreateEvent ->
 				if (settings.applicationCommandsBuilder.enabled) {
-					kordRef.launch(interactionCoroutineContext) {
+					kordRef.launch(autoCompleteCoroutineContext) {
 						try {
 							getKoin().get<ApplicationCommandRegistry>().handle(event)
 						} catch (e: Exception) {
