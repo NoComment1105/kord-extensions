@@ -642,10 +642,18 @@ public open class ExtensibleBot(
 	 * @param handler The event handler to be registered.
 	 * @throws EventHandlerRegistrationException Thrown if the event handler could not be registered.
 	 */
+	@Suppress("TooGenericExceptionCaught")
 	@Throws(EventHandlerRegistrationException::class)
 	public inline fun <reified T : Event> registerListenerForHandler(handler: EventHandler<T>): Job {
 		return on<T>(scope = handler.coroutineScope) {
-			handler.call(this)
+			try {
+				handler.call(this)
+			} catch (e: Exception) {
+				logger.error(e) {
+					"Exception thrown by event handler in '${handler.extension.name}' extension - " +
+						"Event type is ${T::class.simpleName} (from ${T::class.java.packageName}); handler is $handler"
+				}
+			}
 		}
 	}
 
