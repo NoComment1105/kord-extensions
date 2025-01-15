@@ -12,7 +12,6 @@ package dev.kordex.modules.func.phishing
 
 import dev.kord.common.asJavaLocale
 import dev.kord.common.entity.Permission
-import dev.kord.common.entity.Snowflake
 import dev.kord.core.behavior.ban
 import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.entity.Message
@@ -241,7 +240,7 @@ class PhishingExtension(private val settings: ExtPhishingBuilder) : Extension() 
 			val selfAsMember = kord.getSelf().asMemberOrNull(message.getGuild().id)
 
 			when (settings.detectionAction) {
-				DetectionAction.Ban -> {
+				DetectionAction.Ban ->
 					if (selfAsMember?.hasPermissions(Permission.BanMembers, Permission.ManageMessages) == true) {
 						message.getAuthorAsMemberOrNull()!!.ban {
 							reason = translatedLogMessage
@@ -251,24 +250,21 @@ class PhishingExtension(private val settings: ExtPhishingBuilder) : Extension() 
 					} else {
 						actionSuccess = false
 					}
-				}
 
-				DetectionAction.Delete -> {
+				DetectionAction.Delete ->
 					if (selfAsMember?.hasPermissions(Permission.ManageMessages) == true) {
 						message.delete(translatedLogMessage)
 					} else {
 						actionSuccess = false
 					}
-				}
 
-				DetectionAction.Kick -> {
+				DetectionAction.Kick ->
 					if (selfAsMember?.hasPermissions(Permission.KickMembers, Permission.BanMembers) == true) {
 						message.getAuthorAsMemberOrNull()!!.kick(translatedLogMessage)
 						message.delete(translatedLogMessage)
 					} else {
 						actionSuccess = false
 					}
-				}
 
 				DetectionAction.LogOnly -> {
 					// Do nothing, we always log
