@@ -82,13 +82,13 @@ public open class ExtensibleBot(
 	public val autoCompleteCoroutineContext: CoroutineDispatcher =
 		Executors.newFixedThreadPool(settings.autoCompleteContextThreads) { r ->
 			autoCompleteCoroutineThreads++
-			Thread(r, "kordex-interactions-${autoCompleteCoroutineThreads - 1}")
+			Thread(r, "kordex-autocomplete-${autoCompleteCoroutineThreads - 1}")
 		}.asCoroutineDispatcher()
 
 	public val interactionCoroutineContext: CoroutineDispatcher =
 		Executors.newFixedThreadPool(settings.interactionContextThreads) { r ->
 			interactionCoroutineThreads++
-			Thread(r, "kordex-autocomplete-${interactionCoroutineThreads - 1}")
+			Thread(r, "kordex-interactions-${interactionCoroutineThreads - 1}")
 		}.asCoroutineDispatcher()
 
 	/** @suppress Meant for internal use by public inline function. **/
