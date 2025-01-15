@@ -11,6 +11,8 @@
 package dev.kordex.modules.func.phishing
 
 import dev.kord.common.asJavaLocale
+import dev.kord.common.entity.Permission
+import dev.kord.common.entity.Snowflake
 import dev.kord.core.behavior.ban
 import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.entity.Message
@@ -31,6 +33,7 @@ import dev.kordex.core.extensions.event
 import dev.kordex.core.i18n.generated.CoreTranslations.Extensions.Help.Paginator.Title.arguments
 import dev.kordex.core.utils.dm
 import dev.kordex.core.utils.getJumpUrl
+import dev.kordex.core.utils.hasPermissions
 import dev.kordex.core.utils.kordExUserAgent
 import dev.kordex.modules.func.phishing.i18n.generated.PhishingTranslations
 import dev.kordex.modules.func.phishing.i18n.generated.PhishingTranslations.Actions.logMessage
@@ -234,20 +237,37 @@ class PhishingExtension(private val settings: ExtPhishingBuilder) : Extension() 
 				.withLocale(message.getGuildOrNull()?.preferredLocale?.asJavaLocale())
 				.translate()
 
+			var actionSuccess = true
+			val selfAsMember = kord.getSelf().asMemberOrNull(message.getGuild().id)
+
 			when (settings.detectionAction) {
 				DetectionAction.Ban -> {
-					message.getAuthorAsMemberOrNull()!!.ban {
-						reason = translatedLogMessage
-					}
+					if (selfAsMember?.hasPermissions(Permission.BanMembers, Permission.ManageMessages) == true) {
+						message.getAuthorAsMemberOrNull()!!.ban {
+							reason = translatedLogMessage
+						}
 
-					message.delete(translatedLogMessage)
+						message.delete(translatedLogMessage)
+					} else {
+						actionSuccess = false
+					}
 				}
 
-				DetectionAction.Delete -> message.delete(translatedLogMessage)
+				DetectionAction.Delete -> {
+					if (selfAsMember?.hasPermissions(Permission.ManageMessages) == true) {
+						message.delete(translatedLogMessage)
+					} else {
+						actionSuccess = false
+					}
+				}
 
 				DetectionAction.Kick -> {
-					message.getAuthorAsMemberOrNull()!!.kick(translatedLogMessage)
-					message.delete(translatedLogMessage)
+					if (selfAsMember?.hasPermissions(Permission.KickMembers, Permission.BanMembers) == true) {
+						message.getAuthorAsMemberOrNull()!!.kick(translatedLogMessage)
+						message.delete(translatedLogMessage)
+					} else {
+						actionSuccess = false
+					}
 				}
 
 				DetectionAction.LogOnly -> {
@@ -255,12 +275,20 @@ class PhishingExtension(private val settings: ExtPhishingBuilder) : Extension() 
 				}
 			}
 
-			logDeletion(message, locale, matches)
+			logDeletion(message, locale, matches, actionSuccess)
 		}
 	}
 
-	private suspend fun logDeletion(message: Message, locale: Locale, matches: Set<String>) {
+	private suspend fun logDeletion(message: Message, locale: Locale, matches: Set<String>, actionSuccess: Boolean) {
 		val guild = message.getGuild()
+
+		if (!actionSuccess) {
+			logger.warn {
+				"Unable to run ${
+					settings.detectionAction.toString().split(".")[1]
+				} action on ${guild.name} (${guild.id.value}) due to missing permissions"
+			}
+		}
 
 		val channel = message
 			.getGuild()
@@ -324,6 +352,18 @@ class PhishingExtension(private val settings: ExtPhishingBuilder) : Extension() 
 
 					name = PhishingTranslations.Fields.totalMatches.translateLocale(locale)
 					value = matches.size.toString()
+				}
+
+				if (!actionSuccess) {
+					field {
+						inline = true
+
+						name = PhishingTranslations.Fields.ActionFailed.name.translateLocale(locale)
+						value = PhishingTranslations.Fields.ActionFailed.value.translateLocale(
+							locale,
+							settings.detectionAction.toString().split(".")[1]
+						)
+					}
 				}
 			}
 		}
