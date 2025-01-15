@@ -32,7 +32,7 @@ public data class GuildJoinRequest(
 	public val status: ApplicationStatus,
 
 	@SerialName("form_responses")
-	public val formResponses: List<GuildJoinRequestResponse>,
+	public val formResponses: List<GuildJoinRequestResponse>?,
 
 	@SerialName("actioned_by_user")
 	public val actionedByUser: DiscordUser? = null,
