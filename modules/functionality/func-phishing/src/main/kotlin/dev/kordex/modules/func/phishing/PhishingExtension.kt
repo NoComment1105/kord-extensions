@@ -10,6 +10,7 @@
 
 package dev.kordex.modules.func.phishing
 
+import com.kotlindiscord.kord.extensions.commands.converters.impl.string
 import dev.kord.common.asJavaLocale
 import dev.kord.common.entity.Permission
 import dev.kord.core.behavior.ban
@@ -24,18 +25,15 @@ import dev.kordex.core.checks.anyGuild
 import dev.kordex.core.checks.hasPermission
 import dev.kordex.core.checks.isNotBot
 import dev.kordex.core.commands.Arguments
-import dev.kordex.core.commands.converters.impl.string
 import dev.kordex.core.extensions.Extension
 import dev.kordex.core.extensions.ephemeralMessageCommand
 import dev.kordex.core.extensions.ephemeralSlashCommand
 import dev.kordex.core.extensions.event
-import dev.kordex.core.i18n.generated.CoreTranslations.Extensions.Help.Paginator.Title.arguments
 import dev.kordex.core.utils.dm
 import dev.kordex.core.utils.getJumpUrl
 import dev.kordex.core.utils.hasPermissions
 import dev.kordex.core.utils.kordExUserAgent
 import dev.kordex.modules.func.phishing.i18n.generated.PhishingTranslations
-import dev.kordex.modules.func.phishing.i18n.generated.PhishingTranslations.Actions.logMessage
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.client.*
 import io.ktor.client.plugins.*
@@ -47,7 +45,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.lastOrNull
 import kotlinx.coroutines.launch
 import org.jsoup.Jsoup
-import java.util.Locale
+import java.util.*
 
 /** The maximum number of redirects to attempt to follow for a URL. **/
 const val MAX_REDIRECTS = 5
@@ -240,16 +238,21 @@ class PhishingExtension(private val settings: ExtPhishingBuilder) : Extension() 
 			val selfAsMember = kord.getSelf().asMemberOrNull(message.getGuild().id)
 
 			when (settings.detectionAction) {
-				DetectionAction.Ban ->
-					if (selfAsMember?.hasPermissions(Permission.BanMembers, Permission.ManageMessages) == true) {
+				DetectionAction.Ban -> {
+					if (selfAsMember?.hasPermissions(Permission.BanMembers) == true) {
 						message.getAuthorAsMemberOrNull()!!.ban {
 							reason = translatedLogMessage
 						}
+					} else {
+						actionSuccess = false
+					}
 
+					if (selfAsMember?.hasPermissions(Permission.ManageMessages) == true) {
 						message.delete(translatedLogMessage)
 					} else {
 						actionSuccess = false
 					}
+				}
 
 				DetectionAction.Delete ->
 					if (selfAsMember?.hasPermissions(Permission.ManageMessages) == true) {
@@ -258,13 +261,19 @@ class PhishingExtension(private val settings: ExtPhishingBuilder) : Extension() 
 						actionSuccess = false
 					}
 
-				DetectionAction.Kick ->
-					if (selfAsMember?.hasPermissions(Permission.KickMembers, Permission.BanMembers) == true) {
+				DetectionAction.Kick -> {
+					if (selfAsMember?.hasPermissions(Permission.KickMembers) == true) {
 						message.getAuthorAsMemberOrNull()!!.kick(translatedLogMessage)
+					} else {
+						actionSuccess = false
+					}
+
+					if (selfAsMember?.hasPermissions(Permission.ManageMessages) == true) {
 						message.delete(translatedLogMessage)
 					} else {
 						actionSuccess = false
 					}
+				}
 
 				DetectionAction.LogOnly -> {
 					// Do nothing, we always log
@@ -280,9 +289,7 @@ class PhishingExtension(private val settings: ExtPhishingBuilder) : Extension() 
 
 		if (!actionSuccess) {
 			logger.warn {
-				"Unable to run ${
-					settings.detectionAction.toString().split(".")[1]
-				} action on ${guild.name} (${guild.id.value}) due to missing permissions"
+				"Unable to run ${settings.detectionAction.name} action on ${guild.name} (${guild.id.value}) due to missing permissions"
 			}
 		}
 
@@ -357,7 +364,7 @@ class PhishingExtension(private val settings: ExtPhishingBuilder) : Extension() 
 						name = PhishingTranslations.Fields.ActionFailed.name.translateLocale(locale)
 						value = PhishingTranslations.Fields.ActionFailed.value.translateLocale(
 							locale,
-							settings.detectionAction.toString().split(".")[1]
+							settings.detectionAction.name
 						)
 					}
 				}
