@@ -362,9 +362,9 @@ class PhishingExtension(private val settings: ExtPhishingBuilder) : Extension() 
 						inline = true
 
 						name = PhishingTranslations.Fields.ActionFailed.name.translateLocale(locale)
-						value = PhishingTranslations.Fields.ActionFailed.value.translateLocale(
+						value = PhishingTranslations.Fields.ActionFailed.value.translateNamedLocale(
 							locale,
-							settings.detectionAction.name
+							"action" to settings.detectionAction.name
 						)
 					}
 				}
