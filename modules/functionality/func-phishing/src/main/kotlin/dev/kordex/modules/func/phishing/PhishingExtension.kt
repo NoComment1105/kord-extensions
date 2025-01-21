@@ -11,7 +11,6 @@
 package dev.kordex.modules.func.phishing
 
 import dev.kord.common.asJavaLocale
-import dev.kord.common.entity.Permission
 import dev.kord.core.behavior.ban
 import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.entity.Message
@@ -32,7 +31,6 @@ import dev.kordex.core.extensions.ephemeralSlashCommand
 import dev.kordex.core.extensions.event
 import dev.kordex.core.utils.dm
 import dev.kordex.core.utils.getJumpUrl
-import dev.kordex.core.utils.hasPermissions
 import dev.kordex.core.utils.kordExUserAgent
 import dev.kordex.modules.func.phishing.i18n.generated.PhishingTranslations
 import io.github.oshai.kotlinlogging.KotlinLogging
