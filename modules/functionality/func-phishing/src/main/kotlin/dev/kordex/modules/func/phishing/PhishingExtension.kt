@@ -18,6 +18,7 @@ import dev.kord.core.entity.channel.GuildMessageChannel
 import dev.kord.core.event.message.MessageCreateEvent
 import dev.kord.core.event.message.MessageUpdateEvent
 import dev.kord.rest.builder.message.embed
+import dev.kord.rest.request.RestRequestException
 import dev.kordex.core.DISCORD_RED
 import dev.kordex.core.checks.anyGuild
 import dev.kordex.core.checks.hasPermission
@@ -28,12 +29,10 @@ import dev.kordex.core.extensions.Extension
 import dev.kordex.core.extensions.ephemeralMessageCommand
 import dev.kordex.core.extensions.ephemeralSlashCommand
 import dev.kordex.core.extensions.event
-import dev.kordex.core.i18n.generated.CoreTranslations.Extensions.Help.Paginator.Title.arguments
 import dev.kordex.core.utils.dm
 import dev.kordex.core.utils.getJumpUrl
 import dev.kordex.core.utils.kordExUserAgent
 import dev.kordex.modules.func.phishing.i18n.generated.PhishingTranslations
-import dev.kordex.modules.func.phishing.i18n.generated.PhishingTranslations.Actions.logMessage
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.client.*
 import io.ktor.client.plugins.*
@@ -45,7 +44,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.lastOrNull
 import kotlinx.coroutines.launch
 import org.jsoup.Jsoup
-import java.util.Locale
+import java.util.*
 
 /** The maximum number of redirects to attempt to follow for a URL. **/
 const val MAX_REDIRECTS = 5
@@ -234,20 +233,49 @@ class PhishingExtension(private val settings: ExtPhishingBuilder) : Extension() 
 				.withLocale(message.getGuildOrNull()?.preferredLocale?.asJavaLocale())
 				.translate()
 
+			var actionSuccess = true
+
 			when (settings.detectionAction) {
 				DetectionAction.Ban -> {
-					message.getAuthorAsMemberOrNull()!!.ban {
-						reason = translatedLogMessage
+					try {
+						message.getAuthorAsMemberOrNull()!!.ban {
+							reason = translatedLogMessage
+						}
+					} catch (e: RestRequestException) {
+						logger.trace(e) { "Failed to ban user due to missing permissions" }
+						actionSuccess = false
 					}
 
-					message.delete(translatedLogMessage)
+					try {
+						message.delete(translatedLogMessage)
+					} catch (e: RestRequestException) {
+						logger.trace(e) { "Failed to delete message due to missing permissions" }
+						actionSuccess = false
+					}
 				}
 
-				DetectionAction.Delete -> message.delete(translatedLogMessage)
+				DetectionAction.Delete ->
+					try {
+						message.delete(translatedLogMessage)
+					} catch (e: RestRequestException) {
+						logger.trace(e) { "Failed to delete message due to missing permissions" }
+						actionSuccess = false
+					}
 
 				DetectionAction.Kick -> {
-					message.getAuthorAsMemberOrNull()!!.kick(translatedLogMessage)
-					message.delete(translatedLogMessage)
+					try {
+						message.getAuthorAsMemberOrNull()!!.kick(translatedLogMessage)
+					} catch (e: RestRequestException) {
+						logger.trace(e) { "Failed to kick user due to missing permissions" }
+						actionSuccess = false
+					}
+
+					try {
+						message.delete(translatedLogMessage)
+					} catch (e: RestRequestException) {
+						logger.trace(e) { "Failed to delete message due to missing permissions" }
+						actionSuccess = false
+					}
 				}
 
 				DetectionAction.LogOnly -> {
@@ -255,12 +283,19 @@ class PhishingExtension(private val settings: ExtPhishingBuilder) : Extension() 
 				}
 			}
 
-			logDeletion(message, locale, matches)
+			logDeletion(message, locale, matches, actionSuccess)
 		}
 	}
 
-	private suspend fun logDeletion(message: Message, locale: Locale, matches: Set<String>) {
+	private suspend fun logDeletion(message: Message, locale: Locale, matches: Set<String>, actionSuccess: Boolean) {
 		val guild = message.getGuild()
+
+		if (!actionSuccess) {
+			logger.warn {
+				"Unable to run ${settings.detectionAction.name} action on ${guild.name}" +
+					" (${guild.id.value}) due to missing permissions"
+			}
+		}
 
 		val channel = message
 			.getGuild()
@@ -324,6 +359,18 @@ class PhishingExtension(private val settings: ExtPhishingBuilder) : Extension() 
 
 					name = PhishingTranslations.Fields.totalMatches.translateLocale(locale)
 					value = matches.size.toString()
+				}
+
+				if (!actionSuccess) {
+					field {
+						inline = true
+
+						name = PhishingTranslations.Fields.ActionFailed.name.translateLocale(locale)
+						value = PhishingTranslations.Fields.ActionFailed.value.translateNamedLocale(
+							locale,
+							"action" to settings.detectionAction.name
+						)
+					}
 				}
 			}
 		}
