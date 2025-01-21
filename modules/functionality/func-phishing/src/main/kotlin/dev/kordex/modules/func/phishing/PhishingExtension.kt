@@ -10,7 +10,6 @@
 
 package dev.kordex.modules.func.phishing
 
-import com.kotlindiscord.kord.extensions.commands.converters.impl.string
 import dev.kord.common.asJavaLocale
 import dev.kord.common.entity.Permission
 import dev.kord.core.behavior.ban
@@ -25,6 +24,7 @@ import dev.kordex.core.checks.anyGuild
 import dev.kordex.core.checks.hasPermission
 import dev.kordex.core.checks.isNotBot
 import dev.kordex.core.commands.Arguments
+import dev.kordex.core.commands.converters.impl.string
 import dev.kordex.core.extensions.Extension
 import dev.kordex.core.extensions.ephemeralMessageCommand
 import dev.kordex.core.extensions.ephemeralSlashCommand
@@ -289,7 +289,8 @@ class PhishingExtension(private val settings: ExtPhishingBuilder) : Extension() 
 
 		if (!actionSuccess) {
 			logger.warn {
-				"Unable to run ${settings.detectionAction.name} action on ${guild.name} (${guild.id.value}) due to missing permissions"
+				"Unable to run ${settings.detectionAction.name} action on ${guild.name}" +
+					" (${guild.id.value}) due to missing permissions"
 			}
 		}
 
