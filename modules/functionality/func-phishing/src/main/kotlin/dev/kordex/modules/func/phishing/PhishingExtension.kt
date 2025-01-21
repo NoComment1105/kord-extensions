@@ -19,6 +19,7 @@ import dev.kord.core.entity.channel.GuildMessageChannel
 import dev.kord.core.event.message.MessageCreateEvent
 import dev.kord.core.event.message.MessageUpdateEvent
 import dev.kord.rest.builder.message.embed
+import dev.kord.rest.request.RestRequestException
 import dev.kordex.core.DISCORD_RED
 import dev.kordex.core.checks.anyGuild
 import dev.kordex.core.checks.hasPermission
@@ -235,42 +236,46 @@ class PhishingExtension(private val settings: ExtPhishingBuilder) : Extension() 
 				.translate()
 
 			var actionSuccess = true
-			val selfAsMember = kord.getSelf().asMemberOrNull(message.getGuild().id)
 
 			when (settings.detectionAction) {
 				DetectionAction.Ban -> {
-					if (selfAsMember?.hasPermissions(Permission.BanMembers) == true) {
+					try {
 						message.getAuthorAsMemberOrNull()!!.ban {
 							reason = translatedLogMessage
 						}
-					} else {
+					} catch (e: RestRequestException) {
+						logger.trace(e) { "Failed to ban user due to missing permissions" }
 						actionSuccess = false
 					}
 
-					if (selfAsMember?.hasPermissions(Permission.ManageMessages) == true) {
+					try {
 						message.delete(translatedLogMessage)
-					} else {
+					} catch (e: RestRequestException) {
+						logger.trace(e) { "Failed to delete message due to missing permissions" }
 						actionSuccess = false
 					}
 				}
 
 				DetectionAction.Delete ->
-					if (selfAsMember?.hasPermissions(Permission.ManageMessages) == true) {
+					try {
 						message.delete(translatedLogMessage)
-					} else {
+					} catch (e: RestRequestException) {
+						logger.trace(e) { "Failed to delete message due to missing permissions" }
 						actionSuccess = false
 					}
 
 				DetectionAction.Kick -> {
-					if (selfAsMember?.hasPermissions(Permission.KickMembers) == true) {
+					try {
 						message.getAuthorAsMemberOrNull()!!.kick(translatedLogMessage)
-					} else {
+					} catch (e: RestRequestException) {
+						logger.trace(e) { "Failed to kick user due to missing permissions" }
 						actionSuccess = false
 					}
 
-					if (selfAsMember?.hasPermissions(Permission.ManageMessages) == true) {
+					try {
 						message.delete(translatedLogMessage)
-					} else {
+					} catch (e: RestRequestException) {
+						logger.trace(e) { "Failed to delete message due to missing permissions" }
 						actionSuccess = false
 					}
 				}
