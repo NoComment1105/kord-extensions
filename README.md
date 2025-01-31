@@ -1,6 +1,6 @@
 # Kord Extensions
 
-[![Ko-Fi badge](https://img.shields.io/badge/Donate-Buy_me_a_coffee-purple?style=for-the-badge&logo=ko-fi)](https://ko-fi.com/gsc)
+[![Donate badge](https://img.shields.io/badge/Donate_Now-green?style=for-the-badge&logo=stripe)](https://donate.stripe.com/3csg29aPp95Rgxi7ss)
 
 [![Docs: Click here](https://img.shields.io/static/v1?label=Docs&message=Click%20here&color=7289DA&style=for-the-badge&logo=read-the-docs)](https://docs.kordex.dev/) [![Discord: Click here](https://img.shields.io/static/v1?label=Discord&message=Click%20here&color=7289DA&style=for-the-badge&logo=discord)](https://discord.gg/nYzQWcjAmK) <br />
 [![Weblate project translated](https://img.shields.io/weblate/progress/kord-extensions?style=for-the-badge)]((https://hosted.weblate.org/engage/kord-extensions/))
