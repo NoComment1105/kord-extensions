@@ -38,7 +38,7 @@ dependencies {
 
 	implementation(project(":kord-extensions"))
 
-	implementation(project(":modules:web:web-core:web-frontend"))
+	compileOnly(project(":modules:web:web-core:web-frontend"))
 	shadow(project(":modules:web:web-core:web-frontend"))
 }
 
