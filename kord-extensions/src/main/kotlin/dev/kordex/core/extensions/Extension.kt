@@ -12,6 +12,7 @@ import dev.kord.core.Kord
 import dev.kord.core.event.Event
 import dev.kord.gateway.Intent
 import dev.kordex.core.ExtensibleBot
+import dev.kordex.core.annotations.InternalAPI
 import dev.kordex.core.checks.types.ChatCommandCheck
 import dev.kordex.core.checks.types.MessageCommandCheck
 import dev.kordex.core.checks.types.SlashCommandCheck
@@ -59,6 +60,10 @@ public abstract class Extension : KordExKoinComponent {
 	 * be used to refer to your specific extension after it's been registered.
 	 */
 	public abstract val name: String
+
+	/** @suppress API only meant to be used by KordEx and modules that extend the extension system. **/
+	@InternalAPI
+	public val unloadCallbacks: MutableList<() -> Unit> = mutableListOf()
 
 	/**
 	 * The current loading/unloading state of the extension.
@@ -202,10 +207,20 @@ public abstract class Extension : KordExKoinComponent {
 	 *
 	 * @suppress Internal function
 	 */
+	@OptIn(InternalAPI::class)
+	@Suppress("TooGenericExceptionCaught")
 	public open suspend fun doUnload() {
 		var error: Throwable? = null
 
 		this.setState(ExtensionState.UNLOADING)
+
+		unloadCallbacks.forEach {
+			try {
+				it()
+			} catch (e: Exception) {
+				logger.warn(e) { "Exception thrown by unloading callback $it" }
+			}
+		}
 
 		@Suppress("TooGenericExceptionCaught")
 		try {

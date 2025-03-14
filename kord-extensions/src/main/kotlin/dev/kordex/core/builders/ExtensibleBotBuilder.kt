@@ -33,6 +33,8 @@ import dev.kordex.core.commands.application.ApplicationCommandRegistry
 import dev.kordex.core.commands.chat.ChatCommandRegistry
 import dev.kordex.core.components.ComponentRegistry
 import dev.kordex.core.extensions.impl.AboutExtension
+import dev.kordex.core.healthcheck.HealthCheckRegistry
+import dev.kordex.core.healthcheck.HealthCheckState
 import dev.kordex.core.i18n.TranslationsProvider
 import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.koin.KordExContext
@@ -47,6 +49,7 @@ import dev.kordex.core.utils.loadModule
 import dev.kordex.data.api.DataCollection
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
+import kotlinx.coroutines.isActive
 import org.koin.core.annotation.KoinInternalApi
 import org.koin.core.logger.Level
 import org.koin.dsl.bind
@@ -55,6 +58,7 @@ import org.koin.fileProperties
 import org.koin.logger.slf4jLogger
 import java.io.File
 import java.util.*
+import kotlin.time.Duration.Companion.seconds
 
 internal typealias LocaleResolver = suspend (
 	guild: GuildBehavior?,
@@ -115,6 +119,13 @@ public open class ExtensibleBotBuilder {
 
 		content = message.translate()
 	}
+
+	/** Whether to add KordEx's default health-checks. Defaults to `true`. **/
+	public var addDefaultHealthChecks: Boolean = true
+
+	/** The bot's version. Set this yourself manually or use the KordEx Gradle plugin. **/
+	@OptIn(InternalAPI::class)
+	public var botVersion: String? = BOT_VERSION
 
 	/**
 	 * Whether the bot is running in development mode.
@@ -498,6 +509,9 @@ public open class ExtensibleBotBuilder {
 	 * The modules provide important bot-related singletons.
 	 **/
 	private fun addBotKoinModules() {
+		val healthCheckRegistry = HealthCheckRegistry()
+
+		loadModule { single { healthCheckRegistry } bind HealthCheckRegistry::class }
 		loadModule { single { this@ExtensibleBotBuilder } bind ExtensibleBotBuilder::class }
 		loadModule { single { i18nBuilder.translationsProvider } bind TranslationsProvider::class }
 		loadModule { single { chatCommandsBuilder.registryBuilder() } bind ChatCommandRegistry::class }
@@ -519,6 +533,23 @@ public open class ExtensibleBotBuilder {
 
 				adapter
 			} bind SentryAdapter::class
+		}
+
+		if (addDefaultHealthChecks) {
+			addDefaultHealthChecks(healthCheckRegistry)
+		}
+	}
+
+	protected open fun addDefaultHealthChecks(registry: HealthCheckRegistry) {
+		registry.addAnonymous("kord.connected", 5.seconds) {
+			val kord = getKoin().get<Kord>()
+			val connected = kord.gateway.gateways.values.all { it.isActive }
+
+			if (lastState != HealthCheckState.Starting) {
+				unhealthyIf("Disconnected from Discord, given up on reconnecting") { !connected }
+			}
+
+			healthyIf { connected }
 		}
 	}
 

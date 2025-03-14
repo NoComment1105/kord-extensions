@@ -78,6 +78,7 @@ public object KordExContext : KoinContext {
 	override fun startKoin(koinApplication: KoinApplication): KoinApplication = synchronized(this) {
 		register(koinApplication)
 		koinApplication.createEagerInstances()
+		koinApplication.allowOverride(true)
 
 		return koinApplication
 	}

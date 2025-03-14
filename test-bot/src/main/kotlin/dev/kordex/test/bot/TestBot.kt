@@ -162,6 +162,7 @@ public suspend fun main() {
 			add(::ArgumentTestExtension)
 			add(::BenchmarkExtension)
 			add(::I18nTestExtension)
+			add(::MiscExtension)
 			add(::ModalTestExtension)
 			add(::PaginatorTestExtension)
 			add(::PKTestExtension)

@@ -10,10 +10,12 @@ package dev.kordex.modules.web.core.backend.server.routes
 
 import dev.kordex.modules.web.core.backend.config.WebServerConfig
 import dev.kordex.modules.web.core.backend.server.routes.api.apiInfo
+import dev.kordex.modules.web.core.backend.server.routes.api.health
 import io.ktor.server.routing.*
 
 public fun Routing.api(config: WebServerConfig) {
 	route("/api") {
 		apiInfo(config)
+		health()
 	}
 }

@@ -16,7 +16,7 @@ import kotlinx.serialization.json.Json
 public fun WebServer.configureContentNegotiation(app: Application) {
 	app.install(ContentNegotiation) {
 		json(
-			Json { encodeDefaults = true }
+			Json { encodeDefaults = false }
 		)
 	}
 }

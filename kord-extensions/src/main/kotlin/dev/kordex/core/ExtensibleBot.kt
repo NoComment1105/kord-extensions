@@ -38,6 +38,7 @@ import dev.kordex.core.events.extra.models.GuildJoinRequestUpdate
 import dev.kordex.core.extensions.Extension
 import dev.kordex.core.extensions.impl.HelpExtension
 import dev.kordex.core.extensions.impl.SentryExtension
+import dev.kordex.core.healthcheck.HealthCheckRegistry
 import dev.kordex.core.koin.KordExContext
 import dev.kordex.core.koin.KordExKoinComponent
 import dev.kordex.core.types.Lockable
@@ -187,6 +188,8 @@ public open class ExtensibleBot(
 			logger.warn(e) { "Unable to add shutdown hook." }
 		}
 
+		getKoin().get<HealthCheckRegistry>().start()
+
 		getKoin().get<Kord>().login {
 			this.presence(settings.presenceBuilder)
 			this.intents = Intents(settings.intentsBuilder!!)
@@ -235,6 +238,7 @@ public open class ExtensibleBot(
 		dataCollector.stop()
 		interactionCoroutineContext.cancel()
 
+		getKoin().get<HealthCheckRegistry>().shutdown()
 		getKoin().get<Kord>().shutdown()
 
 		KordExContext.stopKoin()

@@ -79,6 +79,16 @@ public val DATA_COLLECTION: DataCollection by lazy {
 }
 
 /**
+ * Bot version, as provided by the bot's `kordex.properties` resource.
+ *
+ * Don't check this directly — use the `botVersion` property in `ExtensibleBotBuilder` instead!
+ */
+@InternalAPI
+public val BOT_VERSION: String? by lazy {
+	kordexProps["botVersion"] as? String
+}
+
+/**
  * Dev-mode configuration based on properties and env vars.
  *
  * Don't check this directly – use the `devMode` property in `ExtensibleBotBuilder` instead!

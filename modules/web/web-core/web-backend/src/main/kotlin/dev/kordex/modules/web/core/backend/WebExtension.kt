@@ -15,7 +15,8 @@ import dev.kordex.modules.web.core.backend.server.WebServer
 public class WebExtension(private val config: WebServerConfig) : Extension() {
 	override val name: String = "kordex.web"
 
-	public lateinit var server: WebServer
+	public var server: WebServer = WebServer(config)
+		private set
 
 	override suspend fun setup() {
 		server = WebServer(config)
@@ -24,7 +25,7 @@ public class WebExtension(private val config: WebServerConfig) : Extension() {
 	}
 
 	override suspend fun unload() {
-		if (this::server.isInitialized) {
+		if (server.running) {
 			server.stop()
 		}
 	}
