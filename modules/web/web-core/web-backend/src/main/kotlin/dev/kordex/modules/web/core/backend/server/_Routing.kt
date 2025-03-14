@@ -36,27 +36,29 @@ public fun WebServer.configureRouting(app: Application, config: WebServerConfig)
 			}
 		}
 
-		authenticate("oauth-discord") {
-			get("/auth") {
-				// Redirect is apparently automatic
-			}
-
-			get("/auth/callback") {
-				val principal: OAuthAccessTokenResponse.OAuth2? = call.principal()
-
-				// TODO: Frontend work, figure out the client-side, handle Discord API stuff, etc
-
-				principal?.let { p ->
-					p.state?.let { state ->
-						call.respondRedirect(
-							"/#auth/callback?state=$state&token=${p.accessToken}"
-						)
-
-						return@get
-					}
+		if (config.hostname != null) {
+			authenticate("oauth-discord") {
+				get("/auth") {
+					// Redirect is apparently automatic
 				}
 
-				call.respondRedirect("/#auth/failed")
+				get("/auth/callback") {
+					val principal: OAuthAccessTokenResponse.OAuth2? = call.principal()
+
+					// TODO: Frontend work, figure out the client-side, handle Discord API stuff, etc
+
+					principal?.let { p ->
+						p.state?.let { state ->
+							call.respondRedirect(
+								"/#auth/callback?state=$state&token=${p.accessToken}"
+							)
+
+							return@get
+						}
+					}
+
+					call.respondRedirect("/#auth/failed")
+				}
 			}
 		}
 
