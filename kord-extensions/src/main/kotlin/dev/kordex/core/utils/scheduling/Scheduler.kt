@@ -80,7 +80,9 @@ public open class Scheduler : CoroutineScope {
 			parent = this
 		)
 
-		tasks.add(task)
+		synchronized(tasks) {
+			tasks.add(task)
+		}
 
 		if (startNow) {
 			task.start()
@@ -102,9 +104,13 @@ public open class Scheduler : CoroutineScope {
 			logger.debug(e) { "Scheduler cancelled with no jobs." }
 		}
 
-		tasks.clear()
+		synchronized(tasks) {
+			tasks.clear()
+		}
 	}
 
 	internal fun removeTask(task: Task) =
-		tasks.remove(task)
+		synchronized(tasks) {
+			tasks.remove(task)
+		}
 }
