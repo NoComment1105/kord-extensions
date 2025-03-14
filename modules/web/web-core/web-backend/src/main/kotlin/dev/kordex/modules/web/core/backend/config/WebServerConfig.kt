@@ -16,8 +16,8 @@ public class WebServerConfig {
 	@Suppress("MagicNumber")
 	public var port: Int = 8080
 
-	public lateinit var hostname: String
-	public lateinit var siteTitle: String
+	public var hostname: String? = null
+	public var siteTitle: String? = null
 
 	internal val oauth = OAuth()
 	internal val reverseProxy = ReverseProxy()

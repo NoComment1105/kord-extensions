@@ -15,8 +15,12 @@ import io.ktor.server.plugins.cors.routing.*
 private val CORS_SCHEMES = listOf("http", "https", "ws", "wss")
 
 public fun WebServer.configureCORS(app: Application) {
+	if (config.hostname == null) {
+		return
+	}
+
 	app.install(CORS) {
-		allowHost(config.hostname, schemes = CORS_SCHEMES)
+		allowHost(config.hostname!!, schemes = CORS_SCHEMES)
 
 		if (config.devMode) {
 			allowHost("127.0.0.1", schemes = CORS_SCHEMES)

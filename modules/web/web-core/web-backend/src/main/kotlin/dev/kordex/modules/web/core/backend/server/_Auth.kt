@@ -21,6 +21,10 @@ public val oauthClient: HttpClient = HttpClient {
 }
 
 public fun WebServer.configureAuth(app: Application) {
+	if (config.hostname == null) {
+		return
+	}
+
 	app.install(Authentication) {
 		oauth("oauth-discord") {
 			urlProvider = {

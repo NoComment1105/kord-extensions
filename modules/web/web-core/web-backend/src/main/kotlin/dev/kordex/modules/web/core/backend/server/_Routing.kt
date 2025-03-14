@@ -28,9 +28,11 @@ public fun WebServer.configureRouting(app: Application, config: WebServerConfig)
 				call.respondRedirect("http://localhost:5173")
 			}
 		} else {
-			singlePageApplication {
-				useResources = true
-				filesPath = "dev/kordex/modules/web/core/frontend"
+			if (config.hostname != null && config.siteTitle != null) {
+				singlePageApplication {
+					useResources = true
+					filesPath = "dev/kordex/modules/web/core/frontend"
+				}
 			}
 		}
 

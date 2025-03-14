@@ -32,5 +32,5 @@ public fun Route.apiInfo(config: WebServerConfig) {
 @Serializable
 private data class SiteInfo(
 	val devMode: Boolean,
-	val title: String,
+	val title: String?,
 )

@@ -11,14 +11,29 @@ package dev.kordex.modules.web.core.backend
 import dev.kordex.core.extensions.Extension
 import dev.kordex.modules.web.core.backend.config.WebServerConfig
 import dev.kordex.modules.web.core.backend.server.WebServer
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 public class WebExtension(private val config: WebServerConfig) : Extension() {
 	override val name: String = "kordex.web"
+
+	private val logger = KotlinLogging.logger { }
 
 	public var server: WebServer = WebServer(config)
 		private set
 
 	override suspend fun setup() {
+		if (config.hostname == null) {
+			logger.warn {
+				"Hostname not configured - Authentication, CORS and frontend will be disabled."
+			}
+		}
+
+		if (config.siteTitle == null) {
+			logger.warn {
+				"Site title not configured - Frontend will be disabled."
+			}
+		}
+
 		server = WebServer(config)
 
 		server.start()
