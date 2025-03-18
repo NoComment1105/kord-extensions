@@ -85,7 +85,7 @@ public val DATA_COLLECTION: DataCollection by lazy {
  */
 @InternalAPI
 public val BOT_VERSION: String? by lazy {
-	kordexProps["botVersion"] as? String
+	kordexProps["versions.bot"] as? String
 }
 
 /**
