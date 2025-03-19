@@ -230,6 +230,7 @@ public suspend fun memberFor(event: Event): MemberBehavior? {
 		is InviteCreateEvent -> event.inviterMember
 
 		is MemberJoinEvent -> event.member
+		is MemberLeaveEvent -> event.old
 		is MemberUpdateEvent -> event.member
 		is MessageCreateEvent -> event.member
 
