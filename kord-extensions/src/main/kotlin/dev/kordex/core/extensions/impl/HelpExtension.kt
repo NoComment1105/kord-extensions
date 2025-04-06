@@ -19,7 +19,6 @@ import dev.kordex.core.extensions.base.HelpProvider
 import dev.kordex.core.extensions.chatCommand
 import dev.kordex.core.i18n.EMPTY_KEY
 import dev.kordex.core.i18n.generated.CoreTranslations
-import dev.kordex.core.i18n.toKey
 import dev.kordex.core.pagination.BasePaginator
 import dev.kordex.core.pagination.MessageButtonPaginator
 import dev.kordex.core.pagination.pages.Page
@@ -36,7 +35,7 @@ private val logger = KotlinLogging.logger {}
 public const val HELP_PER_PAGE: Int = 4
 
 private val COMMANDS_GROUP = EMPTY_KEY
-private val ARGUMENTS_GROUP = "Arguments".toKey()  // TODO: This needs translating
+private val ARGUMENTS_GROUP = CoreTranslations.Extensions.Help.Paginator.argumentsGroup
 
 /**
  * Help command extension.
@@ -428,7 +427,7 @@ public class HelpExtension : HelpProvider, Extension() {
 	public class HelpArguments : Arguments() {
 		/** Command to get help for. **/
 		public val command: List<String> by stringList {
-			name = "command".toKey()  // TODO: This needs translating
+			name = CoreTranslations.Extensions.Help.commandArgument
 			description = CoreTranslations.Extensions.Help.CommandArguments.command
 		}
 	}

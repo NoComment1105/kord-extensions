@@ -52,7 +52,6 @@ public class DurationConverter(
 	public val positiveOnly: Boolean = true,
 	override var validator: Validator<DateTimePeriod> = null,
 ) : SingleConverter<DateTimePeriod>() {
-	// TODO: The signature type is not an error!
 	override val signatureType: Key = CoreTranslations.Converters.Duration.Error.signatureType
 
 	override suspend fun parse(parser: StringParser?, context: CommandContext, named: String?): Boolean {

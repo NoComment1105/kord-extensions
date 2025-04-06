@@ -55,7 +55,6 @@ public class DurationCoalescingConverter(
 	shouldThrow: Boolean = false,
 	override var validator: Validator<DateTimePeriod> = null,
 ) : CoalescingConverter<DateTimePeriod>(shouldThrow) {
-	// TODO: The signature type is not an error!
 	override val signatureType: Key = CoreTranslations.Converters.Duration.Error.signatureType
 
 	private val logger = KotlinLogging.logger {}

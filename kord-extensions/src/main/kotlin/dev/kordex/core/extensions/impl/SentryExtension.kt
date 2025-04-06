@@ -17,7 +17,6 @@ import dev.kordex.core.extensions.Extension
 import dev.kordex.core.extensions.chatCommand
 import dev.kordex.core.extensions.ephemeralSlashCommand
 import dev.kordex.core.i18n.generated.CoreTranslations
-import dev.kordex.core.i18n.toKey
 import dev.kordex.core.sentry.SentryAdapter
 import dev.kordex.core.sentry.sentryId
 import dev.kordex.core.utils.respond
@@ -118,13 +117,13 @@ public class SentryExtension : Extension() {
 	public class FeedbackMessageArgs : Arguments() {
 		/** Sentry event ID. **/
 		public val id: SentryId by sentryId {
-			name = "id".toKey()  // TODO: This needs translating
+			name = CoreTranslations.Extensions.Sentry.idArgument
 			description = CoreTranslations.Extensions.Sentry.Arguments.id
 		}
 
 		/** Feedback message to submit to Sentry. **/
 		public val feedback: String by coalescingString {
-			name = "feedback".toKey()  // TODO: This needs translating
+			name = CoreTranslations.Extensions.Sentry.feedbackArgument
 			description = CoreTranslations.Extensions.Sentry.Arguments.feedback
 		}
 	}
@@ -133,13 +132,13 @@ public class SentryExtension : Extension() {
 	public class FeedbackSlashArgs : Arguments() {
 		/** Sentry event ID. **/
 		public val id: SentryId by sentryId {
-			name = "id".toKey()  // TODO: This needs translating
+			name = CoreTranslations.Extensions.Sentry.idArgument
 			description = CoreTranslations.Extensions.Sentry.Arguments.id
 		}
 
 		/** Feedback message to submit to Sentry. **/
 		public val feedback: String by string {
-			name = "feedback".toKey()  // TODO: This needs translating
+			name = CoreTranslations.Extensions.Sentry.feedbackArgument
 			description = CoreTranslations.Extensions.Sentry.Arguments.feedback
 		}
 	}
