@@ -41,6 +41,8 @@ public class WebServer(internal val config: WebServerConfig) : KordExKoinCompone
 	}
 
 	public suspend fun start() {
+		registries.setup()
+
 		bot.kordRef.launch {
 			server.start()
 		}
