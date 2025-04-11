@@ -27,6 +27,8 @@ public class WebServer(internal val config: WebServerConfig) : KordExKoinCompone
 	public var running: Boolean = false
 		private set
 
+	public lateinit var configuredRoutes: ConfiguredRoutes
+
 	private val server = embeddedServer(Netty, port = config.port) {
 		configureAuth(this)
 		configureContentNegotiation(this)
@@ -36,7 +38,8 @@ public class WebServer(internal val config: WebServerConfig) : KordExKoinCompone
 		// Required before routing
 		configureWebSockets(this)
 
-		configureRouting(this, config)
+		configuredRoutes = configureRouting(this, config)
+
 		configureStatusPages(this)
 	}
 

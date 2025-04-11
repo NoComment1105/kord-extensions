@@ -70,7 +70,7 @@ public inline fun <reified T : Any?> StringKeyedMap<*>.getOfOrNull(key: String):
  *
  * **Note:** This function does not support maps with nullable values.
  */
-public inline fun <reified V : Any, reified T : V> MutableStringKeyedMap<V>.getOfOrDefault(
+public inline fun <reified T : Any> MutableStringKeyedMap<Any>.getOfOrDefault(
 	key: String,
 	default: T,
 	store: Boolean,
@@ -83,6 +83,30 @@ public inline fun <reified V : Any, reified T : V> MutableStringKeyedMap<V>.getO
 		}
 
 		return default
+	}
+
+	return value
+}
+
+/**
+ * Utility function for getting a key from the given String-keyed map, attempting to cast it to the given generic
+ * type, [T].
+ * Will insert and return the provided [default] value if they key is missing or the value cannot be cast.
+ *
+ * **Note:** This function does not support maps with nullable values.
+ */
+public inline fun <reified T : Any> MutableMap<String, Any>.getOfOrPut(
+	key: String,
+	default: () -> T,
+): T {
+	val value = this[key] as? T
+
+	if (value == null) {
+		val newValue = default()
+
+		this[key] = newValue
+
+		return newValue
 	}
 
 	return value

@@ -9,14 +9,10 @@
 package dev.kordex.modules.web.core.backend
 
 import dev.kordex.modules.web.core.backend.pages.navigation.NavigationRegistry
-import dev.kordex.modules.web.core.backend.routes.RouteRegistry
 import dev.kordex.modules.web.core.backend.websockets.WebsocketRegistry
 
 public class WebRegistries {
 	public lateinit var navigation: NavigationRegistry
-		private set
-
-	public lateinit var routes: RouteRegistry
 		private set
 
 	public lateinit var websockets: WebsocketRegistry
@@ -27,10 +23,6 @@ public class WebRegistries {
 			navigation = NavigationRegistry()
 		}
 
-		if (!this::routes.isInitialized) {
-			routes = RouteRegistry()
-		}
-
 		if (!this::websockets.isInitialized) {
 			websockets = WebsocketRegistry()
 		}
@@ -39,10 +31,6 @@ public class WebRegistries {
 	public suspend fun teardown() {
 		if (this::navigation.isInitialized) {
 			navigation.removeAll()
-		}
-
-		if (this::routes.isInitialized) {
-			routes.removeAll()
 		}
 
 		if (this::websockets.isInitialized) {

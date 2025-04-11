@@ -65,6 +65,10 @@ public abstract class Extension : KordExKoinComponent {
 	@InternalAPI
 	public val unloadCallbacks: MutableList<() -> Unit> = mutableListOf()
 
+	/** @suppress API only meant to be used by KordEx and modules that extend the extension system. **/
+	@InternalAPI
+	public val extraData: MutableMap<String, Any> = mutableMapOf()
+
 	/**
 	 * The current loading/unloading state of the extension.
 	 */
@@ -183,7 +187,7 @@ public abstract class Extension : KordExKoinComponent {
 
 	/** Update this extension's state, firing the extension state change event. **/
 	public open suspend fun setState(state: ExtensionState) {
-		bot.send(ExtensionStateEvent(this, state))
+		bot.send(ExtensionStateEvent(this, state), false)
 
 		this.state = state
 	}

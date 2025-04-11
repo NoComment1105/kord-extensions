@@ -9,7 +9,6 @@
 package dev.kordex.modules.web.core.backend.server
 
 import dev.kordex.modules.web.core.backend.config.WebServerConfig
-import dev.kordex.modules.web.core.backend.routes.Verb
 import dev.kordex.modules.web.core.backend.server.routes.api
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
@@ -18,7 +17,10 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
 
-public fun WebServer.configureRouting(app: Application, config: WebServerConfig) {
+public fun WebServer.configureRouting(app: Application, config: WebServerConfig): ConfiguredRoutes {
+	lateinit var extensionApiBaseRoute: Route
+	lateinit var pageApiBaseRoute: Route
+
 	app.routing {
 		// TODO: API Routing
 		// TODO: Static files
@@ -62,39 +64,8 @@ public fun WebServer.configureRouting(app: Application, config: WebServerConfig)
 			}
 		}
 
-		route("/api/p/{extension}/{path...}") {
-			// TODO: Pages
-		}
-
-		route("/api/e/{path...}") {
-			delete {
-				registries.routes.handle(Verb.DELETE, this)
-			}
-
-			get {
-				registries.routes.handle(Verb.GET, this)
-			}
-
-			head {
-				registries.routes.handle(Verb.HEAD, this)
-			}
-
-			options {
-				registries.routes.handle(Verb.OPTIONS, this)
-			}
-
-			patch {
-				registries.routes.handle(Verb.PATCH, this)
-			}
-
-			post {
-				registries.routes.handle(Verb.POST, this)
-			}
-
-			put {
-				registries.routes.handle(Verb.PUT, this)
-			}
-		}
+		extensionApiBaseRoute = route("/api/e") {}
+		pageApiBaseRoute = route("/api/p") {}
 
 		route("/ws/e/{path...}") {
 			webSocket {
@@ -106,4 +77,14 @@ public fun WebServer.configureRouting(app: Application, config: WebServerConfig)
 
 		api(config)
 	}
+
+	return ConfiguredRoutes(
+		extensionApiBaseRoute,
+		pageApiBaseRoute
+	)
 }
+
+public data class ConfiguredRoutes(
+	val extensionApiBase: Route,
+	val pageApiBase: Route
+)

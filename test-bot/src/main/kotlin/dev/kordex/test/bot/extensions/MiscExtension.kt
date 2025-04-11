@@ -11,11 +11,22 @@ package dev.kordex.test.bot.extensions
 import dev.kordex.core.extensions.Extension
 import dev.kordex.core.healthcheck.HealthCheckState
 import dev.kordex.core.healthcheck.utils.addHealthCheck
+import dev.kordex.modules.web.core.backend.utils.apiRoutes
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 
 public class MiscExtension : Extension() {
 	override val name: String = "kordex.test-misc"
 
 	override suspend fun setup() {
+		apiRoutes {
+			get("/test") {
+				call.respond("It works!")
+			}
+
+			println("Registered route.")
+		}
+
 		addHealthCheck("always-fails") {
 			state(HealthCheckState.Unhealthy)
 		}

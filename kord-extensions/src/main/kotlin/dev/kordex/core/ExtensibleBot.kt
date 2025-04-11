@@ -341,11 +341,11 @@ public open class ExtensibleBot(
 		}
 
 		if (!initialized) {
-			eventHandlers.forEach { handler ->
-				handler.listenerRegistrationCallable?.invoke() ?: logger.error {
-					"Event handler $handler doesn't have a listener registration callback. This should never happen!"
-				}
-			}
+// 			eventHandlers.forEach { handler ->
+// 				handler.listenerRegistrationCallable?.invoke() ?: logger.error {
+// 					"Event handler $handler doesn't have a listener registration callback. This should never happen!"
+// 				}
+// 			}
 
 			initialized = true
 		}
@@ -626,11 +626,11 @@ public open class ExtensibleBot(
 			)
 		}
 
-		if (initialized) {
+// 		if (initialized) {
 			handler.listenerRegistrationCallable?.invoke() ?: error(
 				"Event handler $handler does not have a listener registration callback. This should never happen!"
 			)
-		}
+// 		}
 
 		eventHandlers.add(handler)
 	}

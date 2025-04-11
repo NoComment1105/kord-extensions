@@ -34,7 +34,7 @@ dependencies {
 
 	implementation(libs.ktor.logging)
 
-	implementation(libs.bundles.ktor.server)
+	api(libs.bundles.ktor.server)
 
 	implementation(project(":kord-extensions"))
 
