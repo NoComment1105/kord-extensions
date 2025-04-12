@@ -12,6 +12,8 @@ import dev.kordex.core.extensions.Extension
 import dev.kordex.core.healthcheck.HealthCheckState
 import dev.kordex.core.healthcheck.utils.addHealthCheck
 import dev.kordex.modules.web.core.backend.utils.apiRoutes
+import io.ktor.resources.*
+import io.ktor.server.resources.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
@@ -20,8 +22,12 @@ public class MiscExtension : Extension() {
 
 	override suspend fun setup() {
 		apiRoutes {
-			get("/test") {
+			get("/test/basic") {
 				call.respond("It works!")
+			}
+
+			get<Params> { params ->
+				call.respond("Parameter: ${params.param}")
 			}
 
 			println("Registered route.")
@@ -32,3 +38,8 @@ public class MiscExtension : Extension() {
 		}
 	}
 }
+
+@Resource("/test/params")
+public data class Params(
+	val param: String? = null
+)

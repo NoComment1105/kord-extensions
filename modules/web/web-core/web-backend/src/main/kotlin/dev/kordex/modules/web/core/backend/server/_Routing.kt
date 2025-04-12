@@ -13,6 +13,7 @@ import dev.kordex.modules.web.core.backend.server.routes.api
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.http.content.*
+import io.ktor.server.resources.Resources
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.websocket.*
@@ -20,6 +21,8 @@ import io.ktor.server.websocket.*
 public fun WebServer.configureRouting(app: Application, config: WebServerConfig): ConfiguredRoutes {
 	lateinit var extensionApiBaseRoute: Route
 	lateinit var pageApiBaseRoute: Route
+
+	app.install(Resources)
 
 	app.routing {
 		// TODO: API Routing
