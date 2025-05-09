@@ -244,8 +244,16 @@ public abstract class Extension : KordExKoinComponent {
 			chatCommandRegistry.remove(command)
 		}
 
+		for (command in messageCommands + slashCommands + userCommands) {
+			applicationCommandRegistry.unregisterGeneric(command, delete = false)
+		}
+
 		eventHandlers.clear()
 		chatCommands.clear()
+
+		messageCommands.clear()
+		slashCommands.clear()
+		userCommands.clear()
 
 		if (error != null) {
 			throw error
