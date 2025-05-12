@@ -14,6 +14,7 @@ junit = "5.11.4"
 kaml = "0.67.0"
 koin = "4.0.1"
 kord = "0.16.0-SNAPSHOT"
+ksoup = "0.5.0"
 ksp = "2.1.0-1.0.29"
 ktor = "3.0.3"
 kx-coro = "1.9.0"
@@ -52,6 +53,10 @@ kord = { module = "dev.kord:kord-core-voice", version.ref = "kord" }
 
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
+
+ksoup-entities = { module = "com.mohamedrejeb.ksoup:ksoup-entities", version.ref = "ksoup" }
+ksoup-html = { module = "com.mohamedrejeb.ksoup:ksoup-html", version.ref = "ksoup" }
+
 ksp = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
 
 ktor-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
