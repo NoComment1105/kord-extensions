@@ -205,6 +205,7 @@ public open class ExtensibleBot(
 	 **/
 	public open suspend fun stop() {
 		dataCollector.stop()
+		autoCompleteCoroutineContext.cancel()
 		interactionCoroutineContext.cancel()
 
 		getKoin().get<Kord>().logout()
@@ -236,6 +237,7 @@ public open class ExtensibleBot(
 		}
 
 		dataCollector.stop()
+		autoCompleteCoroutineContext.cancel()
 		interactionCoroutineContext.cancel()
 
 		getKoin().get<HealthCheckRegistry>().shutdown()

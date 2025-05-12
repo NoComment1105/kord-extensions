@@ -9,6 +9,7 @@
 package dev.kordex.core.builders.about
 
 import dev.kord.rest.builder.message.MessageBuilder
+import dev.kordex.core.annotations.NotTranslated
 import dev.kordex.core.i18n.toKey
 import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.koin.KordExKoinComponent
@@ -18,6 +19,7 @@ import kotlin.getValue
 internal typealias SectionBuilder = suspend MessageBuilder.(locale: Locale) -> Unit
 
 public class Section(public val name: Key, public val description: Key) : KordExKoinComponent {
+	@NotTranslated
 	@Suppress("ClassOrdering")  // THIS IS RIGHT!
 	public constructor(name: String, description: String) : this(name.toKey(), description.toKey())
 

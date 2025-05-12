@@ -15,7 +15,7 @@ import dev.kordex.core.extensions.Extension
 
 /** Builder used for configuring the bot's extension options, and registering custom extensions. **/
 @BotBuilderDSL
-public open class ExtensionsBuilder {
+public open class ExtensionsBuilder(internal val parent: ExtensibleBotBuilder) {
 	/** @suppress Internal list that shouldn't be modified by the user directly. **/
 	public open val extensions: MutableList<() -> Extension> = mutableListOf()
 
@@ -23,7 +23,7 @@ public open class ExtensionsBuilder {
 	public open val helpExtensionBuilder: HelpExtensionBuilder = HelpExtensionBuilder()
 
 	/** @suppress Sentry extension builder. **/
-	public open val sentryExtensionBuilder: SentryExtensionBuilder = SentryExtensionBuilder()
+	public open val sentryExtensionBuilder: SentryExtensionBuilder = SentryExtensionBuilder(this)
 
 	/** Add a custom extension to the bot via a builder - probably the extension constructor. **/
 	public open fun add(builder: () -> Extension) {

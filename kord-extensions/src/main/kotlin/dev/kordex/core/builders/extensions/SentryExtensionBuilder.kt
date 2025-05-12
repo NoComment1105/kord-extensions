@@ -9,6 +9,7 @@
 package dev.kordex.core.builders.extensions
 
 import dev.kordex.core.annotations.BotBuilderDSL
+import dev.kordex.core.builders.ExtensionsBuilder
 import dev.kordex.core.sentry.SentryAdapter
 import dev.kordex.core.sentry.captures.SentryCapture
 import io.sentry.SentryLevel
@@ -17,11 +18,11 @@ internal typealias SentryDataTypeBuilder =
 	SentryExtensionBuilder.SentryExtensionDataTypeBuilder
 
 internal typealias SentryDataTypeTransformer =
-	suspend (SentryDataTypeBuilder).(SentryCapture) -> Unit
+	suspend (SentryDataTypeBuilder).(capture: SentryCapture) -> Unit
 
 /** Builder used to configure Sentry and the Sentry extension. **/
 @BotBuilderDSL
-public open class SentryExtensionBuilder {
+public open class SentryExtensionBuilder(internal val parent: ExtensionsBuilder) {
 	/** Whether to enable Sentry integration. This includes the extension, and [SentryAdapter] setup. **/
 	public open var enable: Boolean = false
 
@@ -33,7 +34,7 @@ public open class SentryExtensionBuilder {
 	public open var feedbackExtension: Boolean = false
 
 	/** Whether to enable Sentry's debug mode. **/
-	public open var debug: Boolean = false
+	public open var debug: Boolean = parent.parent.devMode
 
 	/** Your Sentry DSN, required for submitting events to Sentry. **/
 	public open var dsn: String? = null

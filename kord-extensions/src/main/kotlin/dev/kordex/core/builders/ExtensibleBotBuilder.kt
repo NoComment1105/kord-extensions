@@ -169,7 +169,7 @@ public open class ExtensibleBotBuilder {
 	public var kordExEventFilter: (suspend Event.() -> Boolean)? = null
 
 	/** @suppress Builder that shouldn't be set directly by the user. **/
-	public open val extensionsBuilder: ExtensionsBuilder = ExtensionsBuilder()
+	public open val extensionsBuilder: ExtensionsBuilder = ExtensionsBuilder(this)
 
 	/** @suppress Used for late execution of extensions builder calls, so plugins can be loaded first. **/
 	protected open val deferredExtensionsBuilders: MutableList<suspend ExtensionsBuilder.() -> Unit> =
