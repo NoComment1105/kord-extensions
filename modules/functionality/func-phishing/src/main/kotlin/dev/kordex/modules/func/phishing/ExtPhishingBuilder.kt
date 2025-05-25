@@ -44,9 +44,8 @@ class ExtPhishingBuilder {
 	 * Contains a small list of known unsafe domains.
 	 */
 	val badDomains: MutableSet<String> = mutableSetOf(
-		// Data broker for scraped Discord user and message data.
-		// TODO: Switch to new domain when it exists
-		// "spy.pet",
+		// Data broker for scraped Discord user and message data, among other things.
+		"searchhub.ru",
 	)
 
 	/**
