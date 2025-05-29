@@ -95,7 +95,7 @@ public val BOT_VERSION: String? by lazy {
  */
 @InternalAPI
 public val DEV_MODE: Boolean by lazy {
-	System.getProperties().contains("devMode") ||
+	System.getProperty("devMode").toBoolean() ||
 		envOrNull("DEV_MODE") != null ||
 		envOrNull("ENVIRONMENT") in arrayOf("dev", "development")
 }

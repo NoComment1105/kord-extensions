@@ -609,6 +609,25 @@ public open class ExtensibleBotBuilder {
 			kord {
 				stackTraceRecovery = true
 			}
+
+			val envVarLength = System.getenv().maxOf { (key, _) -> key.length }
+			val propLength = System.getProperties().maxOf { (key, _) -> key.toString().length }
+
+			logger.info {
+				"=== ENVIRONMENTAL VARIABLES === \n" +
+					System.getenv()
+						.toSortedMap()
+						.map { (key, value) -> "${key.padEnd(envVarLength)} | $value" }
+						.joinToString("\n")
+			}
+
+			logger.info {
+				"=== SYSTEM PROPERTIES === \n" +
+					System.getProperties()
+						.toSortedMap { left, right -> left.toString().compareTo(right.toString()) }
+						.map { (key, value) -> "${key.toString().padEnd(propLength)} | $value" }
+						.joinToString("\n")
+			}
 		}
 
 		hooksBuilder.beforeKoinSetup {  // We have to do this super-duper early for safety
