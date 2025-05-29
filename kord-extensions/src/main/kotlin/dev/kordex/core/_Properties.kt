@@ -94,11 +94,10 @@ public val BOT_VERSION: String? by lazy {
  * Don't check this directly – use the `devMode` property in `ExtensibleBotBuilder` instead!
  */
 @InternalAPI
-public val DEV_MODE: Boolean by lazy {
+public val DEV_MODE: Boolean =
 	System.getProperty("devMode").toBoolean() ||
 		envOrNull("DEV_MODE") != null ||
 		envOrNull("ENVIRONMENT") in arrayOf("dev", "development")
-}
 
 /** Configured first-party KordEx modules. **/
 public val KORDEX_MODULES: List<String> by lazy {
