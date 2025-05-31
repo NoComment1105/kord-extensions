@@ -12,33 +12,32 @@ import dev.kordex.core.annotations.InternalAPI
 import dev.kordex.core.builders.ExtensibleBotBuilder
 import dev.kordex.core.utils.envOrNull
 import dev.kordex.data.api.DataCollection
+import io.github.oshai.kotlinlogging.KotlinLogging
 import java.util.*
 
-/** Convenient access to the properties stored within `kordex.properties` in your bot's resources. **/
-public val kordexProps: Properties by lazy {
+private val logger = KotlinLogging.logger("dev.kordex.core._Properties")
+
+private fun loadResource(resource: String): Properties? {
+	val stream = ExtensibleBotBuilder::class.java.getResourceAsStream(resource)
+
+	if (stream == null) {
+		logger.warn { "Unable to load resource file: $resource" }
+
+		return null
+	}
+
 	val props = Properties()
 
-	props.load(
-		ExtensibleBotBuilder::class.java.getResourceAsStream(
-			"/kordex.properties"
-		)
-	)
+	props.load(stream)
 
-	props
+	return props
 }
+
+/** Convenient access to the properties stored within `kordex.properties` in your bot's resources. **/
+public val kordexProps: Properties? by lazy { loadResource("/kordex.properties") }
 
 /** Convenient access to the properties stored within `kordex-build.properties` in your bot's resources. **/
-public val kordexBuildProps: Properties by lazy {
-	val props = Properties()
-
-	props.load(
-		ExtensibleBotBuilder::class.java.getResourceAsStream(
-			"/kordex-build.properties"
-		)
-	)
-
-	props
-}
+public val kordexBuildProps: Properties? by lazy { loadResource("/kordex-build.properties") }
 
 /**
  * Location of the data collection state file.
@@ -72,7 +71,7 @@ public val DATA_COLLECTION_UUID: UUID? by lazy {
 public val DATA_COLLECTION: DataCollection by lazy {
 	val value = System.getProperties()["dataCollection"] as? String
 		?: envOrNull("DATA_COLLECTION")
-		?: kordexProps["settings.dataCollection"] as? String
+		?: kordexProps?.get("settings.dataCollection") as? String
 		?: DataCollection.Standard.readable
 
 	DataCollection.fromDB(value)
@@ -85,7 +84,7 @@ public val DATA_COLLECTION: DataCollection by lazy {
  */
 @InternalAPI
 public val BOT_VERSION: String? by lazy {
-	kordexProps["versions.bot"] as? String
+	kordexProps?.get("versions.bot") as? String
 }
 
 /**
@@ -101,7 +100,7 @@ public val DEV_MODE: Boolean =
 
 /** Configured first-party KordEx modules. **/
 public val KORDEX_MODULES: List<String> by lazy {
-	val modules = kordexProps["modules"] as? String
+	val modules = kordexProps?.get("modules") as? String
 
 	modules?.split(", ")
 		?: emptyList()
@@ -109,23 +108,23 @@ public val KORDEX_MODULES: List<String> by lazy {
 
 /** Current Kord Extensions version. **/
 public val KORDEX_VERSION: String? by lazy {
-	kordexProps["versions.kordEx"] as? String
-		?: kordexBuildProps["versions.kordEx"] as? String
+	kordexProps?.get("versions.kordEx") as? String
+		?: kordexBuildProps?.get("versions.kordEx") as? String
 }
 
 /** Current Kord version. **/
 public val KORD_VERSION: String? by lazy {
-	kordexProps["versions.kord"] as? String
-		?: kordexProps["kordVersion"] as? String
-		?: kordexBuildProps["versions.kord"] as? String
+	kordexProps?.get("versions.kord") as? String
+		?: kordexProps?.get("kordVersion") as? String
+		?: kordexBuildProps?.get("versions.kord") as? String
 }
 
 /** Git branch used to build this KordEx release. **/
 public val KORDEX_GIT_BRANCH: String? by lazy {
-	kordexBuildProps["git.branch"] as? String
+	kordexBuildProps?.get("git.branch") as? String
 }
 
 /** Hash corresponding with the Git commit used to build this KordEx release. **/
 public val KORDEX_GIT_HASH: String? by lazy {
-	kordexBuildProps["git.hash"] as? String
+	kordexBuildProps?.get("git.hash") as? String
 }
