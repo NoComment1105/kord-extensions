@@ -198,7 +198,7 @@ public open class Arguments {
 			val name = it.displayName.translateLocale(locale).lowercase()
 
 			if (name in names) {
-				error("Duplicate argument name/key: ${it.displayName}")
+				error("Duplicate argument name/key: ${it.displayName} -> $name")
 			}
 
 			names.add(name)

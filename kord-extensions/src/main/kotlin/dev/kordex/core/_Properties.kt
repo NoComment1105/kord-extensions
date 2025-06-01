@@ -106,25 +106,9 @@ public val KORDEX_MODULES: List<String> by lazy {
 		?: emptyList()
 }
 
-/** Current Kord Extensions version. **/
-public val KORDEX_VERSION: String? by lazy {
-	kordexProps?.get("versions.kordEx") as? String
-		?: kordexBuildProps?.get("versions.kordEx") as? String
-}
-
 /** Current Kord version. **/
 public val KORD_VERSION: String? by lazy {
 	kordexProps?.get("versions.kord") as? String
 		?: kordexProps?.get("kordVersion") as? String
 		?: kordexBuildProps?.get("versions.kord") as? String
-}
-
-/** Git branch used to build this KordEx release. **/
-public val KORDEX_GIT_BRANCH: String? by lazy {
-	kordexBuildProps?.get("git.branch") as? String
-}
-
-/** Hash corresponding with the Git commit used to build this KordEx release. **/
-public val KORDEX_GIT_HASH: String? by lazy {
-	kordexBuildProps?.get("git.hash") as? String
 }

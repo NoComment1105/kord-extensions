@@ -1,3 +1,6 @@
+import org.jetbrains.dokka.DokkaDefaults.moduleName
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 buildscript {
 	repositories {
 		maven {
@@ -56,6 +59,36 @@ dependencies {
 	ksp(project(":annotations:annotation-processor"))
 	kspTest(project(":annotations:annotation-processor"))
 }
+
+val generateVersion = tasks.create("generateVersion") {
+	val output = layout.buildDirectory.file("generated/kordex/main/kotlin/dev/kordex/core/_Generated.kt")
+
+	notCompatibleWithConfigurationCache("This task should always be run.")
+
+	doLast {
+		output.get().asFile.writeText("""
+package dev.kordex.core
+
+/**
+ * Gradle generated this file automatically.
+ * It contains some build configuration data that KordEx uses at runtime.
+ */
+
+/** Current KordEx runtime version. **/
+public const val KORDEX_VERSION: String = "${project.version}"
+
+/** Branch used to build this version of KordEx. **/
+public const val KORDEX_GIT_BRANCH: String = "${getCurrentGitBranch()}"
+
+/** Git hash corresponding with the commit used to build this version of KordEx. **/
+public const val KORDEX_GIT_HASH: String = "${getCurrentGitHash()}"
+
+		""".trimIndent())
+	}
+}
+
+tasks.withType<KotlinCompile>()
+	.configureEach { dependsOn(generateVersion) }
 
 dokkaModule {
 	moduleName = "Kord Extensions"
