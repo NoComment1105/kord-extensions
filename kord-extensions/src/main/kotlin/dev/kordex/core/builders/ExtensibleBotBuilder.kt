@@ -597,8 +597,19 @@ public open class ExtensibleBotBuilder {
 	/** @suppress Internal function used to build a bot instance. **/
 	public open suspend fun build(token: String): ExtensibleBot {
 		logger.info {
-			"Starting bot with Kord Extensions v$KORDEX_VERSION ($KORDEX_GIT_BRANCH@$KORDEX_GIT_HASH) " +
-				"and Kord v$KORD_VERSION"
+			buildString {
+				appendLine("Starting bot!")
+				appendLine("- Kord Extensions v$KORDEX_VERSION ($KORDEX_GIT_BRANCH@$KORDEX_GIT_HASH)")
+				appendLine("- Kord (Build Time) v$BUILD_KORD_VERSION")
+				appendLine("- Kord (Runtime) v$KORD_VERSION")
+			}
+		}
+
+		if (BUILD_KORD_VERSION != KORD_VERSION) {
+			logger.warn {
+				"This version of Kord Extensions was built against Kord v$BUILD_KORD_VERSION, but you seem to be " +
+					"using Kord v$KORD_VERSION instead. Please bear this in mind when reporting issues!"
+			}
 		}
 
 		if (devMode) {

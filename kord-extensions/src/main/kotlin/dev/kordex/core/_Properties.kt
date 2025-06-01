@@ -107,8 +107,9 @@ public val KORDEX_MODULES: List<String> by lazy {
 }
 
 /** Current Kord version. **/
-public val KORD_VERSION: String? by lazy {
+public val KORD_VERSION: String by lazy {
 	kordexProps?.get("versions.kord") as? String
 		?: kordexProps?.get("kordVersion") as? String
 		?: kordexBuildProps?.get("versions.kord") as? String
+		?: BUILD_KORD_VERSION
 }

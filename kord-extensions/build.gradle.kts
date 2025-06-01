@@ -77,6 +77,9 @@ package dev.kordex.core
 /** Current KordEx runtime version. **/
 public const val KORDEX_VERSION: String = "${project.version}"
 
+/** Current KordEx runtime version. **/
+public const val BUILD_KORD_VERSION: String = "${libs.versions.kord.get()}"
+
 /** Branch used to build this version of KordEx. **/
 public const val KORDEX_GIT_BRANCH: String = "${getCurrentGitBranch()}"
 

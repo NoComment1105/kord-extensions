@@ -114,11 +114,11 @@ public class DataCollector(public val level: DataCollection) : KordExKoinCompone
 						fork = fork,
 
 						devMode = settings.devMode,
-						kordExVersion = KORDEX_VERSION ?: "Unknown",
-						kordVersion = KORD_VERSION ?: "Unknown",
+						kordExVersion = KORDEX_VERSION,
+						kordVersion = KORD_VERSION,
 
 						modules = KORDEX_MODULES.associateWith {
-							KORDEX_VERSION ?: "Unknown"
+							KORDEX_VERSION
 						},
 					)
 
@@ -128,11 +128,11 @@ public class DataCollector(public val level: DataCollection) : KordExKoinCompone
 						fork = fork,
 
 						devMode = settings.devMode,
-						kordExVersion = KORDEX_VERSION ?: "Unknown",
-						kordVersion = KORD_VERSION ?: "Unknown",
+						kordExVersion = KORDEX_VERSION,
+						kordVersion = KORD_VERSION,
 
 						modules = KORDEX_MODULES.associateWith {
-							KORDEX_VERSION ?: "Unknown"
+							KORDEX_VERSION
 						},
 
 						botId = bot.kordRef.selfId.toString(),
@@ -186,11 +186,11 @@ public class DataCollector(public val level: DataCollection) : KordExKoinCompone
 						fork = fork,
 
 						devMode = settings.devMode,
-						kordExVersion = KORDEX_VERSION ?: "Unknown",
-						kordVersion = KORD_VERSION ?: "Unknown",
+						kordExVersion = KORDEX_VERSION,
+						kordVersion = KORD_VERSION,
 
 						modules = KORDEX_MODULES.associateWith {
-							KORDEX_VERSION ?: "Unknown"
+							KORDEX_VERSION
 						},
 
 						botId = bot.kordRef.selfId.toString(),
