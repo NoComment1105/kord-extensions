@@ -1,5 +1,5 @@
 [versions]
-detekt = "1.23.7"  # Note: Must update plugin versions in buildSrc/build.gradle.kts
+detekt = "1.23.8"  # Note: Must update plugin versions in buildSrc/build.gradle.kts
 dokka = "1.9.20"  # Note: Must update plugin versions in buildSrc/build.gradle.kts
 kotlin = "2.1.21"  # Note: Must update plugin versions in buildSrc/build.gradle.kts
 

@@ -195,11 +195,12 @@ public open class ChatGroupCommand<T : Arguments>(
 
 		val defaultLocale = botSettings.i18nBuilder.defaultLocale
 		val locale = event.getLocale()
+		val filtered = commands.filter { it.enabled }
 
-		return commands.firstOrNull { it.getTranslatedName(locale) == name }
-			?: commands.firstOrNull { it.getTranslatedAliases(locale).contains(name) }
-			?: commands.firstOrNull { it.localeFallback && it.getTranslatedName(defaultLocale) == name }
-			?: commands.firstOrNull { it.localeFallback && it.getTranslatedAliases(defaultLocale).contains(name) }
+		return filtered.firstOrNull { it.getTranslatedName(locale) == name }
+			?: filtered.firstOrNull { it.getTranslatedAliases(locale).contains(name) }
+			?: filtered.firstOrNull { it.localeFallback && it.getTranslatedName(defaultLocale) == name }
+			?: filtered.firstOrNull { it.localeFallback && it.getTranslatedAliases(defaultLocale).contains(name) }
 	}
 
 	/**

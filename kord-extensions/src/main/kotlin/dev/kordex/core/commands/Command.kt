@@ -11,6 +11,7 @@
 package dev.kordex.core.commands
 
 import dev.kord.common.entity.Permission
+import dev.kord.common.entity.Permissions
 import dev.kord.core.Kord
 import dev.kord.core.behavior.channel.asChannelOfOrNull
 import dev.kord.core.entity.channel.GuildChannel
@@ -126,5 +127,10 @@ public abstract class Command(public val extension: Extension) : Lockable, KordE
 	/** If your bot requires permissions to be able to execute the command, add them using this function. **/
 	public fun requireBotPermissions(vararg perms: Permission) {
 		perms.forEach(requiredPerms::add)
+	}
+
+	/** If your bot requires permissions to be able to execute the command, add them using this function. **/
+	public fun requireBotPermissions(perms: Permissions) {
+		perms.values.forEach(requiredPerms::add)
 	}
 }

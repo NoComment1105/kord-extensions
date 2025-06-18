@@ -106,10 +106,15 @@ public open class ChatCommandContext<T : Arguments>(
 		body: suspend PaginatorBuilder.() -> Unit,
 	): MessageButtonPaginator {
 		val builder = PaginatorBuilder(getLocale(), defaultGroup = defaultGroup)
+		var channel = targetChannel
+
+		if (targetChannel == null && targetMessage == null) {
+			channel = this.channel
+		}
 
 		body(builder)
 
-		return MessageButtonPaginator(pingInReply, targetChannel, targetMessage, builder)
+		return MessageButtonPaginator(pingInReply, channel, targetMessage, builder)
 	}
 
 	/**
@@ -134,12 +139,14 @@ public open class ChatCommandContext<T : Arguments>(
 		key: Key,
 		placeholders: Array<Any?> = arrayOf(),
 		useReply: Boolean = true,
+		pingInReply: Boolean = true,
 	): Message = respond(
 		key
 			.withLocale(getLocale())
 			.translateArray(placeholders),
 
-		useReply
+		useReply = useReply,
+		pingInReply = pingInReply
 	)
 
 	/**
@@ -149,11 +156,13 @@ public open class ChatCommandContext<T : Arguments>(
 		key: Key,
 		placeholders: Map<String, Any?>,
 		useReply: Boolean = true,
+		pingInReply: Boolean = true,
 	): Message = respond(
 		key
 			.withLocale(getLocale())
 			.translateNamed(placeholders),
 
-		useReply
+		useReply = useReply,
+		pingInReply = pingInReply
 	)
 }

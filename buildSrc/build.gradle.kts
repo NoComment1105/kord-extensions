@@ -16,7 +16,7 @@ dependencies {
 	implementation("com.hanggrian", "kotlinpoet-dsl", "0.2")
 	implementation("com.squareup", "kotlinpoet", "1.18.1")
 	implementation("dev.yumi", "yumi-gradle-licenser", "1.2.0")
-	implementation("io.gitlab.arturbosch.detekt", "detekt-gradle-plugin", "1.23.7")
+	implementation("io.gitlab.arturbosch.detekt", "detekt-gradle-plugin", "1.23.8")
 	implementation("org.jetbrains.dokka", "dokka-gradle-plugin", "1.9.20")
 
 	implementation(gradleApi())
