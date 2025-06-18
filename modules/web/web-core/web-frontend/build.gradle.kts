@@ -15,7 +15,7 @@ java {
 }
 
 node {
-	version = "20.11.0"
+	version = "24.2.0"
 	download = true
 
 	workDir = file("${project.projectDir}/.cache/nodejs")

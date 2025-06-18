@@ -17,16 +17,11 @@ import autoprefixer from "autoprefixer"
 export default defineConfig({
 	css: {
 		postcss: {
-			plugins: [
-				tailwind(),
-				autoprefixer(),
-			],
+			plugins: [tailwind(), autoprefixer()],
 		},
 	},
 
-	plugins: [
-		vue(),
-	],
+	plugins: [vue()],
 
 	resolve: {
 		alias: {

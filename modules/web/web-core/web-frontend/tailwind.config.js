@@ -6,7 +6,7 @@
  * Any redistribution must include the specific provision above.
  */
 
-const animate = require("tailwindcss-animate")
+import animate from "tailwindcss-animate"
 
 /** @type {import("tailwindcss").Config} */
 module.exports = {
