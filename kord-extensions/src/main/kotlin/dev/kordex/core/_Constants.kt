@@ -13,7 +13,10 @@ package dev.kordex.core
 import dev.kord.common.Color
 
 /** Colour representing Discord's new blurple colour. **/
-public val DISCORD_BLURPLE: Color = Color(0x5765F2)
+public val DISCORD_BLURPLE: Color = Color(0x5865F2)
+
+/** Colour representing Discord's new light blurple colour. **/
+public val DISCORD_LIGHT_BLURPLE: Color = Color(0xE0E3FF)
 
 /** Colour representing Discord's new green colour. **/
 public val DISCORD_GREEN: Color = Color(0x86EE92)

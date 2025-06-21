@@ -21,6 +21,7 @@ private typealias StringColorMap = LinkedHashMap<String, Color>
 private val keyMap: ColorMap = linkedMapOf(
 	CoreTranslations.Utils.Colors.black to DISCORD_BLACK,
 	CoreTranslations.Utils.Colors.blurple to DISCORD_BLURPLE,
+	CoreTranslations.Utils.Colors.lightBlurple to DISCORD_LIGHT_BLURPLE,
 	CoreTranslations.Utils.Colors.fuchsia to DISCORD_FUCHSIA,
 	CoreTranslations.Utils.Colors.green to DISCORD_GREEN,
 	CoreTranslations.Utils.Colors.red to DISCORD_RED,
