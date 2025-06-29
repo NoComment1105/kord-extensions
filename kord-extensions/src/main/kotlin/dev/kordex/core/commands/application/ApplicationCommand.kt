@@ -22,7 +22,6 @@ import dev.kordex.core.checks.types.CheckWithCache
 import dev.kordex.core.commands.Command
 import dev.kordex.core.commands.application.slash.SlashCommand
 import dev.kordex.core.extensions.Extension
-import dev.kordex.core.i18n.generated.CoreTranslations.NsfwLevel.default
 import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.koin.KordExKoinComponent
 import dev.kordex.core.utils.MutableStringKeyedMap
@@ -93,10 +92,10 @@ public abstract class ApplicationCommand<E : InteractionCreateEvent>(
 	public override val requiredPerms: MutableSet<Permission> = mutableSetOf()
 
 	/**
-	 * A [Localized] version of [name]. Lower-cased if this is a slash command.
+	 * A [Localised] version of [name]. Lower-cased if this is a slash command.
 	 */
-	public val localizedName: Localized<String> by lazy {
-		localize(
+	public val localisedName: Localised<String> by lazy {
+		localise(
 			name,
 			this is SlashCommand<*, *, *>
 		)
@@ -114,14 +113,14 @@ public abstract class ApplicationCommand<E : InteractionCreateEvent>(
 	}
 
 	/**
-	 * Localizes a property by its [key] for this command.
+	 * Localises a property by its [key] for this command.
 	 *
 	 * @param lowerCase Provide `true` to lower-case all the translations. Discord requires this for some fields.
 	 */
-	public fun localize(
+	public fun localise(
 		key: Key,
 		lowerCase: Boolean = false,
-	): Localized<String> {
+	): Localised<String> {
 		var default = key
 			.withLocale(translationsProvider.defaultLocale)
 			.translate()
@@ -143,7 +142,7 @@ public abstract class ApplicationCommand<E : InteractionCreateEvent>(
 				}
 			}.filter { it.value != default }
 
-		return Localized(default, translations.toMutableMap())
+		return Localised(default, translations.toMutableMap())
 	}
 
 	/** Specify a specific guild for this application command to be locked to. **/
@@ -212,10 +211,10 @@ public abstract class ApplicationCommand<E : InteractionCreateEvent>(
 }
 
 /**
- * Representation of a localized object.
+ * Representation of a localised object.
  *
  * @property default the default translations
- * @property translations a map containing all localizations
+ * @property translations a map containing all localisations
  * @param T the type of the object
  */
-public data class Localized<T>(val default: T, val translations: MutableMap<KLocale, String>)
+public data class Localised<T>(val default: T, val translations: MutableMap<KLocale, String>)

@@ -9,7 +9,7 @@
 package dev.kordex.core.commands.application.slash
 
 import dev.kordex.core.InvalidCommandException
-import dev.kordex.core.commands.application.Localized
+import dev.kordex.core.commands.application.Localised
 import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.koin.KordExKoinComponent
 import io.github.oshai.kotlinlogging.KLogger
@@ -36,20 +36,20 @@ public class SlashGroup(
 	public lateinit var description: Key
 
 	/**
-	 * A [Localized] version of [name].
+	 * A [Localised] version of [name].
 	 */
-	public val localizedName: Localized<String> by lazy {
-		parent.localize(
+	public val localisedName: Localised<String> by lazy {
+		parent.localise(
 			name,
 			true
 		)
 	}
 
 	/**
-	 * A [Localized] version of [description].
+	 * A [Localised] version of [description].
 	 */
-	public val localizedDescription: Localized<String> by lazy {
-		parent.localize(
+	public val localisedDescription: Localised<String> by lazy {
+		parent.localise(
 			description
 		)
 	}

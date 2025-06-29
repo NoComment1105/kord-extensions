@@ -187,7 +187,7 @@ public open class DefaultApplicationCommandRegistry : ApplicationCommandRegistry
 
 		val builder: suspend MultiApplicationCommandBuilder.() -> Unit = {
 			toCreate.forEach {
-				val (name, nameLocalizations) = it.localizedName
+				val (name, nameLocalizations) = it.localisedName
 
 				logger.trace { "Adding/updating ${it.type.name} command: $name" }
 
@@ -205,7 +205,7 @@ public open class DefaultApplicationCommandRegistry : ApplicationCommandRegistry
 					}
 
 					is SlashCommand<*, *, *> -> {
-						val (description, descriptionLocalizations) = it.localizedDescription
+						val (description, descriptionLocalizations) = it.localisedDescription
 
 						input(name, description) {
 							this.nameLocalizations = nameLocalizations

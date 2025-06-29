@@ -252,8 +252,8 @@ public abstract class ApplicationCommandRegistry : KordExKoinComponent {
 			null
 		}
 
-		val (name, nameLocalizations) = command.localizedName
-		val (description, descriptionLocalizations) = command.localizedDescription
+		val (name, nameLocalizations) = command.localisedName
+		val (description, descriptionLocalizations) = command.localisedDescription
 
 		val response = if (guild == null) {
 			// We're registering global commands here, if the guild is null
@@ -294,7 +294,7 @@ public abstract class ApplicationCommandRegistry : KordExKoinComponent {
 			null
 		}
 
-		val (name, nameLocalizations) = command.localizedName
+		val (name, nameLocalizations) = command.localisedName
 
 		val response = if (guild == null) {
 			// We're registering global commands here, if the guild is null
@@ -331,7 +331,7 @@ public abstract class ApplicationCommandRegistry : KordExKoinComponent {
 			null
 		}
 
-		val (name, nameLocalizations) = command.localizedName
+		val (name, nameLocalizations) = command.localisedName
 
 		val response = if (guild == null) {
 			// We're registering global commands here, if the guild is null
@@ -417,8 +417,8 @@ public abstract class ApplicationCommandRegistry : KordExKoinComponent {
 					kordOption
 				}
 
-				val (name, nameLocalizations) = it.localizedName
-				val (description, descriptionLocalizations) = it.localizedDescription
+				val (name, nameLocalizations) = it.localisedName
+				val (description, descriptionLocalizations) = it.localisedDescription
 
 				this.subCommand(
 					name,
@@ -436,8 +436,8 @@ public abstract class ApplicationCommandRegistry : KordExKoinComponent {
 			}
 
 			command.groups.values.forEach { group ->
-				val (name, nameLocalizations) = group.localizedName
-				val (description, descriptionLocalizations) = group.localizedDescription
+				val (name, nameLocalizations) = group.localisedName
+				val (description, descriptionLocalizations) = group.localisedDescription
 
 				this.group(name, description) {
 					this.nameLocalizations = nameLocalizations
@@ -468,8 +468,8 @@ public abstract class ApplicationCommandRegistry : KordExKoinComponent {
 							kordOption
 						}
 
-						val (name, nameLocalizations) = it.localizedName
-						val (description, descriptionLocalizations) = it.localizedDescription
+						val (name, nameLocalizations) = it.localisedName
+						val (description, descriptionLocalizations) = it.localisedDescription
 
 						this.subCommand(
 							name,
@@ -541,7 +541,7 @@ public abstract class ApplicationCommandRegistry : KordExKoinComponent {
 	public open fun ApplicationCommand<*>.matches(
 		locale: Locale,
 		other: dev.kord.core.entity.application.ApplicationCommand,
-	): Boolean = type == other.type && localizedName.default.equals(other.name, true)
+	): Boolean = type == other.type && localisedName.default.equals(other.name, true)
 
 	// endregion
 
@@ -560,8 +560,8 @@ public abstract class ApplicationCommandRegistry : KordExKoinComponent {
 			)
 		}
 
-		val (description, descriptionLocalizations) = command.localize(option.description)
-		val (name, nameLocalizations) = command.localize(option.displayName, true)
+		val (description, descriptionLocalizations) = command.localise(option.description)
+		val (name, nameLocalizations) = command.localise(option.displayName, true)
 
 		nameLocalizations.forEach { (locale, string) ->
 			if (string != string.lowercase(locale.asJavaLocale())) {
@@ -587,7 +587,7 @@ public abstract class ApplicationCommandRegistry : KordExKoinComponent {
 		option: ChoiceOptionWrapper<*, *>,
 	) {
 		choices = option.choices.map {
-			val (name, nameLocalizations) = command.localize(
+			val (name, nameLocalizations) = command.localise(
 				it.name
 			)
 

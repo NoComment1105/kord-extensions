@@ -20,7 +20,7 @@ import dev.kordex.core.checks.types.CheckContextWithCache
 import dev.kordex.core.commands.Arguments
 import dev.kordex.core.commands.application.ApplicationCommand
 import dev.kordex.core.commands.application.DefaultApplicationCommandRegistry
-import dev.kordex.core.commands.application.Localized
+import dev.kordex.core.commands.application.Localised
 import dev.kordex.core.components.ComponentRegistry
 import dev.kordex.core.components.forms.ModalForm
 import dev.kordex.core.extensions.Extension
@@ -97,20 +97,20 @@ public abstract class SlashCommand<C : SlashCommandContext<*, A, M>, A : Argumen
 			if (parentGroup != null) {
 				commandId = commandRegistry.slashCommands.entries.first { it.value == parentGroup!!.parent }.key
 
-				append(parentGroup!!.parent.localizedName.default)
+				append(parentGroup!!.parent.localisedName.default)
 				append(" ")
-				append(parentGroup!!.localizedName.default)
+				append(parentGroup!!.localisedName.default)
 				append(" ")
 			} else if (parentCommand != null) {
 				commandId = commandRegistry.slashCommands.entries.first { it.value == parentCommand }.key
 
-				append(parentCommand!!.localizedName.default)
+				append(parentCommand!!.localisedName.default)
 				append(" ")
 			} else {
 				commandId = commandRegistry.slashCommands.entries.first { it.value == this@SlashCommand }.key
 			}
 
-			append(localizedName.default)
+			append(localisedName.default)
 			append(":")
 			append(commandId)
 			append(">")
@@ -118,10 +118,10 @@ public abstract class SlashCommand<C : SlashCommandContext<*, A, M>, A : Argumen
 	}
 
 	/**
-	 * A [Localized] version of [description].
+	 * A [Localised] version of [description].
 	 */
-	public val localizedDescription: Localized<String> by lazy {
-		localize(
+	public val localisedDescription: Localised<String> by lazy {
+		localise(
 			description
 		)
 	}
@@ -297,7 +297,7 @@ public abstract class SlashCommand<C : SlashCommandContext<*, A, M>, A : Argumen
 			is SubCommand -> {
 				val firstSubCommandKey = eventCommand.name
 
-				this.subCommands.firstOrNull { it.localizedName.default == firstSubCommandKey }
+				this.subCommands.firstOrNull { it.localisedName.default == firstSubCommandKey }
 					?: error("Unknown subcommand: $firstSubCommandKey")
 			}
 
@@ -306,7 +306,7 @@ public abstract class SlashCommand<C : SlashCommandContext<*, A, M>, A : Argumen
 				val group = this.groups[firstEventGroupKey] ?: error("Unknown command group: $firstEventGroupKey")
 				val firstSubCommandKey = eventCommand.name
 
-				group.subCommands.firstOrNull { it.localizedName.default == firstSubCommandKey }
+				group.subCommands.firstOrNull { it.localisedName.default == firstSubCommandKey }
 					?: error("Unknown subcommand: $firstSubCommandKey")
 			}
 

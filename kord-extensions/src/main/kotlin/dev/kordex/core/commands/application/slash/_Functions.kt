@@ -40,7 +40,7 @@ public suspend fun SlashCommand<*, *, *>.group(name: Key, body: suspend SlashGro
 		error("Commands may only contain up to $SUBCOMMAND_AND_GROUP_LIMIT command groups.")
 	}
 
-	val localizedGroupName = localize(name, true).default
+	val localizedGroupName = localise(name, true).default
 
 	if (groups[localizedGroupName] != null) {
 		error("A command group with the name '$name' has already been registered.")

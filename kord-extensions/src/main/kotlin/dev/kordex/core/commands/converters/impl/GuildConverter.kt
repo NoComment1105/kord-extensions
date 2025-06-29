@@ -52,17 +52,7 @@ public class GuildConverter(
 	override suspend fun parse(parser: StringParser?, context: CommandContext, named: String?): Boolean {
 		val arg: String = named ?: parser?.parseNext()?.data ?: return false
 
-		if (arg.equals("this", true)) {
-			val guild = context.getGuild()?.asGuildOrNull()
-
-			if (guild != null) {
-				this.parsed = guild
-
-				return true
-			}
-		}
-
-		this.parsed = findGuild(arg)
+		this.parsed = findGuild(arg, context)
 			?: throw DiscordRelayedException(
 				CoreTranslations.Converters.Guild.Error.missing
 					.withContext(context)
@@ -72,14 +62,23 @@ public class GuildConverter(
 		return true
 	}
 
-	private suspend fun findGuild(arg: String): Guild? =
-		try { // Try for a guild ID first
+	private suspend fun findGuild(arg: String, context: CommandContext): Guild? {
+		if (arg.equals("this", true)) {
+			val guild = context.getGuild()?.asGuildOrNull()
+
+			if (guild != null) {
+				return guild
+			}
+		}
+
+		return try { // Try for a guild ID first
 			val id = Snowflake(arg)
 
 			kord.getGuildOrNull(id)
 		} catch (_: NumberFormatException) { // It's not an ID, let's try the name
 			kord.guilds.firstOrNull { it.name.equals(arg, true) }
 		}
+	}
 
 	override suspend fun toSlashOption(arg: Argument<*>): OptionWrapper<StringChoiceBuilder> =
 		wrapOption(arg.displayName, arg.description) {
@@ -89,7 +88,7 @@ public class GuildConverter(
 	override suspend fun parseOption(context: CommandContext, option: OptionValue<*>): Boolean {
 		val optionValue = (option as? StringOptionValue)?.value ?: return false
 
-		this.parsed = findGuild(optionValue)
+		this.parsed = findGuild(optionValue, context)
 			?: throw DiscordRelayedException(
 				CoreTranslations.Converters.Guild.Error.missing
 					.withContext(context)
