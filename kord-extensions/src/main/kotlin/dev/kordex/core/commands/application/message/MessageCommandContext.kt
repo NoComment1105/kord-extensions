@@ -10,6 +10,7 @@ package dev.kordex.core.commands.application.message
 
 import dev.kord.core.entity.Message
 import dev.kord.core.event.interaction.MessageCommandInteractionCreateEvent
+import dev.kordex.core.commands.application.ApplicationCommandContext
 import dev.kordex.core.components.forms.ModalForm
 import dev.kordex.core.utils.MutableStringKeyedMap
 
@@ -23,7 +24,7 @@ public abstract class MessageCommandContext<C : MessageCommandContext<C, M>, M :
 	public open val event: MessageCommandInteractionCreateEvent,
 	public override val command: MessageCommand<C, M>,
 	cache: MutableStringKeyedMap<Any>,
-) : dev.kordex.core.commands.application.ApplicationCommandContext(event, command, cache) {
+) : ApplicationCommandContext(event, command, cache) {
 	/** Messages that this message command is being executed against. **/
 	public val targetMessages: Collection<Message> by lazy { event.interaction.messages.values }
 }

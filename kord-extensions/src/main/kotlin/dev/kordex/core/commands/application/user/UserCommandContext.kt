@@ -10,6 +10,7 @@ package dev.kordex.core.commands.application.user
 
 import dev.kord.core.entity.User
 import dev.kord.core.event.interaction.UserCommandInteractionCreateEvent
+import dev.kordex.core.commands.application.ApplicationCommandContext
 import dev.kordex.core.components.forms.ModalForm
 import dev.kordex.core.utils.MutableStringKeyedMap
 
@@ -23,7 +24,7 @@ public abstract class UserCommandContext<C : UserCommandContext<C, M>, M : Modal
 	public open val event: UserCommandInteractionCreateEvent,
 	public override val command: UserCommand<C, M>,
 	cache: MutableStringKeyedMap<Any>,
-) : dev.kordex.core.commands.application.ApplicationCommandContext(event, command, cache) {
+) : ApplicationCommandContext(event, command, cache) {
 	/** Messages that this message command is being executed against. **/
 	public val targetUsers: Collection<User> by lazy { event.interaction.users.values }
 }

@@ -78,9 +78,9 @@ public abstract class SlashCommand<C : SlashCommandContext<*, A, M>, A : Argumen
 
 	/**
 	 * Clickable mention for this slash command, if applicable.
+	 * Returns `null` if your bot hasn't yet registered this command.
 	 *
-	 * If you're not using the [DefaultApplicationCommandRegistry] for your command registry, this will currently
-	 * return `null`.
+	 * If you're not using the [DefaultApplicationCommandRegistry] for your command registry, this will return `null`.
 	 */
 	public val mention: String? by lazy {
 		if (registry !is DefaultApplicationCommandRegistry) {
@@ -88,26 +88,29 @@ public abstract class SlashCommand<C : SlashCommandContext<*, A, M>, A : Argumen
 		}
 
 		val commandRegistry = registry as DefaultApplicationCommandRegistry
-
-		lateinit var commandId: Snowflake
+		var commandId: Snowflake? = null
 
 		buildString {
 			append("</")
 
 			if (parentGroup != null) {
-				commandId = commandRegistry.slashCommands.entries.first { it.value == parentGroup!!.parent }.key
+				commandId = commandRegistry.slashCommands.entries.firstOrNull { it.value == parentGroup!!.parent }?.key
 
 				append(parentGroup!!.parent.localisedName.default)
 				append(" ")
 				append(parentGroup!!.localisedName.default)
 				append(" ")
 			} else if (parentCommand != null) {
-				commandId = commandRegistry.slashCommands.entries.first { it.value == parentCommand }.key
+				commandId = commandRegistry.slashCommands.entries.firstOrNull { it.value == parentCommand }?.key
 
 				append(parentCommand!!.localisedName.default)
 				append(" ")
 			} else {
-				commandId = commandRegistry.slashCommands.entries.first { it.value == this@SlashCommand }.key
+				commandId = commandRegistry.slashCommands.entries.firstOrNull { it.value == this@SlashCommand }?.key
+			}
+
+			if (commandId == null) {
+				return@lazy null
 			}
 
 			append(localisedName.default)

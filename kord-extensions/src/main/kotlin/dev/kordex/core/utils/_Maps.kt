@@ -73,7 +73,7 @@ public inline fun <reified T : Any?> StringKeyedMap<*>.getOfOrNull(key: String):
 public inline fun <reified T : Any> MutableStringKeyedMap<Any>.getOfOrDefault(
 	key: String,
 	default: T,
-	store: Boolean,
+	store: Boolean = false,
 ): T {
 	val value = this[key] as? T
 

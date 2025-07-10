@@ -73,7 +73,7 @@ public abstract class ConverterBuilder<T> {
 	/** Validate that this builder's value is allowable. **/
 	public open suspend fun validateValue(commandContext: CommandContext, value: T) {
 		if (validator != null) {
-			val context = ValidationContext(value, commandContext)
+			val context = ValidationContext(value, commandContext, commandContext.getLocale())
 
 			validator?.invoke(context)
 			context.throwIfFailed()

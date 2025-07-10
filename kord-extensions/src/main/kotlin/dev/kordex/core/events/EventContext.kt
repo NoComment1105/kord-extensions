@@ -9,10 +9,6 @@
 package dev.kordex.core.events
 
 import dev.kord.core.event.Event
-import dev.kordex.core.checks.channelFor
-import dev.kordex.core.checks.guildFor
-import dev.kordex.core.checks.interactionFor
-import dev.kordex.core.checks.userFor
 import dev.kordex.core.koin.KordExKoinComponent
 import dev.kordex.core.sentry.SentryContext
 import dev.kordex.core.types.TranslatableContext
@@ -36,37 +32,10 @@ public open class EventContext<T : Event>(
 	/** Current Sentry context, containing breadcrumbs and other goodies. **/
 	public val sentry: SentryContext = SentryContext()
 
-	override var resolvedLocale: Locale? = null
+	override var resolvedLocale: Locale?
+		get() = eventHandler.resolvedLocale
+		set(value) { eventHandler.resolvedLocale = value }
 
-	override suspend fun getLocale(): Locale {
-		var locale = resolvedLocale
-
-		if (locale != null) {
-			return locale
-		}
-
-		val eventObj = event as Event
-
-		val guild = guildFor(eventObj)
-		val channel = channelFor(eventObj)
-		val user = userFor(eventObj)
-
-		for (resolver in eventHandler.extension.bot.settings.i18nBuilder.localeResolvers) {
-			val result = resolver(guild, channel, user, interactionFor(eventObj))
-
-			if (result != null) {
-				locale = result
-
-				break
-			}
-		}
-
-		if (locale == null) {
-			locale = eventHandler.extension.bot.settings.i18nBuilder.defaultLocale
-		}
-
-		resolvedLocale = locale
-
-		return locale
-	}
+	override suspend fun getLocale(): Locale =
+		with(eventHandler) { event.getLocale() }
 }
