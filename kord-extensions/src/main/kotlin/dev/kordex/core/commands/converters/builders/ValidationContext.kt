@@ -12,8 +12,6 @@ import dev.kord.core.event.Event
 import dev.kordex.core.DiscordRelayedException
 import dev.kordex.core.checks.types.CheckContext
 import dev.kordex.core.commands.CommandContext
-import dev.kordex.core.i18n.generated.CoreTranslations
-import dev.kordex.core.i18n.types.Key
 import java.util.*
 
 /**
