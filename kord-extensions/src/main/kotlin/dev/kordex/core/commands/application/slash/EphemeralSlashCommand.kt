@@ -152,6 +152,7 @@ public class EphemeralSlashCommand<A : Arguments, M : ModalForm>(
 
 			return
 		}
+
 		if (arguments != null) {
 			try {
 				val args = registry.argumentParser.parse(arguments, context)

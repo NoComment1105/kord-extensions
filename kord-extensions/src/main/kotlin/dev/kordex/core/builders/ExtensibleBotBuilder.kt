@@ -29,6 +29,7 @@ import dev.kord.rest.builder.message.create.MessageCreateBuilder
 import dev.kordex.core.*
 import dev.kordex.core.annotations.BotBuilderDSL
 import dev.kordex.core.annotations.InternalAPI
+import dev.kordex.core.annotations.warnings.ReplacingDefaultErrorResponseBuilder
 import dev.kordex.core.commands.application.ApplicationCommandRegistry
 import dev.kordex.core.commands.chat.ChatCommandRegistry
 import dev.kordex.core.components.ComponentRegistry
@@ -318,6 +319,7 @@ public open class ExtensibleBotBuilder {
 	 * and component body execution.
 	 */
 	@BotBuilderDSL
+	@ReplacingDefaultErrorResponseBuilder
 	public fun errorResponse(builder: FailureResponseBuilder) {
 		failureResponseBuilder = builder
 	}

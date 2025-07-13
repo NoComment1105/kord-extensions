@@ -19,6 +19,7 @@ import dev.kordex.core.commands.Arguments
 import dev.kordex.core.commands.converters.impl.role
 import dev.kordex.core.commands.converters.impl.string
 import dev.kordex.core.extensions.Extension
+import dev.kordex.core.extensions.ephemeralSlashCommand
 import dev.kordex.core.extensions.publicSlashCommand
 import dev.kordex.core.healthcheck.HealthCheckState
 import dev.kordex.core.healthcheck.utils.addHealthCheck
@@ -75,7 +76,7 @@ public class MiscExtension : Extension() {
 			}
 		}
 
-		publicSlashCommand(::AAAArgs) {
+		ephemeralSlashCommand(::AAAArgs) {
 			name = "aaaa".toKey()
 			description = "Should always fail".toKey()
 
