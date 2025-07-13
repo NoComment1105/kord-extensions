@@ -10,7 +10,6 @@ package dev.kordex.core.commands.converters.builders
 
 import dev.kordex.core.InvalidArgumentException
 import dev.kordex.core.commands.Arguments
-import dev.kordex.core.commands.CommandContext
 import dev.kordex.core.commands.converters.AutoCompleteCallback
 import dev.kordex.core.commands.converters.Converter
 import dev.kordex.core.commands.converters.Mutator
