@@ -49,7 +49,12 @@ public class ValidationContext<out T>(
 
 	override fun getMessageKey(): Key? {
 		return super.getMessageKey()
-			?: CoreTranslations.ArgumentParser.Error.invalidValue
-				.withOrdinalPlaceholders(value, converter.signatureType)
+			?: if (passed.not()) {
+				CoreTranslations.ArgumentParser.Error.invalidValue
+					.withLocale(locale)
+					.withOrdinalPlaceholders(value, converter.signatureType)
+			} else {
+				null
+			}
 	}
 }
