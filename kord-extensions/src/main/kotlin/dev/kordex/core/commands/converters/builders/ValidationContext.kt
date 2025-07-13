@@ -52,7 +52,7 @@ public class ValidationContext<out T>(
 			?: if (passed.not()) {
 				CoreTranslations.ArgumentParser.Error.invalidValue
 					.withLocale(locale)
-					.withOrdinalPlaceholders(value, converter.signatureType)
+					.withOrdinalPlaceholders(converter.argumentObj.displayName, converter.signatureType)
 			} else {
 				null
 			}
