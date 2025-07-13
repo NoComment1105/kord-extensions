@@ -1,5 +1,7 @@
+import okio.Path.Companion.toPath
 import org.jetbrains.dokka.DokkaDefaults.moduleName
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.nio.file.Files
 
 buildscript {
 	repositories {
@@ -66,6 +68,7 @@ val generateVersion = tasks.create("generateVersion") {
 	notCompatibleWithConfigurationCache("This task should always be run.")
 
 	doLast {
+		output.get().asFile.parentFile.mkdirs()
 		output.get().asFile.writeText("""
 package dev.kordex.core
 

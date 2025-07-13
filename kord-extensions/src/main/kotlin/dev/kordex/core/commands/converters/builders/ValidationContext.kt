@@ -12,6 +12,9 @@ import dev.kord.core.event.Event
 import dev.kordex.core.DiscordRelayedException
 import dev.kordex.core.checks.types.CheckContext
 import dev.kordex.core.commands.CommandContext
+import dev.kordex.core.commands.converters.Converter
+import dev.kordex.core.i18n.generated.CoreTranslations
+import dev.kordex.core.i18n.types.Key
 import java.util.*
 
 /**
@@ -23,6 +26,7 @@ import java.util.*
  * @property context Command context that triggered this validation
  */
 public class ValidationContext<out T>(
+	public val converter: Converter<*, *, *, *>,
 	public val value: T,
 	public val context: CommandContext,
 	locale: Locale,
@@ -41,5 +45,11 @@ public class ValidationContext<out T>(
 				error("Validation failed.")
 			}
 		}
+	}
+
+	override fun getMessageKey(): Key? {
+		return super.getMessageKey()
+			?: CoreTranslations.ArgumentParser.Error.invalidValue
+				.withOrdinalPlaceholders(value, converter.signatureType)
 	}
 }

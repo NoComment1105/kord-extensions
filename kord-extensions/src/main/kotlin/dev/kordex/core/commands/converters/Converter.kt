@@ -122,7 +122,7 @@ public abstract class Converter<InputType : Any?, OutputType : Any?, NamedInputT
 	/** Call the validator lambda, if one was provided. **/
 	public open suspend fun validate(context: CommandContext) {
 		validator?.let { actualValidator ->
-			val validationContext = ValidationContext(parsed, context, context.getLocale())
+			val validationContext = ValidationContext(this, parsed, context, context.getLocale())
 
 			actualValidator.invoke(validationContext)
 
