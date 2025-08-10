@@ -4,6 +4,8 @@
 #-------------------------------------------------------------------------------#
 version: "1.0"
 
+ide: QDJVM
+
 profile:
   path: "qodana-profile.yaml" # the file should be under your project root.
 
@@ -13,8 +15,14 @@ projectJDK: "21" # (Applied in CI/CD pipeline)
 #bootstrap: sh ./prepare-qodana.sh
 
 # Install IDE plugins before Qodana execution (Applied in CI/CD pipeline)
-# plugins:
-#  - id: <plugin.id> #(plugin id can be found at https://plugins.jetbrains.com)
+plugins:
+  - id: "JavaScript"
+  - id: "com.intellij.exposed"
+  - id: "com.intellij.gradle"
+  - id: "org.editorconfig.editorconfigjetbrains"
+  - id: "org.jetbrains.kotlin"
+  - id: "org.jetbrains.plugins.vue"
+  - id: "org.jetbrains.security.package-checker"
 
 # Quality gate. Will fail the CI/CD pipeline if any condition is not met
 # severityThresholds - configures maximum thresholds for different problem severities
