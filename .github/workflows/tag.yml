@@ -20,7 +20,7 @@ jobs:
           distribution: temurin
 
       - name: Set up Kotlin
-        uses: fwilhe2/setup-kotlin@main
+        uses: fwilhe2/setup-kotlin@1694fbd49c38ab354ff58e249fe2d73d74a1c6eb # v1.2
 
       - name: Set up Gradle properties
         run: |
@@ -30,7 +30,7 @@ jobs:
           echo -e "\nsigning.gnupg.passphrase=${{ secrets.GPG_PASSWORD }}" >> ~/.gradle/gradle.properties
 
       - name: Set up git credentials
-        uses: oleksiyrudenko/gha-git-credentials@v2
+        uses: oleksiyrudenko/gha-git-credentials@8bb1fe6d543b2233ef1856cd3b0181f5abbd4d6a # v2.1.2
 
         with:
           global: true
@@ -68,7 +68,7 @@ jobs:
         run: echo ::set-output name=NAME::${GITHUB_REF#refs/tags/}
 
       - name: Create Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@72f2c25fcb47643c292f7107632f7a47c1df5cd8 # v2.3.2
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
