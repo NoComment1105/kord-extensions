@@ -16,7 +16,7 @@ plugins:
   - id: "com.intellij.exposed"
   - id: "com.intellij.gradle"
   - id: "org.editorconfig.editorconfigjetbrains"
-  - id: "org.jetbrains.kotlin"
+#  - id: "org.jetbrains.kotlin" - Qodana can't find this plugin apparently, "unknown plugin" error.
   - id: "org.jetbrains.plugins.vue"
   - id: "org.jetbrains.security.package-checker"
 
