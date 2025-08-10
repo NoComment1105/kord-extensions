@@ -23,8 +23,8 @@ import dev.kord.rest.builder.message.modify.MessageModifyBuilder
 import dev.kordex.core.DISCORD_BLURPLE
 import dev.kordex.core.time.TimestampType
 import dev.kordex.core.time.toDiscord
+import dev.kordex.core.utils.getJumpUrl
 import dev.kordex.modules.func.welcome.enums.ThreadListType
-import dev.kordex.modules.func.welcome.getJumpUrl
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.toList
 import kotlinx.serialization.SerialName

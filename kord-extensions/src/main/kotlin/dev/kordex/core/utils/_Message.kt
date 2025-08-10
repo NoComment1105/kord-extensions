@@ -40,7 +40,6 @@ import kotlinx.coroutines.launch
 private val logger = KotlinLogging.logger {}
 
 private const val DELETE_DELAY = 1000L * 30L  // 30 seconds
-private const val DISCORD_CHANNEL_URI = "https://discord.com/channels"
 
 /**
  * Deletes a message, catching and ignoring an HTTP 404 (Not Found) exception.
@@ -248,7 +247,7 @@ public suspend fun Message.respond(
  * @return A clickable URL to jump to this message.
  */
 public fun Message.getJumpUrl(): String =
-	"$DISCORD_CHANNEL_URI/${data.guildId.value?.value ?: "@me"}/${channelId.value}/${id.value}"
+	"$DISCORD_CHANNEL_URI/${data.guildId.value?.value ?: DM_CHANNEL_PREFIX}/${channelId.value}/${id.value}"
 
 /**
  * Generate the jump URL for this message.
@@ -256,7 +255,7 @@ public fun Message.getJumpUrl(): String =
  * @return A clickable URL to jump to this message.
  */
 public fun DiscordPartialMessage.getJumpUrl(): String =
-	"$DISCORD_CHANNEL_URI/${guildId.value?.value ?: "@me"}/${channelId.value}/${id.value}"
+	"$DISCORD_CHANNEL_URI/${guildId.value?.value ?: DM_CHANNEL_PREFIX}/${channelId.value}/${id.value}"
 
 /**
  * Check that this message happened in either the given channel or a DM, or that the author is at least a given role.

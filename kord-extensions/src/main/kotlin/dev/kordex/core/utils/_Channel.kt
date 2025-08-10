@@ -18,6 +18,7 @@ import dev.kord.core.behavior.channel.threads.ThreadChannelBehavior
 import dev.kord.core.entity.Message
 import dev.kord.core.entity.Webhook
 import dev.kord.core.entity.channel.CategorizableChannel
+import dev.kord.core.entity.channel.Channel
 import dev.kord.core.entity.channel.GuildChannel
 import dev.kord.core.entity.channel.TopGuildChannel
 import dev.kord.core.entity.channel.TopGuildMessageChannel
@@ -27,6 +28,9 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.flow.firstOrNull
 
 private val logger = KotlinLogging.logger {}
+
+internal const val DISCORD_CHANNEL_URI = "https://discord.com/channels"
+internal const val DM_CHANNEL_PREFIX = "@me"
 
 /**
  * Ensure a webhook is created for the bot in a given channel, and return it.
@@ -95,6 +99,14 @@ public suspend fun ThreadChannel.getParentMessage(): Message? {
 
 	return parentChannel.getMessageOrNull(this.id)
 }
+
+/**
+ * Generate the jump URL for this channel.
+ *
+ * @return A clickable URL to jump to this channel.
+ */
+public fun Channel.getJumpUrl(): String =
+	"$DISCORD_CHANNEL_URI/${data.guildId.value?.value ?: DM_CHANNEL_PREFIX}/${id.value}"
 
 // region: Channel position utils
 

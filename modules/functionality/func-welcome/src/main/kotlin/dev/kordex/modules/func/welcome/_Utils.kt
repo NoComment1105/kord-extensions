@@ -11,7 +11,6 @@ package dev.kordex.modules.func.welcome
 import dev.kord.common.entity.DiscordComponent
 import dev.kord.common.entity.EmbedType
 import dev.kord.core.entity.Message
-import dev.kord.core.entity.channel.Channel
 import dev.kord.core.entity.component.Component
 import dev.kord.rest.builder.message.EmbedBuilder
 import dev.kord.rest.builder.message.create.MessageCreateBuilder
@@ -24,7 +23,6 @@ import dev.kordex.modules.func.welcome.config.WelcomeChannelConfig
 import dev.kordex.modules.func.welcome.data.WelcomeChannelData
 import org.koin.dsl.bind
 
-private const val DISCORD_CHANNEL_URI = "https://discord.com/channels"
 private var copyrightAdded = false
 
 internal fun AboutBuilder.addCopyright() {
@@ -57,26 +55,14 @@ fun ExtensionsBuilder.welcomeChannel(
 	welcomeChannel(SimpleWelcomeChannelConfig(body), data)
 }
 
-inline fun <reified T, reified R> List<T>.ifNotEmpty(body: (Collection<T>).() -> List<R>): List<R> {
-	if (this.isNotEmpty()) {
-		return body()
-	}
-
-	return emptyList()
-}
-
 fun MessageCreateBuilder.isSimilar(other: Message): Boolean {
 	val builderComponents = components
 		?.mapNotNull { it.build().components.value }
-		?.ifNotEmpty {
-			reduce { left, right -> left + right }
-		} ?: emptyList()
+		?.flatMap { it }
+		?: emptyList()
 
 	val messageComponents = other.actionRows
-		.map { it.components }
-		.ifNotEmpty {
-			reduce { left, right -> left + right }
-		}
+		.flatMap { it.components }
 
 	val messageEmbedBuilders = other.embeds
 		.filter { it.type == null || it.type == EmbedType.Rich }
@@ -153,11 +139,3 @@ fun EmbedBuilder.isSimilar(other: EmbedBuilder): Boolean {
 			}
 		}
 }
-
-/**
- * Generate the jump URL for this channel.
- *
- * @return A clickable URL to jump to this channel.
- */
-fun Channel.getJumpUrl(): String =
-	"$DISCORD_CHANNEL_URI/${data.guildId.value?.value ?: "@me"}/${id.value}"
