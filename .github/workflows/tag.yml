@@ -5,6 +5,10 @@ on:
     tags:
       - "v*"
 
+concurrency:
+  group: "kordex-${{ github.workflow }}"
+  cancel-in-progress: true
+
 jobs:
   release:
     runs-on: ubuntu-latest
