@@ -16,10 +16,15 @@ java {
 
 node {
 	version = "24.2.0"
-	download = true
 
-	workDir = file("${project.projectDir}/.cache/nodejs")
-	npmWorkDir = file("${project.projectDir}/.cache/npm")
+	// CI will have NodeJS preinstalled with caching configured so no need to download it
+	if (System.getenv("CI") == null) {
+		download = true
+
+		workDir = file("${project.projectDir}/.cache/nodejs")
+		npmWorkDir = file("${project.projectDir}/.cache/npm")
+	}
+
 	nodeProjectDir = file(project.projectDir)
 }
 

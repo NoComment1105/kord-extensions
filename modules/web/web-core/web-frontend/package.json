@@ -12,6 +12,9 @@
 		"format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore"
 	},
 	"packageManager": "pnpm@10.12.1",
+	"engines": {
+		"node": "^24.2.0"
+	},
 	"dependencies": {
 		"@internationalized/date": "^3.5.6",
 		"@unhead/vue": "^1.11.10",
