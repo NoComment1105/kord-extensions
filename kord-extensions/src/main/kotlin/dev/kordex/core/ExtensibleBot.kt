@@ -624,6 +624,7 @@ public open class ExtensibleBot(
 	public inline fun <reified T : Event> addEventHandler(handler: EventHandler<T>) {
 		if (eventHandlers.contains(handler)) {
 			throw EventHandlerRegistrationException(
+				handler,
 				"Event handler already registered in '${handler.extension.name}' extension."
 			)
 		}

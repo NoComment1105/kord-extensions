@@ -94,7 +94,7 @@ public open class EventHandler<T : Event>(
 	@Throws(InvalidEventHandlerException::class)
 	public fun validate() {
 		if (!::body.isInitialized) {
-			throw InvalidEventHandlerException("No event handler action given.")
+			throw InvalidEventHandlerException(this, "No event handler action given.")
 		}
 	}
 

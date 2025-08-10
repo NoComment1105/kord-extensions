@@ -68,7 +68,10 @@ public class InvalidExtensionException(
  *
  * @param reason Why this [EventHandler] is considered invalid.
  */
-public class InvalidEventHandlerException(public val reason: String) : KordExException() {
+public class InvalidEventHandlerException(
+	public val handler: EventHandler<*>,
+	public val reason: String
+) : KordExException() {
 	override val message: String = toString()
 
 	override fun toString(): String = "Invalid event handler: $reason"
@@ -79,7 +82,10 @@ public class InvalidEventHandlerException(public val reason: String) : KordExExc
  *
  * @param reason Why this [EventHandler] could not be registered.
  */
-public class EventHandlerRegistrationException(public val reason: String) : KordExException() {
+public class EventHandlerRegistrationException(
+	public val handler: EventHandler<*>,
+	public val reason: String
+) : KordExException() {
 	override val message: String = toString()
 
 	override fun toString(): String = "Failed to register event handler: $reason"
@@ -91,7 +97,10 @@ public class EventHandlerRegistrationException(public val reason: String) : Kord
  * @param name The command name
  * @param reason Why this command is considered invalid.
  */
-public class InvalidCommandException(public val name: Key?, public val reason: String) : KordExException() {
+public class InvalidCommandException(
+	public val name: Key?,
+	public val reason: String
+) : KordExException() {
 	override val message: String = toString()
 
 	override fun toString(): String {
@@ -120,8 +129,7 @@ public class CommandRegistrationException(public val name: Key, public val reaso
  *
  * Provided [reason] will be returned to the user verbatim.
  *
- * @param reason Human-readable reason for the failure. May be translated.
- * @param translationKey Translation key used to create the [reason] string, if any.
+ * @param reason Translation key representing the failure reason.
  */
 public open class DiscordRelayedException(
 	public open val reason: Key,
@@ -136,8 +144,7 @@ public open class DiscordRelayedException(
 /**
  * Thrown when something happens during argument parsing.
  *
- * @param reason Human-readable reason for the failure. May be translated.
- * @param translationKey Translation key used to create the [reason] string, if any.
+ * @param reason Translation key representing the failure reason.
  * @param argument Current Argument object, if any.
  * @param arguments Arguments object for the command.
  * @param parser Tokenizing string parser used for this parse attempt, if this was a chat command.
