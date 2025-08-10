@@ -1,9 +1,10 @@
+import com.github.gradle.node.pnpm.task.PnpmInstallTask
 import com.github.gradle.node.pnpm.task.PnpmTask
 
 plugins {
 	java
 
-	id("com.github.node-gradle.node") version "7.0.2"
+	id("com.github.node-gradle.node") version "7.1.0"
 	id("dev.yumi.gradle.licenser")
 }
 
@@ -12,6 +13,10 @@ group = "dev.kordex.modules"
 java {
 	sourceCompatibility = JavaVersion.VERSION_13
 	targetCompatibility = JavaVersion.VERSION_13
+}
+
+tasks.withType<PnpmInstallTask>() {
+	doNotTrackState("Working around an apparent bug.")
 }
 
 node {

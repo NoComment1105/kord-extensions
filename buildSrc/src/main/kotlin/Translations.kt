@@ -128,7 +128,7 @@ fun Project.getTranslations(
 		}
 	}
 
-	tasks.getByName("build") {
+	tasks.getByName("classes") {
 		dependsOn(generateTask)
 	}
 
