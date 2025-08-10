@@ -3,12 +3,11 @@
 #             https://www.jetbrains.com/help/qodana/qodana-yaml.html            #
 #-------------------------------------------------------------------------------#
 version: "1.0"
-name: "Qodana Analysis"
 
 baseProfile: "Project Default"
 
 profile:
-  name: "Project Default"
+  name: "Qodana Analysis"
 
 projectJDK: "21" # (Applied in CI/CD pipeline)
 
@@ -33,4 +32,4 @@ projectJDK: "21" # (Applied in CI/CD pipeline)
 
 # Qodana supports other languages, for example, Python, JavaScript, TypeScript, Go, C#, PHP
 # For all supported languages see https://www.jetbrains.com/help/qodana/linters.html
-linter: jetbrains/qodana-jvm:2025.2
+linter: jetbrains/qodana-jvm:2025.1
