@@ -8,6 +8,10 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    if: github.repository == 'Kord-Extensions/kord-extensions'
+
+    env:
+      GPG_KEY_NAME: BFAAD5D6093EF5E62BC9A16A10DB8C6B4AE61C2F
 
     steps:
       - uses: actions/checkout@v4
@@ -26,7 +30,7 @@ jobs:
         run: |
           mkdir -p ~/.gradle
           echo "org.gradle.jvmargs=-XX:MaxMetaspaceSize=5G" >> ~/.gradle/gradle.properties
-          echo -e "\nsigning.gnupg.keyName=BFAAD5D6093EF5E62BC9A16A10DB8C6B4AE61C2F" >> ~/.gradle/gradle.properties
+          echo -e "\nsigning.gnupg.keyName=${{ env.GPG_KEY_NAME }}" >> ~/.gradle/gradle.properties
           echo -e "\nsigning.gnupg.passphrase=${{ secrets.GPG_PASSWORD }}" >> ~/.gradle/gradle.properties
 
       - name: Set up git credentials

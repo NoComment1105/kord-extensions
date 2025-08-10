@@ -4,7 +4,6 @@ on:
   push:
     branches-ignore:
       - "gh-pages"
-      - "root"
 
   pull_request:
   merge_group:
@@ -12,6 +11,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # if this is a fork, still run on the root branch
+    if: github.event_name != 'push' || github.repository != 'Kord-Extensions/kord-extensions' || github.ref_name != 'root'
 
     steps:
       - uses: actions/checkout@v4
