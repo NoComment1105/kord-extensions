@@ -4,10 +4,8 @@
 #-------------------------------------------------------------------------------#
 version: "1.0"
 
-baseProfile: "Project Default"
-
 profile:
-  name: "Qodana Analysis"
+  path: "qodana-profile.yaml" # the file should be under your project root.
 
 projectJDK: "21" # (Applied in CI/CD pipeline)
 
