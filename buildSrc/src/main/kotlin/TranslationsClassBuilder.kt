@@ -3,7 +3,6 @@ import com.hanggrian.kotlinpoet.addObject
 import com.hanggrian.kotlinpoet.buildFileSpec
 import com.hanggrian.kotlinpoet.buildPropertySpec
 import com.squareup.kotlinpoet.ClassName
-import org.gradle.configurationcache.extensions.capitalized
 import java.util.Properties
 
 /*
@@ -73,8 +72,7 @@ fun TypeSpecBuilder.addKeys(
 			val objName = k
 				.replace("-", " ")
 				.split(" ")
-				.map { it.capitalized() }
-				.joinToString("")
+				.joinToString("") { s -> s.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() } }
 
 			types.addObject(objName) {
 				addKeys(v, props, translationsClassName, keyName)
