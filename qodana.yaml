@@ -3,28 +3,20 @@
 #             https://www.jetbrains.com/help/qodana/qodana-yaml.html            #
 #-------------------------------------------------------------------------------#
 version: "1.0"
+name: "Qodana Analysis"
 
-#Specify inspection profile for code analysis
+baseProfile: "Project Default"
+
 profile:
-  name: qodana.starter
+  name: "Project Default"
 
-#Enable inspections
-#include:
-#  - name: <SomeEnabledInspectionId>
+projectJDK: "21" # (Applied in CI/CD pipeline)
 
-#Disable inspections
-#exclude:
-#  - name: <SomeDisabledInspectionId>
-#    paths:
-#      - <path/where/not/run/inspection>
-
-projectJDK: "21" #(Applied in CI/CD pipeline)
-
-#Execute shell command before Qodana execution (Applied in CI/CD pipeline)
+# Execute shell command before Qodana execution (Applied in CI/CD pipeline)
 #bootstrap: sh ./prepare-qodana.sh
 
-#Install IDE plugins before Qodana execution (Applied in CI/CD pipeline)
-#plugins:
+# Install IDE plugins before Qodana execution (Applied in CI/CD pipeline)
+# plugins:
 #  - id: <plugin.id> #(plugin id can be found at https://plugins.jetbrains.com)
 
 # Quality gate. Will fail the CI/CD pipeline if any condition is not met
@@ -39,6 +31,6 @@ projectJDK: "21" #(Applied in CI/CD pipeline)
 #    fresh: 70
 #    total: 50
 
-#Qodana supports other languages, for example, Python, JavaScript, TypeScript, Go, C#, PHP
-#For all supported languages see https://www.jetbrains.com/help/qodana/linters.html
+# Qodana supports other languages, for example, Python, JavaScript, TypeScript, Go, C#, PHP
+# For all supported languages see https://www.jetbrains.com/help/qodana/linters.html
 linter: jetbrains/qodana-jvm:2025.2

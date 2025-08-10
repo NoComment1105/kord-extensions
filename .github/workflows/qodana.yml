@@ -25,7 +25,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
 
       - name: "Qodana Scan"
@@ -47,3 +46,5 @@ jobs:
 
           # quick-fixes available in Ultimate and Ultimate Plus plans
           push-fixes: "none"
+
+          args: "--property project.open.type=Gradle"
