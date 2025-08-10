@@ -47,4 +47,4 @@ jobs:
           # quick-fixes available in Ultimate and Ultimate Plus plans
           push-fixes: "none"
 
-          args: "--property project.open.type=Gradle"
+          args: "--property,project.open.type=Gradle"
