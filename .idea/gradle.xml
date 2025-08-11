@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/buildSrc" name="buildSrc">
+                <projects>
+                  <project path="$PROJECT_DIR$/buildSrc" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/annotations" />
+            <option value="$PROJECT_DIR$/annotations/annotation-processor" />
+            <option value="$PROJECT_DIR$/annotations/annotations" />
+            <option value="$PROJECT_DIR$/buildSrc" />
+            <option value="$PROJECT_DIR$/kord-extensions" />
+            <option value="$PROJECT_DIR$/modules" />
+            <option value="$PROJECT_DIR$/modules/data" />
+            <option value="$PROJECT_DIR$/modules/data/data-mongodb" />
+            <option value="$PROJECT_DIR$/modules/dev" />
+            <option value="$PROJECT_DIR$/modules/dev/dev-java-time" />
+            <option value="$PROJECT_DIR$/modules/dev/dev-time4j" />
+            <option value="$PROJECT_DIR$/modules/dev/dev-unsafe" />
+            <option value="$PROJECT_DIR$/modules/functionality" />
+            <option value="$PROJECT_DIR$/modules/functionality/func-mappings" />
+            <option value="$PROJECT_DIR$/modules/functionality/func-minecraft" />
+            <option value="$PROJECT_DIR$/modules/functionality/func-phishing" />
+            <option value="$PROJECT_DIR$/modules/functionality/func-tags" />
+            <option value="$PROJECT_DIR$/modules/functionality/func-welcome" />
+            <option value="$PROJECT_DIR$/modules/integrations" />
+            <option value="$PROJECT_DIR$/modules/integrations/pluralkit" />
+            <option value="$PROJECT_DIR$/modules/web" />
+            <option value="$PROJECT_DIR$/modules/web/web-core" />
+            <option value="$PROJECT_DIR$/modules/web/web-core/web-backend" />
+            <option value="$PROJECT_DIR$/modules/web/web-core/web-frontend" />
+            <option value="$PROJECT_DIR$/test-bot" />
+            <option value="$PROJECT_DIR$/token-parser" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

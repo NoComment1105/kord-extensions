@@ -4,19 +4,12 @@
 #-------------------------------------------------------------------------------#
 version: "1.0"
 
-ide: QDJVM
-
 profile:
   path: "qodana-profile.yaml"
 
 projectJDK: "21"
 
 plugins:
-  - id: "JavaScript"
   - id: "com.intellij.exposed"
-  - id: "com.intellij.gradle"
-  - id: "org.editorconfig.editorconfigjetbrains"
-#  - id: "org.jetbrains.kotlin" - Qodana can't find this plugin apparently, "unknown plugin" error.
-  - id: "org.jetbrains.plugins.vue"
-  - id: "org.jetbrains.security.package-checker"
 
+linter: jetbrains/qodana-jvm:2025.2

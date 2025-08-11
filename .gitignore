@@ -61,7 +61,6 @@ hs_err_pid*
 .idea/**/dbnavigator.xml
 
 # Gradle
-.idea/**/gradle.xml
 .idea/**/libraries
 
 # Gradle and Maven with auto-import
