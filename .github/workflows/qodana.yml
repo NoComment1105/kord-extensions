@@ -30,6 +30,8 @@ jobs:
       - name: "Qodana Scan"
         uses: JetBrains/qodana-action@v2025.1
 
+        timeout-minutes: 60
+
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
           QODANA_ENDPOINT: "https://qodana.cloud"
@@ -48,3 +50,10 @@ jobs:
           push-fixes: "none"
 
           args: "--property,project.open.type=Gradle"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+
+        with:
+          name: qodana-artifact
+          path: ${{ runner.temp }}/qodana/results
