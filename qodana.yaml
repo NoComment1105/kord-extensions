@@ -13,3 +13,4 @@ plugins:
   - id: "com.intellij.exposed"
 
 linter: jetbrains/qodana-jvm:2025.2
+bootstrap: sh ./gradlew generateKeysClass kspKotlin
