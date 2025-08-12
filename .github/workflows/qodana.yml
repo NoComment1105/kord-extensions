@@ -47,6 +47,9 @@ jobs:
       - name: Install Node packages
         run: "pnpm -C modules/web/web-core/web-frontend install"
 
+      - name: Generate Classes with Gradle
+        run: "./gradlew generateKeysClass"
+
       - name: "Qodana Scan"
         uses: JetBrains/qodana-action@v2025.1
 
