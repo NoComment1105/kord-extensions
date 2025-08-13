@@ -52,7 +52,7 @@ jobs:
         with:
           node-version-file: modules/web/web-core/web-frontend/package.json
           cache-dependency-path: modules/web/web-core/web-frontend/pnpm-lock.yaml
-          cache: 'pnpm'
+          cache: "pnpm"
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3

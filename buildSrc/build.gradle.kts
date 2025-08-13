@@ -18,6 +18,7 @@ dependencies {
 	implementation("dev.yumi", "yumi-gradle-licenser", "1.2.0")
 	implementation("io.gitlab.arturbosch.detekt", "detekt-gradle-plugin", "1.23.8")
 	implementation("org.jetbrains.dokka", "dokka-gradle-plugin", "1.9.20")
+	implementation("org.sonarqube:org.sonarqube.gradle.plugin:6.2.0.5505")
 
 	implementation(gradleApi())
 	implementation(localGroovy())

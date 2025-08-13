@@ -33,6 +33,14 @@ jobs:
           mkdir -p ~/.gradle
           echo "org.gradle.jvmargs=-XX:MaxMetaspaceSize=5G" >> ~/.gradle/gradle.properties
 
+      - name: SonarQube (Cache)
+        uses: actions/cache@v4
+
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
       - name: Gradle (Setup)
         uses: gradle/actions/setup-gradle@v4
 
@@ -49,12 +57,15 @@ jobs:
         with:
           node-version-file: modules/web/web-core/web-frontend/package.json
           cache-dependency-path: modules/web/web-core/web-frontend/pnpm-lock.yaml
-          cache: 'pnpm'
+          cache: "pnpm"
 
       - name: Gradle (Build)
-        run: "./gradlew checkLicenses build"
+        run: "./gradlew checkLicenses build sonar"
 
         env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
           TOKEN: "${{ secrets.TOKEN }}"
 
       - name: Upload artifact (Core JARs)

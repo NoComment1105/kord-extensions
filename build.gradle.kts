@@ -15,6 +15,7 @@ plugins {
 	kotlin("jvm")
 
 	id("org.jetbrains.dokka")
+	id("org.sonarqube")
 }
 
 val projectVersion: String by project
@@ -22,9 +23,26 @@ val projectVersion: String by project
 group = "dev.kordex"
 version = projectVersion
 
-val printVersion = task("printVersion") {
-	doLast {
-		print(version.toString())
+sonar {
+	val org = "Kord-Extensions"
+	val gitUrl = "https://github.com/${org}/kord-extensions/"
+	val homepageUrl = "https://kordex.dev"
+
+	properties {
+		// See https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Gradle#AnalyzingwithSonarQubeScannerforGradle-Configureanalysisproperties
+		property("sonar.sourceEncoding", "UTF-8")
+		property("sonar.projectName", "kord-extensions")
+		property("sonar.projectKey", "${org}_${"kord-extensions"}")
+		property("sonar.organization", "Kord-Extensions")
+		property("sonar.projectVersion", rootProject.version.toString())
+		property("sonar.host.url", System.getenv()["SONAR_HOST_URL"] ?: "")
+		property("sonar.token", System.getenv()["SONAR_TOKEN"] ?: "" )
+		property("sonar.scm.provider", "git")
+
+		property("sonar.links.homepage", homepageUrl)
+		property("sonar.links.ci", "$gitUrl/actions")
+		property("sonar.links.scm", gitUrl)
+		property("sonar.links.issue", "$gitUrl/issues")
 	}
 }
 

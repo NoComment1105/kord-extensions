@@ -63,9 +63,12 @@ jobs:
           cache: 'pnpm'
 
       - name: Gradle (Build)
-        run: "./gradlew checkLicenses build"
+        run: "./gradlew checkLicenses build sonar"
 
         env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
           TOKEN: "${{ secrets.TOKEN }}"
 
       - name: Gradle (Publish)
