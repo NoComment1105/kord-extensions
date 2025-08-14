@@ -14,7 +14,6 @@ import dev.kord.core.behavior.interaction.suggestString
 import dev.kord.core.entity.interaction.AutoCompleteInteraction
 import dev.kord.core.entity.interaction.OptionValue
 import dev.kord.core.event.interaction.AutoCompleteInteractionCreateEvent
-import okhttp3.internal.sse.ServerSentEventReader.Companion.options
 
 /** The max number of suggestions allowed. **/
 public const val MAX_SUGGESTIONS: Int = 25
