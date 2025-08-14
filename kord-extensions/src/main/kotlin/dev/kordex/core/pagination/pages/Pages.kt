@@ -50,7 +50,7 @@ public open class Pages(public open var defaultGroup: Key = EMPTY_KEY) {
 
 	/** Check that this Pages object is valid, throwing if it isn't.. **/
 	public open fun validate() {
-		require(!groups.isEmpty()) {
+		require(groups.isNotEmpty()) {
 			"Invalid pages supplied: At least one page is required"
 		}
 	}

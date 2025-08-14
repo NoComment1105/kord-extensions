@@ -14,6 +14,7 @@ import dev.kord.core.behavior.interaction.suggestString
 import dev.kord.core.entity.interaction.AutoCompleteInteraction
 import dev.kord.core.entity.interaction.OptionValue
 import dev.kord.core.event.interaction.AutoCompleteInteractionCreateEvent
+import okhttp3.internal.sse.ServerSentEventReader.Companion.options
 
 /** The max number of suggestions allowed. **/
 public const val MAX_SUGGESTIONS: Int = 25
@@ -51,18 +52,14 @@ public suspend inline fun AutoCompleteInteraction.suggestStringMap(
 	suggestInputWithoutMatches: Boolean = false,
 ) {
 	val option = focusedOption.value
-	var options = map
-
-	if (option != null) {
-		options = options.filterKeys { strategy.test(option, it) }
-	}
+	var options = map.filterKeys { strategy.test(option, it) }
 
 	if (options.size > MAX_SUGGESTIONS) {
 		options = options.entries.sortedBy { it.key }.take(MAX_SUGGESTIONS).associate { it.toPair() }
 	}
 
 	suggestString {
-		if (suggestInputWithoutMatches && options.isEmpty() && !option.isNullOrEmpty()) {
+		if (suggestInputWithoutMatches && options.isEmpty() && option.isNotEmpty()) {
 			choice(option, option)
 		} else {
 			options.forEach(::choice)
@@ -122,18 +119,14 @@ public suspend inline fun AutoCompleteInteraction.suggestLongMap(
 	suggestInputWithoutMatches: Boolean = false,
 ) {
 	val option = focusedOption.value
-	var options = map
-
-	if (option != null) {
-		options = options.filterKeys { strategy.test(option, it) }
-	}
+	var options = map.filterKeys { strategy.test(option, it) }
 
 	if (options.size > MAX_SUGGESTIONS) {
 		options = options.entries.sortedBy { it.key }.take(MAX_SUGGESTIONS).associate { it.toPair() }
 	}
 
 	suggestInteger {
-		if (suggestInputWithoutMatches && options.isEmpty() && !option.isNullOrEmpty()) {
+		if (suggestInputWithoutMatches && options.isEmpty() && option.isNotEmpty()) {
 			val longValue = option.toLongOrNull()
 
 			if (longValue != null) {
@@ -193,18 +186,14 @@ public suspend inline fun AutoCompleteInteraction.suggestNumberMap(
 	suggestInputWithoutMatches: Boolean = false,
 ) {
 	val option = focusedOption.value
-	var options = map
-
-	if (option != null) {
-		options = options.filterKeys { strategy.test(option, it) }
-	}
+	var options = map.filterKeys { strategy.test(option, it) }
 
 	if (options.size > MAX_SUGGESTIONS) {
 		options = options.entries.sortedBy { it.key }.take(MAX_SUGGESTIONS).associate { it.toPair() }
 	}
 
 	suggestNumber {
-		if (suggestInputWithoutMatches && options.isEmpty() && !option.isNullOrEmpty()) {
+		if (suggestInputWithoutMatches && options.isEmpty() && option.isNotEmpty()) {
 			val doubleValue = option.toDoubleOrNull()
 
 			if (doubleValue != null) {
