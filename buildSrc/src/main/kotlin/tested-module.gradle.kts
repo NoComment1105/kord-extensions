@@ -1,5 +1,9 @@
+val current = project
+
 plugins {
 	java
+
+	id("org.jetbrains.kotlinx.kover")
 }
 
 tasks {
@@ -14,4 +18,8 @@ tasks {
 
 		systemProperty("org.slf4j.simpleLogger.defaultLogLevel", "debug")
 	}
+}
+
+rootProject.dependencies {
+	kover(current)
 }

@@ -79,7 +79,7 @@ jobs:
           cache: "pnpm"
 
       - name: Gradle (Build)
-        run: "./gradlew checkLicenses build dokkaHtmlMultiModule sonar"
+        run: "./gradlew checkLicenses build koverXmlReport dokkaHtmlMultiModule sonar"
 
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
