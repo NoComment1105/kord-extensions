@@ -39,7 +39,7 @@ sonar {
 		property("sonar.host.url", System.getenv()["SONAR_HOST_URL"] ?: "")
 		property("sonar.token", System.getenv()["SONAR_TOKEN"] ?: "" )
 		property("sonar.scm.provider", "git")
-		property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/kover/")
+		property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/kover/report.xml")
 
 		property("sonar.links.homepage", homepageUrl)
 		property("sonar.links.ci", "$gitUrl/actions")
