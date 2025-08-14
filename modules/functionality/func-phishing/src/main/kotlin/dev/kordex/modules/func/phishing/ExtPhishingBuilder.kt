@@ -32,7 +32,7 @@ class ExtPhishingBuilder {
 	 * The provided regex comes from https://urlregex.com/ - but you can provide a different regex if you need
 	 * detection to be more sensitive than just clickable links.
 	 */
-	var urlRegex = "(?:https?|ftp|file|discord)://([-a-zA-Z\\d+&@#/%?=~_|!:,.;]*[-a-zA-Z\\d+&@#/%=~_|])"
+	var urlRegex = "(?:https?|ftp|file|discord)://([-a-z\\d+&@#/%?=~_|!:,.;]*[-a-z\\d+&@#/%=~_|])"
 		.toRegex(RegexOption.IGNORE_CASE)
 
 	/** @suppress List of checks to apply to event handlers. **/

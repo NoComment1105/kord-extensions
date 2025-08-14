@@ -66,7 +66,6 @@ import me.shedaniel.linkie.*
 import me.shedaniel.linkie.namespaces.*
 import me.shedaniel.linkie.utils.*
 import java.util.*
-import kotlin.error
 import kotlin.io.path.Path
 import kotlin.io.path.createDirectory
 import kotlin.io.path.exists
@@ -595,7 +594,8 @@ class MappingsExtension : Extension() {
 				"yarn" -> YarnNamespace
 				"yarrn" -> YarrnNamespace
 
-				else -> error("Unknown namespace: $it")
+				// Linkie's utils contain an `error()` function that shadows the STL one, so we need to be explicit.
+				else -> kotlin.error("Unknown namespace: $it")
 			}
 		}
 

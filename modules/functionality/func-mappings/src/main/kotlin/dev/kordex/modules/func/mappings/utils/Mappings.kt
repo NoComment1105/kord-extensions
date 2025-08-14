@@ -55,7 +55,7 @@ fun classesToPages(
 					)
 				}
 
-				if (serverName != null && serverName.isNotEmpty()) {
+				if (!serverName.isNullOrEmpty()) {
 					if (clientName != null) {
 						append("\n")
 					}
@@ -80,7 +80,7 @@ fun classesToPages(
 
 				val (clientName, serverName) = clazz.obfName.stringPairs()
 
-				if (clientName != null && clientName.isNotEmpty()) {
+				if (!clientName.isNullOrEmpty()) {
 					if (serverName == null) {
 						append("**Name:** `$clientName` -> ")
 					} else {
@@ -97,7 +97,7 @@ fun classesToPages(
 					)
 				}
 
-				if (serverName != null && serverName.isNotEmpty()) {
+				if (!serverName.isNullOrEmpty()) {
 					if (clientName != null) {
 						append("\n")
 					}
@@ -379,7 +379,7 @@ fun methodsToPages(
 
 				val (clientName, serverName) = method.obfName.stringPairs()
 
-				if (clientName != null && clientName.isNotEmpty()) {
+				if (!clientName.isNullOrEmpty()) {
 					if (serverName == null) {
 						append("**Name:** `$clientName` -> ")
 					} else {
@@ -396,7 +396,7 @@ fun methodsToPages(
 					)
 				}
 
-				if (serverName != null && serverName.isNotEmpty()) {
+				if (!serverName.isNullOrEmpty()) {
 					if (clientName != null) {
 						append("\n")
 					}
