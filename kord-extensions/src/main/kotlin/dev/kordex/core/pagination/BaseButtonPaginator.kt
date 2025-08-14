@@ -23,7 +23,6 @@ import dev.kordex.core.i18n.generated.CoreTranslations
 import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.pagination.builders.PageTransitionCallback
 import dev.kordex.core.pagination.pages.Pages
-import dev.kordex.core.utils.capitalizeWords
 import dev.kordex.core.utils.scheduling.Scheduler
 import dev.kordex.core.utils.scheduling.Task
 import kotlinx.coroutines.runBlocking
@@ -86,14 +85,12 @@ public abstract class BaseButtonPaginator(
 
 	/** A button-oriented check function that matches based on the [owner] property. **/
 	public val defaultCheck: CheckWithCache<ComponentInteractionCreateEvent> = {
-		if (!active) {
-			fail()
-		} else if (owner == null) {
-			pass()
-		} else if (event.interaction.user.id == owner.id) {
-			pass()
-		} else {
-			fail()
+		when {
+			!active -> fail()
+			owner == null -> pass()
+			event.interaction.user.id == owner.id -> pass()
+
+			else -> fail()
 		}
 	}
 

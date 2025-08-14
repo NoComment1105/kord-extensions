@@ -74,17 +74,17 @@ public class TimestampConverter(
 
 	internal companion object {
 		internal fun parseFromString(string: String): FormattedTimestamp? {
-			if (string.startsWith(TIMESTAMP_PREFIX) && string.endsWith(TIMESTAMP_SUFFIX)) {
+			return if (string.startsWith(TIMESTAMP_PREFIX) && string.endsWith(TIMESTAMP_SUFFIX)) {
 				val inner = string.removeSurrounding(TIMESTAMP_PREFIX, TIMESTAMP_SUFFIX).split(":")
 				val epochSeconds = inner.getOrNull(0)
 				val format = inner.getOrNull(1)
 
-				return FormattedTimestamp(
+				FormattedTimestamp(
 					Instant.fromEpochSeconds(epochSeconds?.toLongOrNull() ?: return null),
 					TimestampType.fromFormatSpecifier(format) ?: return null
 				)
 			} else {
-				return null
+				null
 			}
 		}
 	}

@@ -32,10 +32,10 @@ inline fun <reified T> ConverterBuilder<T>.autocompleteVersions(
 	crossinline versions: suspend AutoCompleteInteraction.(event: AutoCompleteInteractionCreateEvent) -> List<String>,
 ) {
 	autoComplete { event ->
-		val partiallyTyped = focusedOption.value as? String
+		val partiallyTyped = focusedOption.value
 
 		val map = versions(event)
-			.filter { it.startsWith(partiallyTyped ?: "") }
+			.filter { it.startsWith(partiallyTyped) }
 			.take(MAX_RESULTS)
 			.associateBy { it }
 

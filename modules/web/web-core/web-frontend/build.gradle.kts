@@ -34,24 +34,36 @@ node {
 }
 
 val startTask = tasks.register<PnpmTask>("run") {
+	group = "application"
+	description = "Serve the frontend in development mode."
+
 	dependsOn(tasks.pnpmInstall)
 
 	args = listOf("run", "dev")
 }
 
 val lintTask = tasks.register<PnpmTask>("lintFrontend") {
+	group = "verification"
+	description = "Lint the frontend."
+
 	dependsOn(tasks.pnpmInstall)
 
 	args = listOf("run", "lint")
 }
 
 val formatTask = tasks.register<PnpmTask>("formatFrontend") {
+	group = "verification"
+	description = "Reformat the frontend."
+
 	dependsOn(tasks.pnpmInstall)
 
 	args = listOf("run", "format")
 }
 
 val buildTask = tasks.register<PnpmTask>("buildFrontend") {
+	group = "build"
+	description = "Build the frontend."
+
 	dependsOn(tasks.pnpmInstall)
 
 	inputs.dir("$projectDir/public")

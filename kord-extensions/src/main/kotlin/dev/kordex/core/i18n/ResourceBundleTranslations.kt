@@ -6,6 +6,9 @@
  * Any redistribution must include the specific provision above.
  */
 
+// We suppress this because the MessageFormatter isn't deprecated, it is new!
+@file:Suppress("kotlin:S1874", "DEPRECATION")
+
 package dev.kordex.core.i18n
 
 import com.ibm.icu.message2.MessageFormatter
@@ -19,7 +22,6 @@ import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.koin.core.component.inject
 import java.util.*
-import kotlin.Throws
 
 /**
  * Translation provider backed by Java's [ResourceBundle]s. This makes use of `.properties` files that are standard

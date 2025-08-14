@@ -74,8 +74,8 @@ public open class SlashCommandParser {
 
 			@Suppress("TooGenericExceptionCaught")
 			when (val converter = currentArg.converter) {
-				// It's worth noting that Discord handles validation for required converters, so we don't need to
-				// do that checking ourselves, really
+				// It is worth noting that Discord handles validation for required converters, so we technically
+				// don't need to do that checking ourselves.
 
 				is SingleConverter<*> -> try {
 					val parsed = if (currentValue != null) {

@@ -8,7 +8,6 @@
 
 package dev.kordex.test.bot.extensions
 
-import com.ibm.icu.impl.Assert.fail
 import dev.kord.common.entity.Permission
 import dev.kord.core.behavior.channel.asChannelOf
 import dev.kord.core.behavior.channel.editRolePermission

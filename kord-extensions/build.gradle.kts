@@ -62,7 +62,10 @@ dependencies {
 	kspTest(project(":annotations:annotation-processor"))
 }
 
-val generateVersion = tasks.create("generateVersion") {
+val generateVersion = tasks.register("generateVersion") {
+	group = "generation"
+	description = "Generate KordEx metadata file"
+
 	val output = layout.buildDirectory.file("generated/kordex/main/kotlin/dev/kordex/core/_Generated.kt")
 
 	notCompatibleWithConfigurationCache("This task should always be run.")

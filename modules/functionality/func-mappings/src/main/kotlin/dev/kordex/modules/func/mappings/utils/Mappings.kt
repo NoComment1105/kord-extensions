@@ -38,7 +38,7 @@ fun classesToPages(
 
 				val (clientName, serverName) = clazz.obfName.stringPairs()
 
-				if (clientName != null && clientName.isNotEmpty()) {
+				if (!clientName.isNullOrEmpty()) {
 					if (serverName == null) {
 						append("**Name:** `$clientName` -> ")
 					} else {

@@ -30,7 +30,7 @@ public fun Extension.apiRoutes(callback: RouteCallback) {
 	val webExtension = getKoin().get<ExtensibleBot>().findExtension<WebExtension>()!!
 
 	extraData.getOfOrPut<RouteCallbackList>(API_ROUTE_CALLBACKS_KEY) {
-		mutableListOf<RouteCallback>()
+		mutableListOf()
 	}.add {
 		route("/", callback)
 	}

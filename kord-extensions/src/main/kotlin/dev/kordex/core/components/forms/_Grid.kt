@@ -192,7 +192,7 @@ public fun WidgetGrid.setAtCoordinateOrFirstRow(coordinate: CoordinatePair?, wid
 			error("No rows are available to fit this widget into.")
 		}
 
-		val column = get(row).indexOf(null)
+		val column = this[row].indexOf(null)
 
 		set(row x column, widget)
 	} else {
@@ -207,7 +207,7 @@ public fun WidgetGrid.set(coordinate: CoordinatePair, widget: Widget<*>) {
 
 	end.throwIfInvalid("End coordinate")
 
-	val permutations = coordinate.permutationsUpto(end)
+	val permutations = coordinate.permutationsUpto(end).toList()
 	val existing = permutations.mapNotNull { get(it) }.toSet()
 
 	if (existing.isNotEmpty()) {

@@ -270,22 +270,28 @@ public class ConverterBuilderClassBuilder : KoinComponent {
 		builder.append("\n")
 		builder.append("            converter = converter")
 
-		if (types.contains(ConverterType.DEFAULTING)) {
-			builder.append(".toDefaulting(\n")
-			builder.append("                defaultValue = defaultValue,\n")
-			builder.append("                outputError = !ignoreErrors,\n")
-			builder.append("                nestedValidator = validator,\n")
-			builder.append("            )")
-		} else if (types.contains(ConverterType.OPTIONAL)) {
-			builder.append(".toOptional(\n")
-			builder.append("                outputError = !ignoreErrors,\n")
-			builder.append("                nestedValidator = validator,\n")
-			builder.append("            )")
-		} else if (types.contains(ConverterType.LIST)) {
-			builder.append(".toList(\n")
-			builder.append("                required = !ignoreErrors,\n")
-			builder.append("                nestedValidator = validator,\n")
-			builder.append("            )")
+		when {
+			types.contains(ConverterType.DEFAULTING) -> {
+				builder.append(".toDefaulting(\n")
+				builder.append("                defaultValue = defaultValue,\n")
+				builder.append("                outputError = !ignoreErrors,\n")
+				builder.append("                nestedValidator = validator,\n")
+				builder.append("            )")
+			}
+
+			types.contains(ConverterType.OPTIONAL) -> {
+				builder.append(".toOptional(\n")
+				builder.append("                outputError = !ignoreErrors,\n")
+				builder.append("                nestedValidator = validator,\n")
+				builder.append("            )")
+			}
+
+			types.contains(ConverterType.LIST) -> {
+				builder.append(".toList(\n")
+				builder.append("                required = !ignoreErrors,\n")
+				builder.append("                nestedValidator = validator,\n")
+				builder.append("            )")
+			}
 		}
 
 		builder.append(".withBuilder(this)")

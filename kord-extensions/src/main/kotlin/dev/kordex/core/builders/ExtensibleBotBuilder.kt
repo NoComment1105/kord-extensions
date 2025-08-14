@@ -228,22 +228,6 @@ public open class ExtensibleBotBuilder {
 	public var koinLogLevel: Level = Level.ERROR
 
 	/**
-	 * Set an event-filtering predicate, which may selectively prevent Kord events from being processed by returning
-	 * `false`.
-	 *
-	 * This only filters events created by Kord.
-	 * For events submitted by Kord Extensions or loaded extensions, see [kordExEventFilter].
-	 */
-	@Deprecated(
-		level = DeprecationLevel.ERROR,
-		message = "Disambiguation: Renamed to kordEventFilter.",
-		replaceWith = ReplaceWith("kordEventFilter"),
-	)
-	public fun eventFilter(predicate: suspend Event.() -> Boolean) {
-		kordEventFilter = predicate
-	}
-
-	/**
 	 * Set an event-filtering predicate, which may selectively prevent Kord-created events from being processed by
 	 * returning `false`.
 	 *

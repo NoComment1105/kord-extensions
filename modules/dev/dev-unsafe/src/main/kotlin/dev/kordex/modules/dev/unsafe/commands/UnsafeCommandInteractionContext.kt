@@ -29,6 +29,7 @@ import dev.kordex.core.pagination.EphemeralResponsePaginator
 import dev.kordex.core.pagination.PublicFollowUpPaginator
 import dev.kordex.core.pagination.PublicResponsePaginator
 import dev.kordex.core.pagination.builders.PaginatorBuilder
+import dev.kordex.modules.dev.unsafe.ERR_ACK_BEFORE_FOLLOWUP
 import dev.kordex.modules.dev.unsafe.annotations.UnsafeAPI
 import dev.kordex.modules.dev.unsafe.types.UnsafeInteractionContext
 import java.util.*
@@ -81,8 +82,7 @@ public interface UnsafeCommandInteractionContext :
 		when (val interaction = interactionResponse) {
 			is InteractionResponseBehavior -> interaction.createEphemeralFollowup { builder() }
 
-			null -> error("Acknowledge the interaction before trying to follow-up.")
-			else -> error("Unsupported initial interaction response type $interaction - please report this.")
+			null -> error(ERR_ACK_BEFORE_FOLLOWUP)
 		}
 
 	@UnsafeAPI
@@ -92,8 +92,7 @@ public interface UnsafeCommandInteractionContext :
 		when (val interaction = interactionResponse) {
 			is InteractionResponseBehavior -> interaction.createPublicFollowup { builder() }
 
-			null -> error("Acknowledge the interaction before trying to follow-up.")
-			else -> error("Unsupported initial interaction response type $interaction - please report this.")
+			null -> error(ERR_ACK_BEFORE_FOLLOWUP)
 		}
 
 	@UnsafeAPI
@@ -104,7 +103,6 @@ public interface UnsafeCommandInteractionContext :
 			is InteractionResponseBehavior -> interaction.edit { builder() }
 
 			null -> error("Acknowledge the interaction before trying to edit it.")
-			else -> error("Unsupported initial interaction response type $interaction - please report this.")
 		}
 
 	@UnsafeAPI
@@ -141,8 +139,8 @@ public interface UnsafeCommandInteractionContext :
 		return when (val interaction = interactionResponse) {
 			is PublicInteractionResponseBehavior -> PublicFollowUpPaginator(pages, interaction)
 
-			null -> error("Acknowledge the interaction before trying to follow-up.")
-			else -> error("Initial interaction response was not public.")
+			null -> error(ERR_ACK_BEFORE_FOLLOWUP)
+			else -> error("Initial interaction response wasn't public.")
 		}
 	}
 }

@@ -10,6 +10,6 @@ package dev.kordex.modules.func.welcome.blocks
 
 import dev.kord.core.event.interaction.InteractionCreateEvent
 
-interface InteractionBlock {
+fun interface InteractionBlock {
 	suspend fun handleInteraction(event: InteractionCreateEvent)
 }

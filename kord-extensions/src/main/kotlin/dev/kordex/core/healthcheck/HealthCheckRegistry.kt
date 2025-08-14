@@ -8,9 +8,7 @@
 
 package dev.kordex.core.healthcheck
 
-import dev.kordex.core.i18n.generated.CoreTranslations.Extensions.Sentry.Arguments.id
 import dev.kordex.core.utils.scheduling.Scheduler
-import io.sentry.MonitorSchedule.interval
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 

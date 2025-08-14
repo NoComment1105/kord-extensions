@@ -32,7 +32,6 @@ import kotlinx.datetime.Clock
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.koin.core.component.inject
-import org.koin.java.KoinJavaComponent.inject
 
 @Suppress("MagicNumber")
 @Serializable

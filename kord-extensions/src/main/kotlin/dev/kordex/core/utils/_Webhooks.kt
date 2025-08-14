@@ -21,6 +21,9 @@ import dev.kord.rest.builder.webhook.WebhookModifyBuilder
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
+/** @suppress **/
+public const val ERR_TOKEN_NULL: String = "Webhook token is null"
+
 /**
  * Edit this webhook using the token stored within the object.
  *
@@ -39,7 +42,7 @@ public suspend inline fun Webhook.editStored(
 	}
 
 	if (token == null) {
-		error("Webhook token is null")
+		error(ERR_TOKEN_NULL)
 	}
 
 	return edit(token!!, builder)
@@ -65,7 +68,7 @@ public suspend inline fun Webhook.executeStored(
 	}
 
 	if (token == null) {
-		error("Webhook token is null")
+		error(ERR_TOKEN_NULL)
 	}
 
 	return execute(token!!, threadId, builder)
@@ -92,7 +95,7 @@ public suspend inline fun Webhook.executeStoredIgnored(
 	}
 
 	if (token == null) {
-		error("Webhook token is null")
+		error(ERR_TOKEN_NULL)
 	}
 
 	executeIgnored(token!!, threadId, builder)

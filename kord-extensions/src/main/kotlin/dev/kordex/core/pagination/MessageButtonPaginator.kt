@@ -42,8 +42,8 @@ public class MessageButtonPaginator(
 	public val targetMessage: Message? = null,
 ) : BaseButtonPaginator(pages, chunkedPages, owner, timeoutSeconds, keepEmbed, switchEmoji, mutator, locale) {
 	init {
-		if (targetChannel == null && targetMessage == null) {
-			throw IllegalArgumentException("Must provide either a target channel or target message")
+		require(targetChannel == null && targetMessage == null) {
+			"Must provide either a target channel or target message"
 		}
 	}
 

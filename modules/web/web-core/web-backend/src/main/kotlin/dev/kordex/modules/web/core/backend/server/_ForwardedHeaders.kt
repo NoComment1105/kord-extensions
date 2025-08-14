@@ -15,7 +15,7 @@ import io.ktor.server.plugins.forwardedheaders.*
 
 public fun WebServer.configureForwardedHeaders(app: Application) {
 	when (config.reverseProxy.headerMode) {
-		ForwardedHeaderMode.None -> {}
+		ForwardedHeaderMode.None -> return
 
 		ForwardedHeaderMode.Forwarded -> app.install(ForwardedHeaders) {
 			when (val s = config.reverseProxy.headerStrategy) {

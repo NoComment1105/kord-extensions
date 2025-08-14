@@ -17,6 +17,7 @@ import dev.kordex.core.builders.extensions.SentryDataTypeBuilder
 import dev.kordex.core.koin.KordExKoinComponent
 import dev.kordex.core.sentry.SentryAdapter
 import dev.kordex.core.utils.MutableStringKeyedMap
+import dev.kordex.core.utils.StringKeyedMap
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.koin.core.component.inject
@@ -71,7 +72,7 @@ public abstract class SentryCapture : KordExKoinComponent {
 	 * Before submission to Sentry, it is important to process all maps with this function.
 	 */
 	@Suppress("LoopWithTooManyJumpStatements")
-	protected fun <T : Any> processMap(map: MutableStringKeyedMap<T>): MutableStringKeyedMap<T> {
+	protected fun <T : Any> processMap(map: StringKeyedMap<T>): MutableStringKeyedMap<T> {
 		val processedData: MutableStringKeyedMap<T> = mutableMapOf()
 
 		for ((key, value) in map) {

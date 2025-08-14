@@ -26,8 +26,8 @@ import java.util.*
 @Serializable(with = FixedLengthQueueSerializer::class)
 public class FixedLengthQueue<E : Any?>(public val maxSize: Int) : Queue<E> {
 	init {
-		if (maxSize <= 0) {
-			throw IllegalArgumentException("maxSize must be > 0")
+		require(maxSize > 0) {
+			"maxSize must be > 0"
 		}
 	}
 

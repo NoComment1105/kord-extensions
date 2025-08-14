@@ -55,7 +55,6 @@ import kotlinx.serialization.json.decodeFromJsonElement
 import org.koin.core.component.inject
 import org.koin.dsl.bind
 import java.util.concurrent.Executors
-import kotlin.Throws
 import kotlin.concurrent.thread
 
 /**
@@ -106,6 +105,7 @@ public open class ExtensibleBot(
 	public open val extensions: MutableStringKeyedMap<Extension> = mutableMapOf()
 
 	/** @suppress **/
+	@Suppress("kotlin:S6305")  // We have no choice here.
 	public open val eventPublisher: MutableSharedFlow<Any> = MutableSharedFlow()
 
 	/** A [Flow] representing a combined set of Kord events and Kord Extensions events. **/
@@ -343,12 +343,6 @@ public open class ExtensibleBot(
 		}
 
 		if (!initialized) {
-// 			eventHandlers.forEach { handler ->
-// 				handler.listenerRegistrationCallable?.invoke() ?: logger.error {
-// 					"Event handler $handler doesn't have a listener registration callback. This should never happen!"
-// 				}
-// 			}
-
 			initialized = true
 		}
 	}

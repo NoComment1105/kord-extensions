@@ -14,7 +14,7 @@ import dev.kordex.core.i18n.generated.CoreTranslations
 import dev.kordex.core.i18n.types.Key
 import java.util.*
 
-@Suppress("DEPRECATION", "DEPRECATION_ERROR")
+@Suppress("DEPRECATION", "DEPRECATION_ERROR", "kotlin:S1479")
 public fun Permission.toTranslationKey(): Key? = when (this) {
 	Permission.CreateEvents -> CoreTranslations.Permission.createEvents
 	Permission.CreateGuildExpressions -> CoreTranslations.Permission.createGuildExpressions

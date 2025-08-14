@@ -79,25 +79,12 @@ public class UnionConverter(
 		for (converter in converters) {
 			@Suppress("TooGenericExceptionCaught")
 			when (converter) {
-				is SingleConverter<*> -> try {
+				is SingleConverter<*>, is DefaultingConverter<*> -> try {
 					val result: Boolean = converter.parse(parser, context, named?.first())
 
 					if (result) {
 						converter.parseSuccess = true
-						this.parsed = converter.parsed
-
-						return 1
-					}
-				} catch (t: Throwable) {
-					if (shouldThrow) throw t
-				}
-
-				is DefaultingConverter<*> -> try {
-					val result: Boolean = converter.parse(parser, context, named?.first())
-
-					if (result) {
-						converter.parseSuccess = true
-						this.parsed = converter.parsed
+						this.parsed = converter.parsed!!
 
 						return 1
 					}
@@ -118,25 +105,12 @@ public class UnionConverter(
 					if (shouldThrow) throw t
 				}
 
-				is ListConverter<*> -> try {
+				is ListConverter<*>, is CoalescingConverter<*> -> try {
 					val result: Int = converter.parse(parser, context, named)
 
 					if (result > 0) {
 						converter.parseSuccess = true
-						this.parsed = converter.parsed
-
-						return result
-					}
-				} catch (t: Throwable) {
-					if (shouldThrow) throw t
-				}
-
-				is CoalescingConverter<*> -> try {
-					val result: Int = converter.parse(parser, context, named)
-
-					if (result > 0) {
-						converter.parseSuccess = true
-						this.parsed = converter.parsed
+						this.parsed = converter.parsed!!
 
 						return result
 					}
@@ -190,25 +164,12 @@ public class UnionConverter(
 		for (converter in converters) {
 			@Suppress("TooGenericExceptionCaught")
 			when (converter) {
-				is SingleConverter<*> -> try {
+				is SingleConverter<*>, is DefaultingConverter<*> -> try {
 					val result: Boolean = converter.parseOption(context, option)
 
 					if (result) {
 						converter.parseSuccess = true
-						this.parsed = converter.parsed
-
-						return true
-					}
-				} catch (t: Throwable) {
-					if (shouldThrow) throw t
-				}
-
-				is DefaultingConverter<*> -> try {
-					val result: Boolean = converter.parseOption(context, option)
-
-					if (result) {
-						converter.parseSuccess = true
-						this.parsed = converter.parsed
+						this.parsed = converter.parsed!!
 
 						return true
 					}
@@ -235,25 +196,12 @@ public class UnionConverter(
 						.withOrdinalPlaceholders(converter)
 				)
 
-				is CoalescingConverter<*> -> try {
+				is CoalescingConverter<*>, is DefaultingCoalescingConverter<*> -> try {
 					val result: Boolean = converter.parseOption(context, option)
 
 					if (result) {
 						converter.parseSuccess = true
-						this.parsed = converter.parsed
-
-						return true
-					}
-				} catch (t: Throwable) {
-					if (shouldThrow) throw t
-				}
-
-				is DefaultingCoalescingConverter<*> -> try {
-					val result: Boolean = converter.parseOption(context, option)
-
-					if (result) {
-						converter.parseSuccess = true
-						this.parsed = converter.parsed
+						this.parsed = converter.parsed!!
 
 						return true
 					}
@@ -268,7 +216,7 @@ public class UnionConverter(
 						converter.parseSuccess = true
 						this.parsed = converter.parsed!!
 
-						return result
+						return true
 					}
 				} catch (t: Throwable) {
 					if (shouldThrow) throw t

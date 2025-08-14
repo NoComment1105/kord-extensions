@@ -57,6 +57,8 @@ dependencies {
 	detektPlugins(libs.detekt)
 	detektPlugins(libs.detekt.libraries)
 
+	implementation(project(":kord-extensions"))
+	implementation(project(":annotations:annotations"))
 	implementation(libs.bundles.logging)
 	implementation(libs.kotlin.stdlib)
 
@@ -65,9 +67,6 @@ dependencies {
 	testImplementation(libs.logback)
 	testImplementation(libs.logback.groovy)
 
-	implementation(project(":kord-extensions"))
-
-	implementation(project(":annotations:annotations"))
 	ksp(project(":annotations:annotation-processor"))
 }
 

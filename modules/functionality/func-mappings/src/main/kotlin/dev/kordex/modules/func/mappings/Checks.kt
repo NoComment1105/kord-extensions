@@ -114,38 +114,46 @@ suspend fun CheckContext<ChatInputCommandInteractionCreateEvent>.allowedChannel(
 	val logger = KotlinLogging.logger { }
 	val channel = channelFor(event)
 
-	if (channel == null) {
-		logger.trace { "Passing: Event is not channel-related" }
-
-		pass()
-	} else if (channel !is GuildChannel) {
-		logger.trace { "Passing: Command was sent privately" }
-
-		pass()  // It's a DM
-	} else if (allowed.isNotEmpty()) {
-		if (allowed.contains(channel.id)) {
-			logger.trace { "Passing: Event happened in an allowed channel" }
+	when {
+		channel == null -> {
+			logger.trace { "Passing: Event is not channel-related" }
 
 			pass()
-		} else {
-			logger.debug { "Failing: Event did not happen in an allowed channel" }
-
-			fail()
 		}
-	} else if (banned.isNotEmpty()) {
-		if (!banned.contains(channel.id)) {
-			logger.trace { "Passing: Event did not happen in a banned channel" }
+
+		channel !is GuildChannel -> {
+			logger.trace { "Passing: Command was sent privately" }
+
+			pass()  // It's a DM
+		}
+
+		allowed.isNotEmpty() ->
+			if (allowed.contains(channel.id)) {
+				logger.trace { "Passing: Event happened in an allowed channel" }
+
+				pass()
+			} else {
+				logger.debug { "Failing: Event did not happen in an allowed channel" }
+
+				fail()
+			}
+
+		banned.isNotEmpty() ->
+			if (!banned.contains(channel.id)) {
+				logger.trace { "Passing: Event did not happen in a banned channel" }
+
+				pass()
+			} else {
+				logger.debug { "Failing: Event happened in a banned channel" }
+
+				fail()
+			}
+
+		else -> {
+			logger.trace { "Passing: No allowed or banned channels configured" }
 
 			pass()
-		} else {
-			logger.debug { "Failing: Event happened in a banned channel" }
-
-			fail()
 		}
-	} else {
-		logger.trace { "Passing: No allowed or banned channels configured" }
-
-		pass()
 	}
 }
 
@@ -171,33 +179,39 @@ suspend fun CheckContext<ChatInputCommandInteractionCreateEvent>.allowedGuild(
 	val logger = KotlinLogging.logger { }
 	val guild = guildFor(event)
 
-	if (guild == null) {
-		logger.trace { "Passing: Event is not guild-related" }
-
-		pass()
-	} else if (allowed.isNotEmpty()) {
-		if (allowed.contains(guild.id)) {
-			logger.trace { "Passing: Event happened in an allowed guild" }
+	when {
+		guild == null -> {
+			logger.trace { "Passing: Event is not guild-related" }
 
 			pass()
-		} else {
-			logger.debug { "Failing: Event did not happen in an allowed guild" }
-
-			fail()
 		}
-	} else if (banned.isNotEmpty()) {
-		if (!banned.contains(guild.id)) {
-			logger.trace { "Passing: Event did not happen in a banned guild" }
+
+		allowed.isNotEmpty() ->
+			if (allowed.contains(guild.id)) {
+				logger.trace { "Passing: Event happened in an allowed guild" }
+
+				pass()
+			} else {
+				logger.debug { "Failing: Event did not happen in an allowed guild" }
+
+				fail()
+			}
+
+		banned.isNotEmpty() ->
+			if (!banned.contains(guild.id)) {
+				logger.trace { "Passing: Event did not happen in a banned guild" }
+
+				pass()
+			} else {
+				logger.debug { "Failing: Event happened in a banned guild" }
+
+				fail()
+			}
+
+		else -> {
+			logger.trace { "Passing: No allowed or banned guilds configured" }
 
 			pass()
-		} else {
-			logger.debug { "Failing: Event happened in a banned guild" }
-
-			fail()
 		}
-	} else {
-		logger.trace { "Passing: No allowed or banned guilds configured" }
-
-		pass()
 	}
 }

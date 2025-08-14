@@ -33,6 +33,7 @@ public open class Page(
 	public open val bot: ExtensibleBot by inject()
 
 	/** Create an embed builder for this page. **/
+	@Suppress("kotlin:S107")  // TODO: Refactor into a proper builder?
 	public open suspend fun build(
 		locale: Locale,
 		pageNum: Int,

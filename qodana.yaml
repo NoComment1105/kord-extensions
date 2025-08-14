@@ -13,4 +13,4 @@ plugins:
   - id: "com.intellij.exposed"
 
 linter: jetbrains/qodana-jvm:2025.2
-bootstrap: "sh ./gradlew generateKeysClass kspKotlin -x dokkaHtml -x dokkaJavadoc -x javadocJar"
+bootstrap: "sh ./gradlew generateKeysClass kspKotlin -x dokkaHtml -x dokkaJavadoc -x javadocJar -x :modules:web:web-core:web-frontend:buildFrontend"

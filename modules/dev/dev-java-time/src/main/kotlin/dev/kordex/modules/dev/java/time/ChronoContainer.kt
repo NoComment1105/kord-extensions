@@ -203,7 +203,9 @@ public class ChronoContainer {
 				ChronoUnit.MONTHS -> values[unit] = period.months.toLong()
 				ChronoUnit.YEARS -> values[unit] = period.years.toLong()
 
-				else -> {}
+				else -> {
+					// TODO: Store operations in a map instead.
+				}
 			}
 		}
 	}
@@ -218,7 +220,9 @@ public class ChronoContainer {
 				ChronoUnit.MINUTES -> values[unit] = duration.toMinutesPart().toLong()
 				ChronoUnit.HOURS -> values[unit] = duration.toHoursPart().toLong()
 
-				else -> {}
+				else -> {
+					// TODO: Store operations in a map instead.
+				}
 			}
 		}
 	}
@@ -233,7 +237,9 @@ public class ChronoContainer {
 				ChronoUnit.MONTHS -> values[unit] = period.months.toLong()
 				ChronoUnit.YEARS -> values[unit] = period.years.toLong()
 
-				else -> {}
+				else -> {
+					// TODO: Store operations in a map instead.
+				}
 			}
 		}
 	}

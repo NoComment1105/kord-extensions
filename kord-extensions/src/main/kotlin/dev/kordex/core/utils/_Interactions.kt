@@ -50,7 +50,7 @@ public suspend inline fun AutoCompleteInteraction.suggestStringMap(
 	strategy: FilterStrategy = FilterStrategy.Prefix,
 	suggestInputWithoutMatches: Boolean = false,
 ) {
-	val option = focusedOption.value as? String
+	val option = focusedOption.value
 	var options = map
 
 	if (option != null) {
@@ -121,7 +121,7 @@ public suspend inline fun AutoCompleteInteraction.suggestLongMap(
 	strategy: FilterStrategy = FilterStrategy.Prefix,
 	suggestInputWithoutMatches: Boolean = false,
 ) {
-	val option = focusedOption.value as? String
+	val option = focusedOption.value
 	var options = map
 
 	if (option != null) {
@@ -192,7 +192,7 @@ public suspend inline fun AutoCompleteInteraction.suggestNumberMap(
 	strategy: FilterStrategy = FilterStrategy.Prefix,
 	suggestInputWithoutMatches: Boolean = false,
 ) {
-	val option = focusedOption.value as? String
+	val option = focusedOption.value
 	var options = map
 
 	if (option != null) {

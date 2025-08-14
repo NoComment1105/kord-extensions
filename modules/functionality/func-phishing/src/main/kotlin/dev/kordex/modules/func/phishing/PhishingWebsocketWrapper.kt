@@ -27,7 +27,6 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import org.koin.core.component.inject
-import org.koin.java.KoinJavaComponent.inject
 
 /**
  * Class wrapping the Sinking Yachts phishing API websocket. Mostly for lifecycle control, since we may need to

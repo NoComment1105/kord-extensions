@@ -8,6 +8,7 @@
 
 package dev.kordex.modules.web.core.backend.pages
 
+@Suppress("kotlin:S6526")  // Will have functions later.
 public abstract class Page {
 	public abstract val path: String
 

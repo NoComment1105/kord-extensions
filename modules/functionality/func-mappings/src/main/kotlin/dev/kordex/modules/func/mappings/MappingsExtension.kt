@@ -6,7 +6,11 @@
  * Any redistribution must include the specific provision above.
  */
 
-@file:Suppress("StringLiteralDuplication", "UnstableApiUsage")
+@file:Suppress(
+	"StringLiteralDuplication",
+	"UnstableApiUsage",
+	"kotlin:S1192",  // This needs a rewrite anyway...
+)
 
 @file:OptIn(DelicateCoroutinesApi::class, ExperimentalCoroutinesApi::class)
 
@@ -32,7 +36,6 @@ import dev.kordex.core.extensions.Extension
 import dev.kordex.core.extensions.ephemeralSlashCommand
 import dev.kordex.core.extensions.publicSlashCommand
 import dev.kordex.core.i18n.EMPTY_KEY
-import dev.kordex.core.i18n.capitalizeWords
 import dev.kordex.core.i18n.toKey
 import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.i18n.withContext
@@ -51,20 +54,18 @@ import dev.kordex.modules.func.mappings.i18n.generated.MappingsTranslations
 import dev.kordex.modules.func.mappings.plugins.MappingsPlugin
 import dev.kordex.modules.func.mappings.storage.MappingsConfig
 import dev.kordex.modules.func.mappings.utils.*
-import dev.kordex.modules.func.mappings.utils.MojangReleaseContainer
-import dev.kordex.modules.func.mappings.utils.YarnReleaseContainer
-import dev.kordex.modules.func.mappings.utils.toNamespace
 import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.flatMapMerge
+import kotlinx.coroutines.flow.toSet
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.withContext
 import me.shedaniel.linkie.*
 import me.shedaniel.linkie.namespaces.*
 import me.shedaniel.linkie.utils.*
-import java.util.Locale
-import kotlin.collections.set
+import java.util.*
 import kotlin.error
 import kotlin.io.path.Path
 import kotlin.io.path.createDirectory
@@ -1165,11 +1166,9 @@ class MappingsExtension : Extension() {
 							QueryType.CLASS -> return@mapValues clazz
 							QueryType.METHOD -> clazz.methods
 							QueryType.FIELD -> clazz.fields
-							else -> error("`$type` isn't `class`, `field`, or `method`?????")
+						}.filter { mapping ->
+							mapping.obfName.preferredName == it.value
 						}
-							.filter { mapping ->
-								mapping.obfName.preferredName == it.value
-							}
 
 						// NPE escapes the try block so it's ok
 						val inputDesc = it.key.descProvider(inputContainer)!!

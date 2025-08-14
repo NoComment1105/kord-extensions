@@ -27,7 +27,6 @@ import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.pagination.MessageButtonPaginator
 import dev.kordex.core.pagination.builders.PaginatorBuilder
 import dev.kordex.core.utils.MutableStringKeyedMap
-import dev.kordex.core.utils.getLocale
 import dev.kordex.core.utils.respond
 import dev.kordex.parser.StringParser
 

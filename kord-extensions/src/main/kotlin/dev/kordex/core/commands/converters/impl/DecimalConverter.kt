@@ -24,7 +24,6 @@ import dev.kordex.core.i18n.generated.CoreTranslations
 import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.i18n.withContext
 import dev.kordex.parser.StringParser
-import kotlinx.coroutines.withContext
 
 /**
  * Argument converter for decimal arguments, converting them into [Double].

@@ -28,7 +28,6 @@ import dev.kordex.core.sentry.SentryContext
 import dev.kordex.core.sentry.captures.SentryBreadcrumbCapture
 import dev.kordex.core.types.TranslatableContext
 import dev.kordex.core.utils.MutableStringKeyedMap
-import jdk.internal.net.http.common.Log.channel
 import org.koin.core.component.inject
 import java.util.*
 

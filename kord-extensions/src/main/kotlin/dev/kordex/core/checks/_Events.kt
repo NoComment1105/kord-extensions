@@ -7,6 +7,7 @@
  */
 
 @file:OptIn(KordUnsafe::class, KordExperimental::class)
+@file:Suppress("kotlin:S1479")  // Large when blocks are required unless Kord switches to typed event bases.
 
 package dev.kordex.core.checks
 

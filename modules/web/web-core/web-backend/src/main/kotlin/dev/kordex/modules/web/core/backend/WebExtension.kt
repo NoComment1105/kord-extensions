@@ -19,7 +19,6 @@ import dev.kordex.core.utils.getOfOrNull
 import dev.kordex.core.utils.getOfOrPut
 import dev.kordex.modules.web.core.backend.config.WebServerConfig
 import dev.kordex.modules.web.core.backend.server.WebServer
-import dev.kordex.modules.web.core.backend.types.RouteCallback
 import dev.kordex.modules.web.core.backend.types.RouteCallbackList
 import dev.kordex.modules.web.core.backend.utils.deleteFromServer
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -67,7 +66,9 @@ public class WebExtension(private val config: WebServerConfig) : Extension() {
 					ExtensionState.UNLOADING -> event.extension.removeRoutes()
 					ExtensionState.FAILED_LOADING -> event.extension.removeRoutes()
 
-					else -> {}
+					else -> {
+						// Ignore irrelevant events.
+					}
 				}
 			}
 		}
@@ -94,7 +95,7 @@ public class WebExtension(private val config: WebServerConfig) : Extension() {
 		logger.trace { "Registering routes for extension: $name" }
 
 		val callbacks = extraData.getOfOrPut<RouteCallbackList>(API_ROUTE_CALLBACKS_KEY) {
-			mutableListOf<RouteCallback>()
+			mutableListOf()
 		}
 
 		val baseRoute = extraData.getOfOrPut<Route>(API_ROUTE_BASE_KEY) {

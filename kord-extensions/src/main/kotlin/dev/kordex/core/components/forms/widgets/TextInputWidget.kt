@@ -14,7 +14,6 @@ import dev.kordex.core.i18n.EMPTY_VALUE_STRING
 import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.koin.KordExKoinComponent
 import io.github.oshai.kotlinlogging.KotlinLogging
-import org.apache.commons.validator.GenericValidator.maxLength
 import java.util.*
 
 /** The max number of characters that can be present in the widget's input. **/

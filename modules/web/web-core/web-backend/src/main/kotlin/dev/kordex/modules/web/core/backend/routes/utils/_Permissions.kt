@@ -22,7 +22,7 @@ import kotlinx.serialization.Serializable
 import org.koin.core.component.inject
 
 @Suppress("FunctionOnlyReturningConstant")
-public suspend fun ApplicationCall.allow(): Boolean =
+public fun ApplicationCall.allow(): Boolean =
 	true
 
 public suspend fun ApplicationCall.deny(body: DenyBuilder.() -> Unit): Boolean {

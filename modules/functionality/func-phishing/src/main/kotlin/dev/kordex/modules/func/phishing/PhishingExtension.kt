@@ -376,7 +376,7 @@ class PhishingExtension(private val settings: ExtPhishingBuilder) : Extension() 
 		}
 	}
 
-	private suspend fun parseDomains(content: String): MutableSet<String> {
+	private suspend fun parseDomains(content: String): Set<String> {
 		val domains: MutableSet<String> = mutableSetOf()
 
 		for (match in settings.urlRegex.findAll(content)) {
@@ -470,7 +470,7 @@ class PhishingExtension(private val settings: ExtPhishingBuilder) : Extension() 
 				.first()
 
 			if (element != null) {
-				val content = element.attributes().get("content")
+				val content = element.attributes()["content"]
 
 				val newUrl = content
 					.split(";")

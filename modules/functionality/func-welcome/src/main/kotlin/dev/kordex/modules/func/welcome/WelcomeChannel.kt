@@ -48,7 +48,6 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.toList
 import kotlinx.serialization.decodeFromString
 import org.koin.core.component.inject
-import org.koin.java.KoinJavaComponent.inject
 import kotlin.collections.set
 
 class WelcomeChannel(

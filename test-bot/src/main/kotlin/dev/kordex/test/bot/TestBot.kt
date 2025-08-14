@@ -52,7 +52,7 @@ public suspend fun main() {
 			ephemeral = false
 
 			general {
-				message { locale ->
+				message {
 					embed {
 						color = DISCORD_BLURPLE
 						title = "Test Bot"
