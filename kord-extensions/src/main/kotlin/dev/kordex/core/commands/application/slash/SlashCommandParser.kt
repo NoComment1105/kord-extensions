@@ -315,6 +315,8 @@ public open class SlashCommandParser {
 
 				else -> error("Unsupported type for converter: $converter")
 			}
+
+			currentArg.converter.mutate(context)
 		}
 
 		return argumentsObj

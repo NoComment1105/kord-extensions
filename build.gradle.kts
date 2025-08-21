@@ -30,7 +30,6 @@ sonar {
 	val homepageUrl = "https://kordex.dev"
 
 	properties {
-		// See https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Gradle#AnalyzingwithSonarQubeScannerforGradle-Configureanalysisproperties
 		property("sonar.sourceEncoding", "UTF-8")
 		property("sonar.projectName", "kord-extensions")
 		property("sonar.projectKey", "${org}_${"kord-extensions"}")
@@ -49,7 +48,7 @@ sonar {
 }
 
 repositories {
-	// This is here because Dokka will fail to build in CI otherwise.
+	// This is here because Dokka and Kover will fail to build in CI otherwise.
 
 	google()
 	mavenCentral()

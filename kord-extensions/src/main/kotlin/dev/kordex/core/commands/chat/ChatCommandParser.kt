@@ -32,7 +32,6 @@ import dev.kordex.parser.StringParser
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.koin.core.component.inject
 import java.util.*
-import kotlin.collections.set
 
 private val logger = KotlinLogging.logger {}
 
@@ -163,17 +162,17 @@ public open class ChatCommandParser : KordExKoinComponent {
 			is ArgumentParsingException -> throw t
 
 			is DiscordRelayedException -> throw ArgumentParsingException(
-					CoreTranslations.ArgumentParser.Error.errorInArgument
-						.withContext(context)
-						.withOrdinalPlaceholders(
-							argument.displayName,
-							argument.converter.handleError(t, context)
-						),
+				CoreTranslations.ArgumentParser.Error.errorInArgument
+					.withContext(context)
+					.withOrdinalPlaceholders(
+						argument.displayName,
+						argument.converter.handleError(t, context)
+					),
 
-					argument,
-					arguments,
-					parser
-				)
+				argument,
+				arguments,
+				parser
+			)
 
 			else -> {
 				logger.warn(t) { "Exception thrown by argument: ${argument.displayName.key}" }
@@ -244,7 +243,7 @@ public open class ChatCommandParser : KordExKoinComponent {
 		val hasKwargs = kwArgs != null
 
 		when (val c = argument.converter) {
-			is SingleConverter<*> ->  {
+			is SingleConverter<*> -> {
 				result as Boolean
 
 				if ((c.required || hasKwargs) && !result) {
@@ -470,6 +469,8 @@ public open class ChatCommandParser : KordExKoinComponent {
 			}
 
 			checkResult(argumentsObj, currentArg, parser, context, kwValue, parsed)
+
+			currentArg.converter.mutate(context)
 		}
 
 		val allRequiredArgs = argsMap.count { it.value.converter.required }

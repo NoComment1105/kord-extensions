@@ -85,18 +85,14 @@ public abstract class Converter<InputType : Any?, OutputType : Any?, NamedInputT
 
 	/** For delegation, retrieve the parsed value if it's been set, or null if it hasn't. **/
 	public operator fun getValue(thisRef: Arguments, property: KProperty<*>): OutputType {
-		try {
-			return if (::genericBuilder.isInitialized && genericBuilder.mutator != null) {
-				genericBuilder.mutator!!(parsed)
-			} else {
-				parsed
-			}
+		return try {
+			parsed
 		} catch (e: UninitializedPropertyAccessException) {
 			throw UninitializedPropertyAccessException(
 				"Parsed value accessed before it has been filled." +
 					"\n\n" +
 					"This may happen when arguments are accessed from other argument builders out of order, users " +
-					"provide arguments in the wrong order, or previous arguments are accessed in autoComplete " +
+					"provide arguments in the wrong order, or previous arguments are accessed in `autoComplete` " +
 					"builders and `parseForAutocomplete` is not overridden to be `true` in your `Arguments` subclass." +
 					"\n\n" +
 					"If you believe this exception was thrown due to a bug, please raise an issue on the Kord " +
@@ -128,6 +124,17 @@ public abstract class Converter<InputType : Any?, OutputType : Any?, NamedInputT
 
 			validationContext.throwIfFailed()
 		}
+	}
+
+	/** Call the mutator lambda, if one was provided. **/
+	public open suspend fun mutate(context: CommandContext): OutputType {
+		if (parseSuccess) {
+			genericBuilder.mutator?.let { actualMutator ->
+				parsed = actualMutator.invoke(context, parsed)
+			}
+		}
+
+		return parsed
 	}
 
 	/**
