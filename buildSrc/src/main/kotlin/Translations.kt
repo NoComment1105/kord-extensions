@@ -52,36 +52,15 @@ fun Project.getTranslations(
 	bundle: String = name,
 	translationsClass: String = "Translations",
 ) {
-	val outputDir = project.layout.buildDirectory.dir("translations")
-	val gitDir = project.layout.buildDirectory.dir("translationsGit")
+	val gitDir = rootProject.layout.buildDirectory.dir("generated/git/translations")
 
+	val outputDir = project.layout.buildDirectory.dir("translations")
 	val classOutputDir = project.layout.buildDirectory
 		.dir("generated/kordex/main/kotlin")
 
 	project.extensions.getByType<KotlinJvmProjectExtension>().sourceSets.getByName("main") {
 		kotlin {
 			srcDir(classOutputDir)
-		}
-	}
-
-	val gitTask = tasks.create("getTranslations") {
-		group = "generation"
-		description = "Clone KordEx translations from Git."
-
-		actions.add {
-			if (!gitDir.get().asFile.exists()) {
-				gitDir.get().asFile.mkdirs()
-
-				runCommand(
-					"git clone https://github.com/Kord-Extensions/translations.git translationsGit",
-					project.layout.buildDirectory.get().asFile.path
-				)
-			} else {
-				runCommand(
-					"git pull",
-					gitDir.get().asFile.path
-				)
-			}
 		}
 	}
 
@@ -92,7 +71,7 @@ fun Project.getTranslations(
 		from(gitDir.get().dir(name))
 		into(outputDir.get().dir("translations/kordex"))
 
-		dependsOn(gitTask)
+		dependsOn(rootProject.tasks.named("pullTranslations"))
 	}
 
 	val generateTask = tasks.create("generateKeysClass") {

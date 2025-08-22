@@ -1,5 +1,7 @@
 plugins {
 	`kotlin-dsl`
+
+	kotlin("plugin.serialization") version "1.9.24"
 }
 
 repositories {
@@ -20,6 +22,8 @@ dependencies {
 	implementation("org.jetbrains.dokka", "dokka-gradle-plugin", "1.9.20")
 	implementation("org.sonarqube:org.sonarqube.gradle.plugin:6.2.0.5505")
 	implementation("org.jetbrains.kotlinx.kover:org.jetbrains.kotlinx.kover.gradle.plugin:0.9.1")
+
+	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
 	implementation(gradleApi())
 	implementation(localGroovy())

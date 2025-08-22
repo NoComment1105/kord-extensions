@@ -17,6 +17,8 @@ plugins {
 	id("org.jetbrains.dokka")
 	id("org.jetbrains.kotlinx.kover")
 	id("org.sonarqube")
+
+	`startup-plugin`
 }
 
 val projectVersion: String by project

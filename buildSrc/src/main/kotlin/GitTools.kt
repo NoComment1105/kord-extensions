@@ -1,6 +1,11 @@
 import org.gradle.api.Project
 import java.io.ByteArrayOutputStream
 
+object GitCommitState {
+	var branch: String? = null
+	var hash: String? = null
+}
+
 fun Project.runCommand(command: String): String {
 	val output = ByteArrayOutputStream()
 
@@ -38,26 +43,29 @@ fun Project.runCommand(command: String, cwd: Any): String {
 }
 
 fun Project.getCurrentGitBranch(): String {  // https://gist.github.com/lordcodes/15b2a4aecbeff7c3238a70bfd20f0931
-	var gitBranch = "Unknown branch"
+	if (GitCommitState.branch == null) {
+		GitCommitState.branch = "Unknown branch"
 
-	try {
-		gitBranch = runCommand("git rev-parse --abbrev-ref HEAD").trim()
-	} catch (t: Throwable) {
-		println(t)
+		try {
+			GitCommitState.branch = runCommand("git rev-parse --abbrev-ref HEAD").trim()
+		} catch (t: Throwable) {
+			println(t)
+		}
 	}
 
-	return gitBranch
+	return GitCommitState.branch!!
 }
 
-
 fun Project.getCurrentGitHash(): String {  // https://gist.github.com/lordcodes/15b2a4aecbeff7c3238a70bfd20f0931
-	var gitHash = "unknown"
+	if (GitCommitState.hash == null) {
+		GitCommitState.hash = "unknown"
 
-	try {
-		gitHash = runCommand("git rev-parse --short HEAD").trim()
-	} catch (t: Throwable) {
-		println(t)
+		try {
+			GitCommitState.hash = runCommand("git rev-parse --short HEAD").trim()
+		} catch (t: Throwable) {
+			println(t)
+		}
 	}
 
-	return gitHash
+	return GitCommitState.hash!!
 }
