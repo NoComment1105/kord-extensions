@@ -1,0 +1,69 @@
+name: Sonar (Forks)
+
+on:
+  pull_request_target:
+
+concurrency:
+  group: "kordex-${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # Don't run if on the same repo
+    if: github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
+
+    steps:
+      - name: "Checkout Base"
+        uses: actions/checkout@v4
+
+        with:
+          fetch-depth: 0
+          path: "./base"
+          ref: "${{ github.event.pull_request.base.sha }}"
+
+      - name: "Checkout PR"
+        uses: actions/checkout@v4
+
+        with:
+          fetch-depth: 0
+          path: "./pr"
+          repository: '${{ github.event.pull_request.head.repo.full_name }}'
+          ref: "${{ github.event.pull_request.head.sha }}"
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+
+        with:
+          java-version: 17
+          distribution: temurin
+
+      - name: Set up Kotlin
+        uses: fwilhe2/setup-kotlin@1694fbd49c38ab354ff58e249fe2d73d74a1c6eb # v1.2
+
+      - name: Set up Gradle properties
+        run: |
+          mkdir -p ~/.gradle
+          echo "org.gradle.jvmargs=-XX:MaxMetaspaceSize=5G" >> ~/.gradle/gradle.properties
+
+      - name: Check files
+        working-directory: "./pr"
+        run: "kotlin ./base/.github/check-safe.main.kts"
+
+        env:
+          BASE_SHA: ""
+          TARGET_SHA: ""
+
+      - name: Gradle (Build)
+        working-directory: "./pr"
+        run: >-
+          ./gradlew sonar -x build -x test
+          -Dsonar.pullrequest.key=${{ github.event.pull_request.number }}
+          -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }}
+          -Dsonar.pullrequest.base=${{ github.event.pull_request.base.ref }}
+          -Dsonar.scm.revision=${{ github.event.pull_request.head.sha }}
+
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
