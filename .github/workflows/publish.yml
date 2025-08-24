@@ -16,6 +16,8 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
+
+    # Don't run on forks
     if: github.repository == 'Kord-Extensions/kord-extensions'
 
     steps:
@@ -95,6 +97,7 @@ jobs:
       - name: Gradle (Publish)
         run: "./gradlew publish"
 
+        # Only publish snapshots
         if: contains(steps.project-version.outputs.version, '-SNAPSHOT')
 
         env:
