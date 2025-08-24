@@ -4,7 +4,7 @@ on:
   pull_request_target:
 
 concurrency:
-  group: "kordex-${{ github.workflow }}-${{ github.ref }}"
+  group: "kordex-${{ github.workflow }}-${{ github.event.pull_request.head.repo.full_name }}-${{ github.event.pull_request.head.ref }}"
   cancel-in-progress: true
 
 jobs:
@@ -23,6 +23,9 @@ jobs:
           path: "./base"
           ref: "${{ github.event.pull_request.base.sha }}"
 
+      - name: List Files (Base)
+        run: ls -l ./base ./base/*
+
       - name: "Checkout PR"
         uses: actions/checkout@v4
 
@@ -31,6 +34,9 @@ jobs:
           path: "./pr"
           repository: '${{ github.event.pull_request.head.repo.full_name }}'
           ref: "${{ github.event.pull_request.head.sha }}"
+
+      - name: List Files (PR)
+        run: ls -l ./pr ./pr/*
 
       - name: Set up Java
         uses: actions/setup-java@v4
