@@ -115,7 +115,7 @@ public open class Task(
 				if (t is CancellationException && t.cause == null) {
 					logger.trace { "Task cancelled." }
 				} else {
-					logger.error(t) { "Error running scheduled callback." }
+					logger.error(t) { "Error running scheduled callback $name." }
 
 					if (sentry.enabled) {
 						sentryContext.captureThrowable(t) {
@@ -151,7 +151,7 @@ public open class Task(
 		try {
 			callback()
 		} catch (t: Throwable) {
-			logger.error(t) { "Error running scheduled callback." }
+			logger.error(t) { "Error running scheduled callback $name." }
 		}
 	}
 
