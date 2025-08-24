@@ -24,7 +24,7 @@ jobs:
           ref: "${{ github.event.pull_request.base.sha }}"
 
       - name: List Files (Base)
-        run: ls -l ./base ./base/*
+        run: ls -al ./base ./base/* ./base/.github/*
 
       - name: "Checkout PR"
         uses: actions/checkout@v4
@@ -36,7 +36,7 @@ jobs:
           ref: "${{ github.event.pull_request.head.sha }}"
 
       - name: List Files (PR)
-        run: ls -l ./pr ./pr/*
+        run: ls -al ./pr ./pr/* ./pr/.github/*
 
       - name: Set up Java
         uses: actions/setup-java@v4
