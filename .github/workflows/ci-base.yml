@@ -1,13 +1,10 @@
-name: CI (Base)
+name: CI (Base Repo)
 
 on:
   push:
     branches-ignore:
       - "gh-pages"
       - "root"
-
-  pull_request:
-  merge_group:
 
 concurrency:
   group: "kordex-${{ github.workflow }}-${{ github.ref }}"

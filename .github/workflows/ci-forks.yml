@@ -1,4 +1,4 @@
-name: CI (Forks)
+name: CI (Forks/PRs)
 
 on:
   push:
@@ -16,8 +16,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # Run only on forks
-    if: github.repository != 'Kord-Extensions/kord-extensions'
+    # Run only on forks or PRs
+    if: github.repository != 'Kord-Extensions/kord-extensions' || github.event_name == 'pull_request'
 
     steps:
       - uses: actions/checkout@v4

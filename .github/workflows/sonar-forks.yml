@@ -55,7 +55,7 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           TARGET_SHA: ${{ github.event.pull_request.head.sha }}
 
-      - name: Gradle (Build)
+      - name: Gradle (Sonar)
         working-directory: "./pr"
         run: >-
           ./gradlew sonar -x build -x test
