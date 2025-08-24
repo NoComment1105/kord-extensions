@@ -52,8 +52,8 @@ jobs:
         run: "kotlin ${{ github.workspace }}/base/.github/check-safe.main.kts"
 
         env:
-          BASE_SHA: ""
-          TARGET_SHA: ""
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          TARGET_SHA: ${{ github.event.pull_request.head.sha }}
 
       - name: Gradle (Build)
         working-directory: "./pr"
