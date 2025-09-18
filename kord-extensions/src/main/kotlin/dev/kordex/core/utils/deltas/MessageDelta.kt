@@ -6,13 +6,16 @@
  * Any redistribution must include the specific provision above.
  */
 
+@file:OptIn(ExperimentalTime::class)
+
 package dev.kordex.core.utils.deltas
 
 import dev.kord.common.entity.Snowflake
 import dev.kord.common.entity.optional.Optional
 import dev.kord.core.entity.*
-import kotlinx.datetime.Instant
 import kotlin.contracts.contract
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 /**
  * Represents the difference between two Kord [Message] objects.

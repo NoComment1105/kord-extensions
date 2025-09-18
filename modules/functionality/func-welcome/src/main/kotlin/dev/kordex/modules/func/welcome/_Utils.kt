@@ -6,6 +6,8 @@
  * Any redistribution must include the specific provision above.
  */
 
+@file:OptIn(ExperimentalTime::class)
+
 package dev.kordex.modules.func.welcome
 
 import dev.kord.common.entity.DiscordComponent
@@ -22,6 +24,7 @@ import dev.kordex.modules.func.welcome.config.SimpleWelcomeChannelConfig
 import dev.kordex.modules.func.welcome.config.WelcomeChannelConfig
 import dev.kordex.modules.func.welcome.data.WelcomeChannelData
 import org.koin.dsl.bind
+import kotlin.time.ExperimentalTime
 
 private var copyrightAdded = false
 

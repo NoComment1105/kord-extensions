@@ -7,12 +7,14 @@
  */
 
 @file:Suppress("UndocumentedPublicClass", "UndocumentedPublicFunction", "UndocumentedPublicProperty")
+@file:OptIn(ExperimentalTime::class)
 
 package dev.kordex.modules.pluralkit.api
 
-import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 @Serializable
 data class PKMember(

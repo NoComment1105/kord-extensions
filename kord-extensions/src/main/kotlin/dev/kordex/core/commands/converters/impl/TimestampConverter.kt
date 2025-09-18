@@ -6,6 +6,8 @@
  * Any redistribution must include the specific provision above.
  */
 
+@file:OptIn(ExperimentalTime::class)
+
 package dev.kordex.core.commands.converters.impl
 
 import dev.kord.core.entity.interaction.OptionValue
@@ -26,7 +28,8 @@ import dev.kordex.core.i18n.withContext
 import dev.kordex.core.time.TimestampType
 import dev.kordex.core.time.toDiscord
 import dev.kordex.parser.StringParser
-import kotlinx.datetime.Instant
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 private const val TIMESTAMP_PREFIX = "<t:"
 private const val TIMESTAMP_SUFFIX = ">"

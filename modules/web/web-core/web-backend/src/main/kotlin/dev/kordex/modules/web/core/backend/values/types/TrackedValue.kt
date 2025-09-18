@@ -6,6 +6,8 @@
  * Any redistribution must include the specific provision above.
  */
 
+@file:OptIn(ExperimentalTime::class)
+
 package dev.kordex.modules.web.core.backend.values.types
 
 import dev.kordex.core.utils.collections.FixedLengthQueue
@@ -13,10 +15,11 @@ import dev.kordex.modules.web.core.backend.types.Identifier
 import dev.kordex.modules.web.core.backend.values.TimedContainer
 import dev.kordex.modules.web.core.backend.values.ValueInterval
 import dev.kordex.modules.web.core.backend.values.serializers.TrackedValueSerializer
-import kotlinx.datetime.Clock
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.serializer
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 @Serializable(with = TrackedValueSerializer::class)
 public class TrackedValue<T : Any>(

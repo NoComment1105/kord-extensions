@@ -6,6 +6,8 @@
  * Any redistribution must include the specific provision above.
  */
 
+@file:OptIn(ExperimentalTime::class)
+
 package dev.kordex.core.utils
 
 import dev.kord.common.entity.Permission
@@ -17,8 +19,10 @@ import dev.kord.core.entity.Role
 import dev.kord.rest.builder.member.MemberModifyBuilder
 import dev.kordex.core.annotations.DoNotChain
 import kotlinx.coroutines.flow.toList
-import kotlinx.datetime.*
-import kotlin.time.Duration
+import kotlinx.datetime.DateTimePeriod
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.plus
+import kotlin.time.*
 
 /** A more sensible name than `communicationDisabledUntil`. **/
 public val Member.timeoutUntil: Instant?

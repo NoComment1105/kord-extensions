@@ -1,7 +1,7 @@
 [versions]
 detekt = "1.23.8"  # Note: Must update plugin versions in buildSrc/build.gradle.kts
 dokka = "1.9.20"  # Note: Must update plugin versions in buildSrc/build.gradle.kts
-kotlin = "2.1.21"  # Note: Must update plugin versions in buildSrc/build.gradle.kts
+kotlin = "2.2.10"  # Note: Must update plugin versions in buildSrc/build.gradle.kts
 
 commons-validator = "1.9.0"
 data-collector-api = "1.0.2-SNAPSHOT"
@@ -10,19 +10,19 @@ icu4j = "77.1"
 jansi = "2.4.2"
 jemoji = "1.7.3"
 jsoup = "1.20.1"
-junit = "5.12.2"
+junit = "5.13.4"
 kaml = "0.78.0"
 koin = "4.0.4"
-kord = "0.16.0-SNAPSHOT"
+kord = "0.17.0-SNAPSHOT"
 ksoup = "0.5.0"
-ksp = "2.1.21-2.0.1"
-ktor = "3.0.3"
-kx-coro = "1.9.0"
-kx-ser = "1.8.1"
+ksp = "2.2.20-2.0.3"
+ktor = "3.2.3"
+kx-coro = "1.10.2"
+kx-ser = "1.9.0"
 linkie = "1.0.121"
 logback = "1.5.18"
 logback-groovy = "1.14.5"
-logging = "7.0.7"
+logging = "7.0.13"
 mongodb = "5.5.0"
 oshi = "6.8.1"
 pf4j = "3.13.0"

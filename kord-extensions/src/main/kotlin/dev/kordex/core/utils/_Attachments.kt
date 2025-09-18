@@ -12,13 +12,15 @@ import dev.kord.core.entity.Attachment
 import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
-import io.ktor.utils.io.core.*
 import io.ktor.utils.io.jvm.javaio.*
 import io.ktor.utils.io.readRemaining
 import kotlinx.io.readByteArray
 import java.io.File
 import java.nio.file.Path
-import kotlin.io.path.*
+import kotlin.io.path.createDirectories
+import kotlin.io.path.createFile
+import kotlin.io.path.deleteExisting
+import kotlin.io.path.exists
 
 private val client = HttpClient {
 	expectSuccess = true

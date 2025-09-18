@@ -7,6 +7,7 @@
  */
 
 @file:Suppress("StringLiteralDuplication")
+@file:OptIn(ExperimentalTime::class)
 
 package dev.kordex.modules.func.welcome
 
@@ -49,6 +50,7 @@ import kotlinx.coroutines.flow.toList
 import kotlinx.serialization.decodeFromString
 import org.koin.core.component.inject
 import kotlin.collections.set
+import kotlin.time.ExperimentalTime
 
 class WelcomeChannel(
 	val channel: GuildMessageChannel,

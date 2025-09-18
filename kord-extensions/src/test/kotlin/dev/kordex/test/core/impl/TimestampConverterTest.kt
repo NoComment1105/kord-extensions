@@ -6,13 +6,16 @@
  * Any redistribution must include the specific provision above.
  */
 
+@file:OptIn(ExperimentalTime::class)
+
 package dev.kordex.test.core.impl
 
 import dev.kordex.core.commands.converters.impl.TimestampConverter
 import dev.kordex.core.time.TimestampType
-import kotlinx.datetime.Instant
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 internal class TimestampConverterTest {
 

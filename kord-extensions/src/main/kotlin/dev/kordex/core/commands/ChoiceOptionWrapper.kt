@@ -7,6 +7,7 @@
  */
 
 @file:Suppress("StringLiteralDuplication")
+@file:OptIn(InternalAPI::class)
 
 package dev.kordex.core.commands
 

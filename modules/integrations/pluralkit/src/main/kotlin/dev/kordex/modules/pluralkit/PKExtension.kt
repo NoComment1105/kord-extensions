@@ -12,6 +12,7 @@
 	"UndocumentedPublicFunction",
 	"UndocumentedPublicProperty",
 )
+@file:OptIn(ExperimentalTime::class)
 
 package dev.kordex.modules.pluralkit
 
@@ -55,9 +56,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlinx.datetime.Clock
 import kotlin.text.split
+import kotlin.time.Clock
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.ExperimentalTime
 
 const val NEGATIVE_EMOTE = "❌"
 const val POSITIVE_EMOTE = "✅"

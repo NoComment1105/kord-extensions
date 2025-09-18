@@ -6,6 +6,8 @@
  * Any redistribution must include the specific provision above.
  */
 
+@file:OptIn(ExperimentalTime::class)
+
 package dev.kordex.core.commands.converters.impl
 
 import dev.kord.core.entity.interaction.OptionValue
@@ -27,7 +29,11 @@ import dev.kordex.core.parsers.DurationParser
 import dev.kordex.core.parsers.DurationParserException
 import dev.kordex.core.parsers.InvalidTimeUnitException
 import dev.kordex.parser.StringParser
-import kotlinx.datetime.*
+import kotlinx.datetime.DateTimePeriod
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.plus
+import kotlinx.datetime.toDateTimePeriod
+import kotlin.time.*
 
 /**
  * Argument converter for Kotlin [DateTimePeriod] arguments. You can apply these to an `Instant` using `plus` and a

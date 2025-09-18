@@ -43,5 +43,5 @@ public fun Key.uppercase(): Key = withPostProcessor {
 	it.uppercase(locale ?: getDefaultLocale())
 }
 
-public suspend fun Key.withContext(context: TranslatableContext) =
+public suspend fun Key.withContext(context: TranslatableContext): Key =
 	withLocale(context.getLocale())

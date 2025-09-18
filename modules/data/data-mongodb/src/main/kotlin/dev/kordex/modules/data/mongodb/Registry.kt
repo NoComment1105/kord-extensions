@@ -6,6 +6,8 @@
  * Any redistribution must include the specific provision above.
  */
 
+@file:OptIn(ExperimentalTime::class)
+
 package dev.kordex.modules.data.mongodb
 
 import dev.kord.common.entity.Snowflake
@@ -13,10 +15,11 @@ import dev.kordex.core.storage.StorageType
 import dev.kordex.modules.data.mongodb.db.AdaptedData
 import dev.kordex.modules.data.mongodb.db.Metadata
 import kotlinx.datetime.DateTimePeriod
-import kotlinx.datetime.Instant
 import org.bson.codecs.configuration.CodecRegistries
 import org.bson.codecs.configuration.CodecRegistry
 import org.bson.codecs.kotlinx.KotlinSerializerCodec
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 public val kordExCodecRegistry: CodecRegistry = CodecRegistries.fromCodecs(
 	Metadata.codec,
