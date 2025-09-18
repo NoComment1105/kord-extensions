@@ -67,10 +67,10 @@ public abstract class ComponentWithAction<
 	override var mutex: Mutex? = null
 
 	/** Component body, to be called when the component is interacted with. **/
-	public lateinit var body: suspend C.(M?) -> Unit
+	public lateinit var body: suspend C.(modal: M?) -> Unit
 
 	/** Call this to supply a component [body], to be called when the component is interacted with. **/
-	public fun action(action: suspend C.(M?) -> Unit) {
+	public fun action(action: suspend C.(modal: M?) -> Unit) {
 		body = action
 	}
 

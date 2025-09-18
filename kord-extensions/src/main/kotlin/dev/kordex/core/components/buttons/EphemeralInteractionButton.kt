@@ -34,7 +34,7 @@ public open class EphemeralInteractionButton<M : ModalForm>(
 	timeoutTask: Task?,
 	public override val modal: (() -> M)? = null,
 ) : InteractionButtonWithAction<EphemeralInteractionButtonContext<M>, M>(timeoutTask) {
-	/** Button style - anything but Link is valid. **/
+	/** Button style - anything but Link or Premium is valid. **/
 	public open var style: ButtonStyle = ButtonStyle.Primary
 
 	/** @suppress Initial response builder. **/
