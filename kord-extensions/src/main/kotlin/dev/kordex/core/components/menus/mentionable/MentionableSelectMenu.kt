@@ -14,6 +14,7 @@ import dev.kord.core.behavior.UserBehavior
 import dev.kord.rest.builder.component.ActionRowBuilder
 import dev.kordex.core.components.menus.OPTIONS_MAX
 import dev.kordex.core.components.menus.SelectMenu
+import dev.kordex.core.i18n.generated.CoreTranslations.Extensions.Sentry.Arguments.id
 
 /** Interface for user select menus. **/
 public interface MentionableSelectMenu {
@@ -23,24 +24,34 @@ public interface MentionableSelectMenu {
 	/** Default users to preselect. **/
 	public var defaultUsers: MutableList<Snowflake>
 
-	/** Add a default pre-selected role to the selector. **/
-	public fun defaultRole(id: Snowflake) {
-		defaultRoles.add(id)
+	/** Add default pre-selected roles to the selector. **/
+	public fun defaultRole(vararg roles: Snowflake) {
+		defaultRoles.addAll(roles)
 	}
 
-	/** Add a default pre-selected role to the selector. **/
-	public fun defaultRole(role: RoleBehavior) {
-		defaultRole(role.id)
+	/** Add default pre-selected roles to the selector. **/
+	public fun defaultRole(roles: Collection<Snowflake>) {
+		defaultRoles.addAll(roles)
 	}
 
-	/** Add a default pre-selected channel to the selector. **/
-	public fun defaultUser(id: Snowflake) {
-		defaultUsers.add(id)
+	/** Add default pre-selected roles to the selector. **/
+	public fun defaultRole(vararg roles: RoleBehavior) {
+		defaultRole(roles.map { it.id })
 	}
 
-	/** Add a default pre-selected channel to the selector. **/
-	public fun defaultUser(user: UserBehavior) {
-		defaultUser(user.id)
+	/** Add default pre-selected users to the selector. **/
+	public fun defaultUser(vararg users: Snowflake) {
+		defaultUsers.addAll(users)
+	}
+
+	/** Add default pre-selected users to the selector. **/
+	public fun defaultUser(users: Collection<Snowflake>) {
+		defaultUsers.addAll(users)
+	}
+
+	/** Add default pre-selected users to the selector. **/
+	public fun defaultUser(vararg users: UserBehavior) {
+		defaultUser(users.map { it.id })
 	}
 
 	/** Apply the user select menu to an action row builder. **/

@@ -24,18 +24,23 @@ public interface ChannelSelectMenu {
 	public var defaultChannels: MutableList<Snowflake>
 
 	/** Add an allowed channel type to the selector. **/
-	public fun channelType(vararg type: ChannelType) {
-		channelTypes.addAll(type)
+	public fun channelType(vararg types: ChannelType) {
+		channelTypes.addAll(types)
 	}
 
-	/** Add a default pre-selected channel to the selector. **/
-	public fun defaultChannel(id: Snowflake) {
-		defaultChannels.add(id)
+	/** Add default pre-selected channels to the selector. **/
+	public fun defaultChannel(vararg channels: Snowflake) {
+		defaultChannels.addAll(channels)
 	}
 
-	/** Add a default pre-selected channel to the selector. **/
-	public fun defaultChannel(channel: ChannelBehavior) {
-		defaultChannel(channel.id)
+	/** Add default pre-selected channels to the selector. **/
+	public fun defaultChannel(channels: Collection<Snowflake>) {
+		defaultChannels.addAll(channels)
+	}
+
+	/** Add default pre-selected channels to the selector. **/
+	public fun defaultChannel(vararg channels: ChannelBehavior) {
+		defaultChannel(channels.map { it.id })
 	}
 
 	/** Apply the channel select menu to an action row builder. **/

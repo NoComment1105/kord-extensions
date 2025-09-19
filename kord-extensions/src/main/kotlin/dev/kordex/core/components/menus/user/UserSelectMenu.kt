@@ -19,14 +19,19 @@ public interface UserSelectMenu {
 	/** Default users to preselect. **/
 	public var defaultUsers: MutableList<Snowflake>
 
-	/** Add a default pre-selected channel to the selector. **/
-	public fun defaultUser(id: Snowflake) {
-		defaultUsers.add(id)
+	/** Add default pre-selected users to the selector. **/
+	public fun defaultUser(vararg users: Snowflake) {
+		defaultUsers.addAll(users)
 	}
 
-	/** Add a default pre-selected channel to the selector. **/
-	public fun defaultUser(user: UserBehavior) {
-		defaultUser(user.id)
+	/** Add default pre-selected users to the selector. **/
+	public fun defaultUser(users: Collection<Snowflake>) {
+		defaultUsers.addAll(users)
+	}
+
+	/** Add default pre-selected users to the selector. **/
+	public fun defaultUser(vararg users: UserBehavior) {
+		defaultUser(users.map { it.id })
 	}
 
 	/** Apply the user select menu to an action row builder. **/

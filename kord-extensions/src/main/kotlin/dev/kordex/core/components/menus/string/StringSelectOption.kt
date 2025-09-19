@@ -10,15 +10,18 @@ package dev.kordex.core.components.menus.string
 
 import dev.kord.common.entity.DiscordPartialEmoji
 import dev.kord.rest.builder.component.SelectOptionBuilder
+import dev.kordex.core.components.types.HasPartialEmoji
+import dev.kordex.core.components.types.emoji
 import dev.kordex.core.i18n.types.Key
 
 public class StringSelectOption(
 	public var label: Key,
 	public var value: String
-) {
+) : HasPartialEmoji {
 	public var description: Key? = null
-	public var emoji: DiscordPartialEmoji? = null
 	public var default: Boolean = false
+
+	override var partialEmoji: DiscordPartialEmoji? = null
 
 	public fun build(): SelectOptionBuilder = SelectOptionBuilder(
 		label.translate(),
@@ -30,8 +33,10 @@ public class StringSelectOption(
 			this.description = this@StringSelectOption.description!!.translate()
 		}
 
-		if (this@StringSelectOption.emoji != null) {
-			this.emoji = this@StringSelectOption.emoji!!
+		if (this@StringSelectOption.partialEmoji != null) {
+			this.emoji = this@StringSelectOption.partialEmoji!!
 		}
 	}
+
+
 }

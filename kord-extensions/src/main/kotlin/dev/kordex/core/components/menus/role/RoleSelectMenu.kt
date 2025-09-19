@@ -13,20 +13,26 @@ import dev.kord.core.behavior.RoleBehavior
 import dev.kord.rest.builder.component.ActionRowBuilder
 import dev.kordex.core.components.menus.OPTIONS_MAX
 import dev.kordex.core.components.menus.SelectMenu
+import dev.kordex.core.i18n.generated.CoreTranslations.Extensions.Sentry.Arguments.id
 
 /** Interface for role select menus. **/
 public interface RoleSelectMenu {
 	/** Default roles to preselect. **/
 	public var defaultRoles: MutableList<Snowflake>
 
-	/** Add a default pre-selected role to the selector. **/
-	public fun defaultRole(id: Snowflake) {
-		defaultRoles.add(id)
+	/** Add default pre-selected roles to the selector. **/
+	public fun defaultRole(vararg roles: Snowflake) {
+		defaultRoles.addAll(roles)
 	}
 
-	/** Add a default pre-selected role to the selector. **/
-	public fun defaultRole(role: RoleBehavior) {
-		defaultRole(role.id)
+	/** Add default pre-selected roles to the selector. **/
+	public fun defaultRole(roles: Collection<Snowflake>) {
+		defaultRoles.addAll(roles)
+	}
+
+	/** Add default pre-selected roles to the selector. **/
+	public fun defaultRole(vararg roles: RoleBehavior) {
+		defaultRole(roles.map { it.id })
 	}
 
 	/** Apply the role select menu to an action row builder. **/
