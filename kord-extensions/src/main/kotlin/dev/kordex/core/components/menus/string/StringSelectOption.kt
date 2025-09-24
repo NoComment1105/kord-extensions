@@ -37,6 +37,4 @@ public class StringSelectOption(
 			this.emoji = this@StringSelectOption.partialEmoji!!
 		}
 	}
-
-
 }

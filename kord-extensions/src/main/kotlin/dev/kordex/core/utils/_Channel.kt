@@ -21,7 +21,6 @@ import dev.kord.core.entity.channel.CategorizableChannel
 import dev.kord.core.entity.channel.Channel
 import dev.kord.core.entity.channel.GuildChannel
 import dev.kord.core.entity.channel.TopGuildChannel
-import dev.kord.core.entity.channel.TopGuildMessageChannel
 import dev.kord.core.entity.channel.thread.ThreadChannel
 import dev.kord.rest.Image
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -32,35 +31,53 @@ private val logger = KotlinLogging.logger {}
 internal const val DISCORD_CHANNEL_URI = "https://discord.com/channels"
 internal const val DM_CHANNEL_PREFIX = "@me"
 
+@Deprecated(
+	message = "Replaced with an extension function for consistency and discoverability.",
+	level = DeprecationLevel.WARNING,
+	replaceWith = ReplaceWith(
+		"channelObj.ensureWebhook(name, logoFormat, logo)"
+	),
+)
+public suspend fun ensureWebhook(
+	channelObj: GuildChannelBehavior,
+	name: String,
+	logoFormat: Image.Format = Image.Format.PNG,
+	logo: (suspend () -> ByteArray)? = null,
+): Webhook =
+	channelObj.ensureWebhook(name, logoFormat, logo)
+
 /**
  * Ensure a webhook is created for the bot in a given channel, and return it.
  *
  * If a webhook already exists with the given name, it will be returned instead.
  *
- * @param channelObj Channel to create the webhook for.
- * @param name Name for the webhook
- * @param logoFormat Image.Format instance representing the format of the logo - defaults to PNG
- * @param logo Callable returning logo image data for the newly created webhook
+ * @param name Webhook name.
+ * @param logoFormat Optional image format object — defaults to PNG.
+ * @param logo Optional callable returning logo image data for the newly created webhook.
  *
- * @return Webhook object for the newly created webhook, or the existing one if it's already there.
+ * @return Webhook object for the newly created webhook, or the existing one if it is already there.
  */
-public suspend fun ensureWebhook(
-	channelObj: TopGuildMessageChannel,
+public suspend fun GuildChannelBehavior.ensureWebhook(
 	name: String,
 	logoFormat: Image.Format = Image.Format.PNG,
 	logo: (suspend () -> ByteArray)? = null,
 ): Webhook {
-	val webhook = channelObj.webhooks.firstOrNull { it.name == name }
+	val channel = when (this) {
+		is CategorizableChannelBehavior -> this
+		is ThreadChannelBehavior -> this.parent
+
+		else -> error("Incompatible channel: ${this.id}")
+	}
+
+	val webhook = channel.webhooks.firstOrNull { it.name == name }
 
 	if (webhook != null) {
 		return webhook
 	}
 
-	val guild = channelObj.guild.asGuild()
+	logger.info { "Creating webhook for channel: ${channel.id} (Guild: ${this.guildId}" }
 
-	logger.info { "Creating webhook for channel: #${channelObj.name} (Guild: ${guild.name}" }
-
-	return channelObj.createWebhook(name) {
+	return channel.createWebhook(name) {
 		if (logo != null) {
 			this.avatar = Image.raw(logo.invoke(), logoFormat)
 		}
