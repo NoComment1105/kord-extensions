@@ -38,6 +38,7 @@ internal const val DM_CHANNEL_PREFIX = "@me"
 		"channelObj.ensureWebhook(name, logoFormat, logo)"
 	),
 )
+@JvmName("_ensureWebhook")
 public suspend fun ensureWebhook(
 	channelObj: GuildChannelBehavior,
 	name: String,
