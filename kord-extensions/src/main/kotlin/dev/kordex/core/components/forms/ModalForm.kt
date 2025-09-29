@@ -16,6 +16,7 @@ import dev.kord.core.behavior.interaction.modal
 import dev.kord.core.behavior.interaction.response.EphemeralMessageInteractionResponseBehavior
 import dev.kord.core.behavior.interaction.response.PublicMessageInteractionResponseBehavior
 import dev.kord.core.entity.interaction.ModalSubmitInteraction
+import dev.kord.core.event.interaction.ComponentInteractionCreateEvent
 import dev.kord.core.event.interaction.InteractionCreateEvent
 import dev.kord.core.event.interaction.ModalSubmitInteractionCreateEvent
 import dev.kord.rest.builder.interaction.ModalBuilder
@@ -131,7 +132,7 @@ public abstract class ModalForm : Form(), KordExKoinComponent {
 	}
 
 	/** Wait for this modal to be completed and call the [callback]. Parameter will be `null` if timed out. **/
-	public suspend fun <T : Any?> awaitCompletion(callback: suspend (ModalSubmitInteraction?) -> T): T {
+	public suspend fun <T : Any?> awaitCompletion(callback: suspend (interaction: ModalSubmitInteraction?) -> T): T {
 		val completionEvent = bot.waitFor<ModalInteractionCompleteEvent>(timeout) { id == this@ModalForm.id }
 
 		return callback(completionEvent?.interaction)
@@ -154,7 +155,7 @@ public abstract class ModalForm : Form(), KordExKoinComponent {
 	public suspend fun <T : Any?> sendAndAwait(
 		locale: Locale,
 		interaction: ModalParentInteractionBehavior,
-		callback: suspend (ModalSubmitInteraction?) -> T,
+		callback: suspend (interaction: ModalSubmitInteraction?) -> T,
 	): T {
 		componentRegistry.register(this)
 
