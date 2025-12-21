@@ -14,6 +14,6 @@ import dev.kordex.i18n.generated.CoreTranslations
 public sealed class CopyrightType(public val key: Key) {
 	public object Framework : CopyrightType(CoreTranslations.Extensions.About.Copyright.Type.frameworks)
 	public object Library : CopyrightType(CoreTranslations.Extensions.About.Copyright.Type.libraries)
-	public object PluginModule : CopyrightType(CoreTranslations.Extensions.About.Copyright.Type.plugins_modules)
+	public object PluginModule : CopyrightType(CoreTranslations.Extensions.About.Copyright.Type.pluginsModules)
 	public object Tool : CopyrightType(CoreTranslations.Extensions.About.Copyright.Type.tools)
 }

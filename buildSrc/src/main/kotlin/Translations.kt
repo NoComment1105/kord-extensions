@@ -35,7 +35,7 @@ fun Project.getTranslations(
 	}
 
 	with(extensions.getByType<I18nExtension>()) {
-		bundle(bundle, classesPackage) {
+		bundle(bundle, "$classesPackage.generated") {
 			className = translationsClass
 			basePath = outputDir.get().asFile
 		}

@@ -15,20 +15,18 @@ interface InjectedExecOps {
 }
 
 fun Project.runCommand(command: String): String {
-	val output = ByteArrayOutputStream()
-
-	providers.exec {
+	val output = providers.exec {
 		commandLine(command.split(" "))
-
-		standardOutput = output
 	}
 
-	val result = output.toString().trim()
+	val stdout = output.standardOutput.asText.get().trim()
+	val stderr = output.standardError.asText.get().trim()
 
 	println(command)
-	println(result.prependIndent("-> "))
+	println(stdout.prependIndent("OUT -> "))
+	println(stderr.prependIndent("ERR -> "))
 
-	return result
+	return stdout + stderr
 }
 
 fun Project.runCommand(command: String, cwd: Any): String {
@@ -44,7 +42,7 @@ fun Project.runCommand(command: String, cwd: Any): String {
 	println(stdout.prependIndent("OUT -> "))
 	println(stderr.prependIndent("ERR -> "))
 
-	return stdout
+	return stdout + stderr
 }
 
 fun Project.getCurrentGitBranch(): String {  // https://gist.github.com/lordcodes/15b2a4aecbeff7c3238a70bfd20f0931

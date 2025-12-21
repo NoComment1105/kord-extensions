@@ -47,6 +47,7 @@ import dev.kordex.core.utils.getKoin
 import dev.kordex.core.utils.loadModule
 import dev.kordex.data.api.DataCollection
 import dev.kordex.i18n.Key
+import dev.kordex.i18n.registries.ClassLoaderRegistry
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.isActive
@@ -548,6 +549,12 @@ public open class ExtensibleBotBuilder {
 
 		if (!manager.enabled) {
 			return
+		}
+
+		ClassLoaderRegistry.register {
+			pluginBuilder.managerObj.plugins.associate {
+				it.pluginId to it.pluginClassLoader
+			}
 		}
 
 		pluginBuilder.disabledPlugins.forEach(manager::disablePlugin)
