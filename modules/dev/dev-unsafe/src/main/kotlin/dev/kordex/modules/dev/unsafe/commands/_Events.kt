@@ -15,7 +15,7 @@ import dev.kord.core.event.interaction.MessageCommandInteractionCreateEvent
 import dev.kord.core.event.interaction.UserCommandInteractionCreateEvent
 import dev.kordex.core.ArgumentParsingException
 import dev.kordex.core.commands.events.*
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 import dev.kordex.modules.dev.unsafe.annotations.UnsafeAPI
 import dev.kordex.modules.dev.unsafe.commands.message.UnsafeMessageCommand
 import dev.kordex.modules.dev.unsafe.commands.slash.UnsafeSlashCommand

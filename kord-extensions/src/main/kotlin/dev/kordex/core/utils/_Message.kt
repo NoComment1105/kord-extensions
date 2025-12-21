@@ -30,7 +30,7 @@ import dev.kord.rest.builder.message.allowedMentions
 import dev.kord.rest.builder.message.create.MessageCreateBuilder
 import dev.kord.rest.request.RestRequestException
 import dev.kordex.core.commands.CommandContext
-import dev.kordex.core.i18n.generated.CoreTranslations
+import dev.kordex.i18n.generated.CoreTranslations
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.ktor.http.*
 import kotlinx.coroutines.Job

@@ -16,7 +16,7 @@ import dev.kordex.core.commands.application.slash.publicSubCommand
 import dev.kordex.core.components.*
 import dev.kordex.core.extensions.Extension
 import dev.kordex.core.extensions.publicSlashCommand
-import dev.kordex.core.i18n.toKey
+import dev.kordex.i18n.toKey
 
 public class SelectorTestExtension : Extension() {
 	override val name: String = "kordex.test-selectors"

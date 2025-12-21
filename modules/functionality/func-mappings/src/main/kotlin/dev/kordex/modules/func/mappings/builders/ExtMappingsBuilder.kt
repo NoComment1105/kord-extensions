@@ -9,7 +9,7 @@
 package dev.kordex.modules.func.mappings.builders
 
 import dev.kordex.core.checks.types.SlashCommandCheck
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 import me.shedaniel.linkie.Namespace
 
 /** Builder used for configuring the mappings extension. **/

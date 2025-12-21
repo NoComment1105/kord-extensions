@@ -1,3 +1,7 @@
+import org.jetbrains.dokka.DokkaDefaults.includeNonPublic
+import org.jetbrains.dokka.DokkaDefaults.jdkVersion
+import org.jetbrains.dokka.DokkaDefaults.moduleName
+import org.jetbrains.dokka.DokkaDefaults.skipDeprecated
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -6,6 +10,7 @@ plugins {
 	kotlin("plugin.serialization")
 
 	id("com.github.ben-manes.versions")
+	id("dev.kordex.gradle.i18n")
 	id("dev.yumi.gradle.licenser")
 	id("io.gitlab.arturbosch.detekt")
 
@@ -22,7 +27,7 @@ abstract class DokkaModuleExtension {
 
 extensions.create<DokkaModuleExtension>(dokkaModuleExtensionName)
 
-val sourceJar = task("sourceJar", Jar::class) {
+val sourceJar = tasks.register<Jar>("sourceJar") {
 	dependsOn(tasks["classes"])
 	archiveClassifier = "sources"
 	from(sourceSets.main.get().allSource)
@@ -82,6 +87,10 @@ tasks {
 		finalizedBy(sourceJar, javadocJar /*dokkaJar*/)
 	}
 
+	test {
+		failOnNoDiscoveredTests = false
+	}
+
 	processResources {
 		from(propsTask) {
 			duplicatesStrategy = DuplicatesStrategy.INCLUDE
@@ -100,8 +109,8 @@ tasks {
 		rootProject.file("LICENSE").copyTo(rootProject.file("build/LICENSE-kordex"), true)
 
 		tasks.withType<JavaCompile>().configureEach {
-			sourceCompatibility = "13"
-			targetCompatibility = "13"
+			sourceCompatibility = "17"
+			targetCompatibility = "17"
 		}
 
 		tasks.withType<KotlinCompile>().configureEach {
@@ -110,7 +119,7 @@ tasks {
 				freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
 				freeCompilerArgs.add("-opt-in=kotlin.contracts.ExperimentalContracts")
 
-				jvmTarget = JvmTarget.JVM_13
+				jvmTarget = JvmTarget.JVM_17
 			}
 		}
 
@@ -127,7 +136,7 @@ tasks {
 					skipDeprecated = false
 
 					extension.moduleName.orNull?.let {
-						displayName = it
+						displayName.set(it)
 					}
 
 					extension.includes.orNull?.let {
@@ -137,7 +146,7 @@ tasks {
 					jdkVersion = 13
 
 					sourceLink {
-						localDirectory = file("${project.projectDir}/src/main/kotlin")
+						localDirectory.set(project.file("src/main/kotlin"))
 
 						remoteUrl = uri(
 							"https://github.com/kord-extensions/kord-extensions/" +

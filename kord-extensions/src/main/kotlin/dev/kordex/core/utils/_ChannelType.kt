@@ -10,8 +10,8 @@ package dev.kordex.core.utils
 
 import dev.kord.common.entity.ChannelType
 import dev.kordex.core.commands.CommandContext
-import dev.kordex.core.i18n.generated.CoreTranslations
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
+import dev.kordex.i18n.generated.CoreTranslations
 import java.util.*
 
 /** Given a [ChannelType], return a string representing its translation key. **/

@@ -18,11 +18,12 @@ import dev.kordex.core.checks.channelFor
 import dev.kordex.core.checks.guildFor
 import dev.kordex.core.checks.interactionFor
 import dev.kordex.core.checks.userFor
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.koin.KordExKoinComponent
 import dev.kordex.core.sentry.SentryContext
 import dev.kordex.core.types.TranslatableContext
 import dev.kordex.core.utils.MutableStringKeyedMap
+import dev.kordex.i18n.I18n
+import dev.kordex.i18n.Key
 import java.util.*
 
 /**
@@ -83,7 +84,7 @@ public abstract class CommandContext(
 			}
 		}
 
-		resolvedLocale = locale ?: command.extension.bot.settings.i18nBuilder.defaultLocale
+		resolvedLocale = locale ?: I18n.defaultLocale
 
 		return resolvedLocale!!
 	}

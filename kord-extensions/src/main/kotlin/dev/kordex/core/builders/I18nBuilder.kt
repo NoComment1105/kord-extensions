@@ -12,17 +12,28 @@ import dev.kord.common.asJavaLocale
 import dev.kord.common.kLocale
 import dev.kord.core.entity.interaction.Interaction
 import dev.kordex.core.annotations.BotBuilderDSL
-import dev.kordex.core.i18n.ResourceBundleTranslations
 import dev.kordex.core.i18n.SupportedLocales
-import dev.kordex.core.i18n.TranslationsProvider
-import java.util.Locale
+import dev.kordex.i18n.I18n
+import dev.kordex.i18n.generated.CoreTranslations
+import java.util.*
 import dev.kord.common.Locale as KLocale
 
 /** Builder used to configure i18n options. **/
 @BotBuilderDSL
 public class I18nBuilder {
+	init {
+		I18n.defaultLocale = SupportedLocales.ENGLISH
+		I18n.defaultBundle = CoreTranslations.bundle
+	}
 
-	public var defaultLocale: Locale = SupportedLocales.ENGLISH
+	@get:Deprecated(
+		"Use I18n.defaultLocale instead.",
+		ReplaceWith("I18n.defaultLocale", "dev.kordex.i18n.I18n"),
+		DeprecationLevel.WARNING
+	)
+	public var defaultLocale: Locale
+		get() = I18n.defaultLocale
+		set(value) { I18n.defaultLocale = value }
 
 	/**
 	 * List of [locales][KLocale] which are used for application command names (without [defaultLocale]).
@@ -35,14 +46,6 @@ public class I18nBuilder {
 	 * Resolves to [defaultLocale] by default.
 	 */
 	public var localeResolvers: MutableList<LocaleResolver> = mutableListOf()
-
-	/** Object responsible for retrieving translations. Users should get this via Koin or other methods. **/
-	internal var translationsProvider: TranslationsProvider = ResourceBundleTranslations { defaultLocale }
-
-	/** Call this with a builder (usually the class constructor) to set the translations provider. **/
-	public fun translationsProvider(builder: (() -> Locale) -> TranslationsProvider) {
-		translationsProvider = builder { defaultLocale }
-	}
 
 	/** Register a locale resolver, returning the required [Locale] object or `null`. **/
 	public fun localeResolver(body: LocaleResolver) {

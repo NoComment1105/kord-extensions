@@ -11,7 +11,7 @@ package dev.kordex.core.commands.converters
 import dev.kordex.core.DiscordRelayedException
 import dev.kordex.core.commands.converters.builders.ConverterBuilder
 import dev.kordex.core.commands.converters.types.SingleNamedInputConverter
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 
 /**
  * Abstract base class for a single converter.

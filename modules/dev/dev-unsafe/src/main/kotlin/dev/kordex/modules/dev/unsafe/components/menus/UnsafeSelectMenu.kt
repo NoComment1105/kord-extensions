@@ -19,11 +19,11 @@ import dev.kordex.core.DiscordRelayedException
 import dev.kordex.core.annotations.InternalAPI
 import dev.kordex.core.components.menus.SelectMenu
 import dev.kordex.core.components.menus.SelectMenuContext
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.types.FailureReason
 import dev.kordex.core.utils.MutableStringKeyedMap
 import dev.kordex.core.utils.getLocale
 import dev.kordex.core.utils.scheduling.Task
+import dev.kordex.i18n.Key
 import dev.kordex.modules.dev.unsafe.annotations.UnsafeAPI
 import dev.kordex.modules.dev.unsafe.components.forms.UnsafeModalForm
 

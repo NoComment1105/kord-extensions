@@ -10,7 +10,7 @@ package dev.kordex.core.utils
 
 import dev.kord.common.annotation.KordPreview
 import dev.kord.core.event.Event
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 import java.util.*
 
 /** Type alias representing a string keyed map. **/

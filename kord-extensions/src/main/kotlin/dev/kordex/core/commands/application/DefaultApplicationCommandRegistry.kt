@@ -32,6 +32,7 @@ import dev.kordex.core.commands.application.slash.SlashCommand
 import dev.kordex.core.commands.application.user.UserCommand
 import dev.kordex.core.commands.converters.SlashCommandConverter
 import dev.kordex.core.commands.getDefaultTranslatedDisplayName
+import dev.kordex.i18n.I18n
 import kotlinx.coroutines.flow.toList
 
 /** Registry for all Discord application commands. **/
@@ -116,7 +117,7 @@ public open class DefaultApplicationCommandRegistry : ApplicationCommandRegistry
 		commands: List<ApplicationCommand<*>>,
 	) {
 		// NOTE: Someday, discord will make real i18n possible, we hope...
-		val locale = bot.settings.i18nBuilder.defaultLocale
+		val locale = I18n.defaultLocale
 
 		val guild = if (guildId != null) {
 			kord.getGuildOrNull(guildId)

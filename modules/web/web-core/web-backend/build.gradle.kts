@@ -4,7 +4,7 @@ plugins {
 
 	kotlin("plugin.serialization")
 
-	id("com.github.johnrengelman.shadow") version "8.1.1"
+	id("com.gradleup.shadow") version "9.3.0"
 }
 
 group = "dev.kordex.modules"
@@ -43,10 +43,5 @@ dependencies {
 }
 
 tasks.shadowJar {
-	this.configurations.clear()
-	this.configurations.add(project.configurations.shadow.get())
-}
-
-tasks.build {
-	finalizedBy(tasks.shadowJar)
+	configurations = project.configurations.shadow.map { listOf(it) }
 }

@@ -13,6 +13,7 @@ import dev.kord.core.event.Event
 import dev.kord.core.event.interaction.InteractionCreateEvent
 import dev.kord.core.event.message.MessageCreateEvent
 import dev.kordex.core.ExtensibleBot
+import dev.kordex.i18n.I18n
 import java.util.*
 
 internal val localeCache: WeakHashMap<Event, Locale> = WeakHashMap()
@@ -26,7 +27,7 @@ public suspend fun MessageCreateEvent.getLocale(): Locale {
 	}
 
 	val bot = getKoin().get<ExtensibleBot>()
-	var result = bot.settings.i18nBuilder.defaultLocale
+	var result = I18n.defaultLocale
 
 	for (resolver in bot.settings.i18nBuilder.localeResolvers) {
 		val resolved = resolver(getGuildOrNull(), message.channel, message.author, null)
@@ -51,7 +52,7 @@ public suspend fun InteractionCreateEvent.getLocale(): Locale {
 	}
 
 	val bot = getKoin().get<ExtensibleBot>()
-	var result = bot.settings.i18nBuilder.defaultLocale
+	var result = I18n.defaultLocale
 
 	for (resolver in bot.settings.i18nBuilder.localeResolvers) {
 		val resolved = resolver(

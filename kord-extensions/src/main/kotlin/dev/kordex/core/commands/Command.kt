@@ -21,14 +21,13 @@ import dev.kordex.core.annotations.ExtensionDSL
 import dev.kordex.core.builders.ExtensibleBotBuilder
 import dev.kordex.core.commands.events.CommandEvent
 import dev.kordex.core.extensions.Extension
-import dev.kordex.core.i18n.TranslationsProvider
-import dev.kordex.core.i18n.generated.CoreTranslations
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.koin.KordExKoinComponent
 import dev.kordex.core.sentry.SentryAdapter
 import dev.kordex.core.types.Lockable
 import dev.kordex.core.utils.permissionsForMember
 import dev.kordex.core.utils.translate
+import dev.kordex.i18n.Key
+import dev.kordex.i18n.generated.CoreTranslations
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
@@ -53,9 +52,6 @@ public abstract class Command(public val extension: Extension) : Lockable, KordE
 	public override var locking: Boolean = false
 
 	override var mutex: Mutex? = null
-
-	/** Translations provider, for retrieving translations. **/
-	public val translationsProvider: TranslationsProvider by inject()
 
 	/** Bot settings object. **/
 	public val settings: ExtensibleBotBuilder by inject()

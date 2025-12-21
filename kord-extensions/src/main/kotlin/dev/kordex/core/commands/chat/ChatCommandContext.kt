@@ -22,12 +22,12 @@ import dev.kordex.core.annotations.ExtensionDSL
 import dev.kordex.core.commands.Arguments
 import dev.kordex.core.commands.CommandContext
 import dev.kordex.core.extensions.base.HelpProvider
-import dev.kordex.core.i18n.EMPTY_KEY
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.pagination.MessageButtonPaginator
 import dev.kordex.core.pagination.builders.PaginatorBuilder
 import dev.kordex.core.utils.MutableStringKeyedMap
 import dev.kordex.core.utils.respond
+import dev.kordex.i18n.EMPTY_KEY
+import dev.kordex.i18n.Key
 import dev.kordex.parser.StringParser
 
 /**

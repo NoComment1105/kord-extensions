@@ -8,7 +8,7 @@
 
 package dev.kordex.modules.func.mappings.utils
 
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 import dev.kordex.modules.func.mappings.i18n.generated.MappingsTranslations
 
 enum class QueryType(val readableName: String, val singular: Key, val plural: Key) {

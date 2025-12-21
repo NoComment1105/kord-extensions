@@ -18,6 +18,7 @@ import dev.kordex.core.extensions.Extension
 import dev.kordex.core.i18n.SupportedLocales
 import dev.kordex.core.koin.KordExKoinComponent
 import dev.kordex.core.utils.getLocale
+import dev.kordex.i18n.I18n
 import dev.kordex.parser.StringParser
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.koin.core.component.inject
@@ -185,7 +186,7 @@ public open class ChatCommandRegistry : KordExKoinComponent {
 	 * If a command supports locale fallback, this will also attempt to resolve names via the bot's default locale.
 	 */
 	public open suspend fun getCommand(name: String, event: MessageCreateEvent): ChatCommand<out Arguments>? {
-		val defaultLocale = botSettings.i18nBuilder.defaultLocale
+		val defaultLocale = I18n.defaultLocale
 		val locale = event.getLocale()
 		val filtered = commands.filter { it.enabled }
 

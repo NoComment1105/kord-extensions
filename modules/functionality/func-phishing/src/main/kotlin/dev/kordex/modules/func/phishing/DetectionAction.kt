@@ -8,7 +8,7 @@
 
 package dev.kordex.modules.func.phishing
 
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 import dev.kordex.modules.func.phishing.i18n.generated.PhishingTranslations
 
 /**

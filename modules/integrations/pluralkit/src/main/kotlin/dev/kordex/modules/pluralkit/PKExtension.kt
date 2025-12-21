@@ -36,7 +36,6 @@ import dev.kordex.core.commands.converters.impl.optionalUser
 import dev.kordex.core.extensions.Extension
 import dev.kordex.core.extensions.ephemeralSlashCommand
 import dev.kordex.core.extensions.event
-import dev.kordex.core.i18n.EMPTY_VALUE_STRING
 import dev.kordex.core.storage.StorageType
 import dev.kordex.core.storage.StorageUnit
 import dev.kordex.core.utils.MutableStringKeyedMap
@@ -44,6 +43,7 @@ import dev.kordex.core.utils.kordExUserAgent
 import dev.kordex.core.utils.repliedMessageOrNull
 import dev.kordex.core.utils.scheduling.Scheduler
 import dev.kordex.core.utils.scheduling.Task
+import dev.kordex.i18n.EMPTY_VALUE_STRING
 import dev.kordex.modules.pluralkit.api.PluralKit
 import dev.kordex.modules.pluralkit.config.PKConfigBuilder
 import dev.kordex.modules.pluralkit.events.proxied

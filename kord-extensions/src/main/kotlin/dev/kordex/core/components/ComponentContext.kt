@@ -28,6 +28,7 @@ import dev.kordex.core.sentry.SentryContext
 import dev.kordex.core.sentry.captures.SentryBreadcrumbCapture
 import dev.kordex.core.types.TranslatableContext
 import dev.kordex.core.utils.MutableStringKeyedMap
+import dev.kordex.i18n.I18n
 import org.koin.core.component.inject
 import java.util.*
 
@@ -124,7 +125,7 @@ public abstract class ComponentContext<E : ComponentInteractionCreateEvent>(
 			}
 		}
 
-		resolvedLocale = locale ?: settings.i18nBuilder.defaultLocale
+		resolvedLocale = locale ?: I18n.defaultLocale
 
 		return resolvedLocale!!
 	}

@@ -11,10 +11,10 @@ package dev.kordex.core.pagination.builders
 import dev.kord.core.behavior.UserBehavior
 import dev.kord.core.entity.ReactionEmoji
 import dev.kord.rest.builder.message.EmbedBuilder
-import dev.kordex.core.i18n.EMPTY_KEY
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.pagination.pages.Page
 import dev.kordex.core.pagination.pages.Pages
+import dev.kordex.i18n.EMPTY_KEY
+import dev.kordex.i18n.Key
 import java.util.*
 
 /**

@@ -13,7 +13,7 @@ import dev.kordex.core.ArgumentParsingException
 import dev.kordex.core.commands.application.slash.EphemeralSlashCommand
 import dev.kordex.core.commands.application.slash.PublicSlashCommand
 import dev.kordex.core.commands.application.slash.SlashCommand
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 
 // region Invocation events
 

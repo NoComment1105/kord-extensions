@@ -19,7 +19,7 @@ plugins {
 	`ksp-module`
 }
 
-getTranslations("core", "dev.kordex.core.i18n", "kordex.strings", "CoreTranslations")
+getTranslations("core", "dev.kordex.i18n", "kordex.strings", "CoreTranslations")
 
 metadata {
 	name = "KordEx Core"
@@ -32,6 +32,7 @@ dependencies {
 	api(libs.koin.logger)
 
 	api(libs.data.collector.api)
+	api(libs.i18n)
 	api(libs.kord)
 
 	api(libs.bundles.logging) // Basic logging setup

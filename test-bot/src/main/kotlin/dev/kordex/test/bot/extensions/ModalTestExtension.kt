@@ -20,8 +20,8 @@ import dev.kordex.core.extensions.Extension
 import dev.kordex.core.extensions.publicMessageCommand
 import dev.kordex.core.extensions.publicSlashCommand
 import dev.kordex.core.extensions.publicUserCommand
-import dev.kordex.core.i18n.toKey
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
+import dev.kordex.i18n.toKey
 import dev.kordex.test.bot.Translations
 
 public class ModalTestExtension : Extension() {

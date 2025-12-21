@@ -15,9 +15,10 @@ import dev.kordex.core.annotations.ExtensionDSL
 import dev.kordex.core.builders.ExtensibleBotBuilder
 import dev.kordex.core.commands.Arguments
 import dev.kordex.core.extensions.Extension
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.utils.MutableStringKeyedMap
 import dev.kordex.core.utils.getLocale
+import dev.kordex.i18n.I18n
+import dev.kordex.i18n.Key
 import dev.kordex.parser.StringParser
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.koin.core.component.inject
@@ -193,7 +194,7 @@ public open class ChatGroupCommand<T : Arguments>(
 	): ChatCommand<out Arguments>? {
 		name ?: return null
 
-		val defaultLocale = botSettings.i18nBuilder.defaultLocale
+		val defaultLocale = I18n.defaultLocale
 		val locale = event.getLocale()
 		val filtered = commands.filter { it.enabled }
 

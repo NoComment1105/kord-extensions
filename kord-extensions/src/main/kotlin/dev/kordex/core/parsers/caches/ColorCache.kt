@@ -10,9 +10,9 @@ package dev.kordex.core.parsers.caches
 
 import dev.kord.common.Color
 import dev.kordex.core.*
-import dev.kordex.core.i18n.generated.CoreTranslations
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.koin.KordExKoinComponent
+import dev.kordex.i18n.Key
+import dev.kordex.i18n.generated.CoreTranslations
 import java.util.*
 
 private typealias ColorMap = LinkedHashMap<Key, Color>

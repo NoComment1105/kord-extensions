@@ -10,8 +10,8 @@ package dev.kordex.core.commands
 
 import dev.kordex.core.annotations.UnexpectedFunctionBehaviour
 import dev.kordex.core.commands.converters.*
-import dev.kordex.core.i18n.types.Key
-import java.util.Locale
+import dev.kordex.i18n.Key
+import java.util.*
 
 /**
  * Abstract base class for a class containing a set of command arguments.

@@ -18,7 +18,7 @@ import org.junit.jupiter.api.extension.BeforeAllCallback
 import org.junit.jupiter.api.extension.ExtensionContext
 import org.junit.jupiter.api.extension.InvocationInterceptor
 
-class KoinExtension : BeforeAllCallback, InvocationInterceptor, ExtensionContext.Store.CloseableResource {
+class KoinExtension : BeforeAllCallback, InvocationInterceptor, AutoCloseable {
 	@OptIn(KordExperimental::class)
 	override fun beforeAll(context: ExtensionContext?) = runBlocking {
 		if (started) {

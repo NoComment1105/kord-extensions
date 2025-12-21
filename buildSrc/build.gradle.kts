@@ -1,12 +1,16 @@
 plugins {
 	`kotlin-dsl`
 
-	kotlin("plugin.serialization") version "1.9.24"
+	kotlin("plugin.serialization") version "2.2.20"
 }
 
 repositories {
 	google()
 	gradlePluginPortal()
+	mavenCentral()
+
+	maven("https://snapshots-repo.kordex.dev")
+	maven("https://releases-repo.kordex.dev")
 }
 
 dependencies {
@@ -17,6 +21,7 @@ dependencies {
 	implementation("com.google.devtools.ksp", "com.google.devtools.ksp.gradle.plugin", "2.2.20-2.0.3")
 	implementation("com.hanggrian", "kotlinpoet-dsl", "0.2")
 	implementation("com.squareup", "kotlinpoet", "1.18.1")
+	implementation("dev.kordex.gradle.i18n", "dev.kordex.gradle.i18n.gradle.plugin", "1.1.1")
 	implementation("dev.yumi", "yumi-gradle-licenser", "1.2.0")
 	implementation("io.gitlab.arturbosch.detekt", "detekt-gradle-plugin", "1.23.8")
 	implementation("org.jetbrains.dokka", "dokka-gradle-plugin", "1.9.20")

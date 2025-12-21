@@ -9,9 +9,9 @@
 package dev.kordex.modules.dev.time4j
 
 import dev.kordex.core.builders.ExtensibleBotBuilder
-import dev.kordex.core.i18n.generated.CoreTranslations
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.koin.KordExKoinComponent
+import dev.kordex.i18n.Key
+import dev.kordex.i18n.generated.CoreTranslations
 import net.time4j.CalendarUnit
 import net.time4j.ClockUnit
 import net.time4j.IsoUnit

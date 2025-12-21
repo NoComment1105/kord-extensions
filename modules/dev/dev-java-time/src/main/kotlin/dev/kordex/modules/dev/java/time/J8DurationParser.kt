@@ -8,11 +8,11 @@
 
 package dev.kordex.modules.dev.java.time
 
-import dev.kordex.core.i18n.generated.CoreTranslations
 import dev.kordex.core.koin.KordExKoinComponent
 import dev.kordex.core.parsers.DurationParserException
 import dev.kordex.core.parsers.InvalidTimeUnitException
 import dev.kordex.core.utils.splitOn
+import dev.kordex.i18n.generated.CoreTranslations
 import java.util.*
 
 /**

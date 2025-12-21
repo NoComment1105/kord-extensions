@@ -14,7 +14,7 @@ import dev.kordex.core.commands.converters.AutoCompleteCallback
 import dev.kordex.core.commands.converters.Converter
 import dev.kordex.core.commands.converters.Mutator
 import dev.kordex.core.commands.converters.Validator
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 
 /** Base abstract class for all converter builders. **/
 public abstract class ConverterBuilder<T> {

@@ -22,8 +22,8 @@ import dev.kordex.core.commands.OptionWrapper
 import dev.kordex.core.commands.converters.SingleConverter
 import dev.kordex.core.commands.converters.Validator
 import dev.kordex.core.commands.wrapOption
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.i18n.withContext
+import dev.kordex.i18n.Key
 import dev.kordex.modules.func.mappings.i18n.generated.MappingsTranslations
 import dev.kordex.parser.StringParser
 import kotlinx.coroutines.DelicateCoroutinesApi

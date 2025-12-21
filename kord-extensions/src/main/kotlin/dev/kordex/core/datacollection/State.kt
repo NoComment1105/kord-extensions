@@ -11,7 +11,7 @@ package dev.kordex.core.datacollection
 import dev.kordex.core.storage.Data
 import dev.kordex.data.api.serializers.KXUUIDSerializer
 import kotlinx.serialization.Serializable
-import java.util.UUID
+import java.util.*
 
 @Suppress("DataClassShouldBeImmutable")
 @Serializable

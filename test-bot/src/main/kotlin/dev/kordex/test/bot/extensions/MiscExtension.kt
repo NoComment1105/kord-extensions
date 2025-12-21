@@ -22,7 +22,7 @@ import dev.kordex.core.extensions.ephemeralSlashCommand
 import dev.kordex.core.extensions.publicSlashCommand
 import dev.kordex.core.healthcheck.HealthCheckState
 import dev.kordex.core.healthcheck.utils.addHealthCheck
-import dev.kordex.core.i18n.toKey
+import dev.kordex.i18n.toKey
 import dev.kordex.modules.web.core.backend.utils.apiRoutes
 import io.ktor.resources.*
 import io.ktor.server.resources.*

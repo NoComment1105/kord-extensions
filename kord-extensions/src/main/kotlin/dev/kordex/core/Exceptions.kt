@@ -14,9 +14,8 @@ import dev.kordex.core.commands.chat.ChatCommand
 import dev.kordex.core.commands.converters.builders.ConverterBuilder
 import dev.kordex.core.events.EventHandler
 import dev.kordex.core.extensions.Extension
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 import dev.kordex.parser.StringParser
-import java.util.*
 import kotlin.reflect.KClass
 
 /**

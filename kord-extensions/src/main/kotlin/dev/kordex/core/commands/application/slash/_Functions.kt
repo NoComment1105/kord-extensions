@@ -15,7 +15,7 @@ import dev.kordex.core.InvalidCommandException
 import dev.kordex.core.annotations.ExtensionDSL
 import dev.kordex.core.commands.Arguments
 import dev.kordex.core.components.forms.ModalForm
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 
 private const val SUBCOMMAND_AND_GROUP_LIMIT: Int = 25
 

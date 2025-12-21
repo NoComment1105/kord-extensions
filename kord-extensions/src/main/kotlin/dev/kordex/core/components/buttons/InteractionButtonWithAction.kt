@@ -14,12 +14,12 @@ import dev.kordex.core.components.ComponentWithAction
 import dev.kordex.core.components.forms.ModalForm
 import dev.kordex.core.components.types.HasPartialEmoji
 import dev.kordex.core.extensions.impl.SENTRY_EXTENSION_NAME
-import dev.kordex.core.i18n.generated.CoreTranslations
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.i18n.withContext
 import dev.kordex.core.sentry.BreadcrumbType
 import dev.kordex.core.types.FailureReason
 import dev.kordex.core.utils.scheduling.Task
+import dev.kordex.i18n.Key
+import dev.kordex.i18n.generated.CoreTranslations
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 

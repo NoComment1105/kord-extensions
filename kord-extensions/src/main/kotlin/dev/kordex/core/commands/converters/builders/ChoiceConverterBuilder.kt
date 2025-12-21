@@ -8,7 +8,7 @@
 
 package dev.kordex.core.commands.converters.builders
 
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 
 /** Converter builder for choice converters. **/
 public interface ChoiceConverterBuilder<T> {

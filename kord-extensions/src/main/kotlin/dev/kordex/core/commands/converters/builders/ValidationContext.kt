@@ -13,8 +13,8 @@ import dev.kordex.core.DiscordRelayedException
 import dev.kordex.core.checks.types.CheckContext
 import dev.kordex.core.commands.CommandContext
 import dev.kordex.core.commands.converters.Converter
-import dev.kordex.core.i18n.generated.CoreTranslations
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
+import dev.kordex.i18n.generated.CoreTranslations
 import java.util.*
 
 /**

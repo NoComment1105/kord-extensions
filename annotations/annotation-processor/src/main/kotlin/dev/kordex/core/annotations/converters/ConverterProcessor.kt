@@ -175,7 +175,7 @@ public class ConverterProcessor(
 						import dev.kordex.core.commands.Arguments
 						import dev.kordex.core.commands.converters.*
 						import dev.kordex.core.commands.converters.builders.*
-						import dev.kordex.core.i18n.types.*
+						import dev.kordex.i18n.*
 						import dev.kord.common.annotation.KordPreview
                     """.trimIndent()
 				)

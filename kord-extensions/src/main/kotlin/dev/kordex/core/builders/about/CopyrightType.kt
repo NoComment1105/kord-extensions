@@ -8,8 +8,8 @@
 
 package dev.kordex.core.builders.about
 
-import dev.kordex.core.i18n.generated.CoreTranslations
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
+import dev.kordex.i18n.generated.CoreTranslations
 
 public sealed class CopyrightType(public val key: Key) {
 	public object Framework : CopyrightType(CoreTranslations.Extensions.About.Copyright.Type.frameworks)

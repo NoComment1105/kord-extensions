@@ -14,7 +14,6 @@ import dev.kord.core.behavior.UserBehavior
 import dev.kord.rest.builder.component.ActionRowBuilder
 import dev.kordex.core.components.menus.OPTIONS_MAX
 import dev.kordex.core.components.menus.SelectMenu
-import dev.kordex.core.i18n.generated.CoreTranslations.Extensions.Sentry.Arguments.id
 
 /** Interface for user select menus. **/
 public interface MentionableSelectMenu {

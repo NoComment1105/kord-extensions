@@ -24,10 +24,10 @@ import dev.kordex.core.commands.converters.*
 import dev.kordex.core.commands.converters.types.MultiNamedInputConverter
 import dev.kordex.core.commands.converters.types.SingleNamedInputConverter
 import dev.kordex.core.commands.getDefaultTranslatedDisplayName
-import dev.kordex.core.i18n.generated.CoreTranslations
 import dev.kordex.core.i18n.withContext
 import dev.kordex.core.koin.KordExKoinComponent
 import dev.kordex.core.utils.MutableStringKeyedMap
+import dev.kordex.i18n.generated.CoreTranslations
 import dev.kordex.parser.StringParser
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.koin.core.component.inject

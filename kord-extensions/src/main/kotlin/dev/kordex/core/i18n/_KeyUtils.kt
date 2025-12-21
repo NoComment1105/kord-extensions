@@ -8,40 +8,8 @@
 
 package dev.kordex.core.i18n
 
-import dev.kordex.core.builders.ExtensibleBotBuilder
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.types.TranslatableContext
-import dev.kordex.core.utils.capitalizeWords
-import dev.kordex.core.utils.getKoin
-import java.util.Locale
-
-private fun getDefaultLocale(): Locale {
-	val settings: ExtensibleBotBuilder = getKoin().get()
-
-	return settings.i18nBuilder.defaultLocale
-}
-
-public fun Key.capitalizeWords(): Key = withPostProcessor {
-	it.capitalizeWords(locale ?: getDefaultLocale())
-}
-
-public fun Key.capitalize(): Key = withPostProcessor { string ->
-	string.replaceFirstChar {
-		if (it.isLowerCase()) {
-			it.titlecase(locale ?: getDefaultLocale())
-		} else {
-			it.toString()
-		}
-	}
-}
-
-public fun Key.lowercase(): Key = withPostProcessor {
-	it.lowercase(locale ?: getDefaultLocale())
-}
-
-public fun Key.uppercase(): Key = withPostProcessor {
-	it.uppercase(locale ?: getDefaultLocale())
-}
+import dev.kordex.i18n.Key
 
 public suspend fun Key.withContext(context: TranslatableContext): Key =
 	withLocale(context.getLocale())

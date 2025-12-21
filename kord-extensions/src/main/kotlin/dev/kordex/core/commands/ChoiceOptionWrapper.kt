@@ -16,7 +16,7 @@ import dev.kord.rest.builder.interaction.IntegerOptionBuilder
 import dev.kord.rest.builder.interaction.NumberOptionBuilder
 import dev.kord.rest.builder.interaction.StringChoiceBuilder
 import dev.kordex.core.annotations.InternalAPI
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 import kotlin.reflect.KClass
 
 public sealed class ChoiceOptionWrapper<B : BaseChoiceBuilder<*, *>, T> (

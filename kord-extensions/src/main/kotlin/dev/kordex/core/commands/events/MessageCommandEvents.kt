@@ -12,7 +12,7 @@ import dev.kord.core.event.interaction.MessageCommandInteractionCreateEvent
 import dev.kordex.core.commands.application.message.EphemeralMessageCommand
 import dev.kordex.core.commands.application.message.MessageCommand
 import dev.kordex.core.commands.application.message.PublicMessageCommand
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 
 // region Invocation events
 

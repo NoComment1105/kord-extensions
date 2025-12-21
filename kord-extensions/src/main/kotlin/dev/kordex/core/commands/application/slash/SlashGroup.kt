@@ -10,8 +10,8 @@ package dev.kordex.core.commands.application.slash
 
 import dev.kordex.core.InvalidCommandException
 import dev.kordex.core.commands.application.Localised
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.koin.KordExKoinComponent
+import dev.kordex.i18n.Key
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import java.util.*

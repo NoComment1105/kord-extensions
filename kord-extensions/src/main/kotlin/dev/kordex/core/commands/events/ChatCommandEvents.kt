@@ -11,7 +11,7 @@ package dev.kordex.core.commands.events
 import dev.kord.core.event.message.MessageCreateEvent
 import dev.kordex.core.ArgumentParsingException
 import dev.kordex.core.commands.chat.ChatCommand
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 
 /** Event emitted when a chat command is invoked. **/
 public data class ChatCommandInvocationEvent(

@@ -8,9 +8,9 @@
 
 package dev.kordex.modules.dev.java.time
 
-import dev.kordex.core.i18n.generated.CoreTranslations
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.koin.KordExKoinComponent
+import dev.kordex.i18n.Key
+import dev.kordex.i18n.generated.CoreTranslations
 import java.time.temporal.ChronoUnit
 import java.util.*
 

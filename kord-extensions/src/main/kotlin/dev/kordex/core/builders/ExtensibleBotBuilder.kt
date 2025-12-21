@@ -36,8 +36,6 @@ import dev.kordex.core.components.ComponentRegistry
 import dev.kordex.core.extensions.impl.AboutExtension
 import dev.kordex.core.healthcheck.HealthCheckRegistry
 import dev.kordex.core.healthcheck.HealthCheckState
-import dev.kordex.core.i18n.TranslationsProvider
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.koin.KordExContext
 import dev.kordex.core.plugins.KordExPlugin
 import dev.kordex.core.plugins.PluginManager
@@ -48,6 +46,7 @@ import dev.kordex.core.types.FailureReason
 import dev.kordex.core.utils.getKoin
 import dev.kordex.core.utils.loadModule
 import dev.kordex.data.api.DataCollection
+import dev.kordex.i18n.Key
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.isActive
@@ -499,7 +498,6 @@ public open class ExtensibleBotBuilder {
 
 		loadModule { single { healthCheckRegistry } bind HealthCheckRegistry::class }
 		loadModule { single { this@ExtensibleBotBuilder } bind ExtensibleBotBuilder::class }
-		loadModule { single { i18nBuilder.translationsProvider } bind TranslationsProvider::class }
 		loadModule { single { chatCommandsBuilder.registryBuilder() } bind ChatCommandRegistry::class }
 		loadModule { single { componentsBuilder.registryBuilder() } bind ComponentRegistry::class }
 

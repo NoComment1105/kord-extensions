@@ -22,10 +22,11 @@ import dev.kordex.core.checks.types.CheckWithCache
 import dev.kordex.core.commands.Command
 import dev.kordex.core.commands.application.slash.SlashCommand
 import dev.kordex.core.extensions.Extension
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.koin.KordExKoinComponent
 import dev.kordex.core.utils.MutableStringKeyedMap
 import dev.kordex.core.utils.getLocale
+import dev.kordex.i18n.I18n
+import dev.kordex.i18n.Key
 import org.koin.core.component.inject
 import dev.kord.common.Locale as KLocale
 
@@ -122,11 +123,11 @@ public abstract class ApplicationCommand<E : InteractionCreateEvent>(
 		lowerCase: Boolean = false,
 	): Localised<String> {
 		var default = key
-			.withLocale(translationsProvider.defaultLocale)
+			.withLocale(I18n.defaultLocale)
 			.translate()
 
 		if (lowerCase) {
-			default = default.lowercase(translationsProvider.defaultLocale)
+			default = default.lowercase(I18n.defaultLocale)
 		}
 
 		val translations = bot.settings.i18nBuilder.applicationCommandLocales

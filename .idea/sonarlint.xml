@@ -3,6 +3,6 @@
   <component name="SonarLintProjectSettings">
     <option name="bindingEnabled" value="true" />
     <option name="projectKey" value="Kord-Extensions_kord-extensions" />
-    <option name="serverId" value="gserv.me" />
+    <option name="serverId" value="https://sq.gserv.me" />
   </component>
 </project>

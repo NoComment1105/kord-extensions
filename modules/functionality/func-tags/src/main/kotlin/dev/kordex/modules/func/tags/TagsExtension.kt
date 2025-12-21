@@ -23,10 +23,10 @@ import dev.kordex.core.components.forms.ModalForm
 import dev.kordex.core.extensions.Extension
 import dev.kordex.core.extensions.ephemeralSlashCommand
 import dev.kordex.core.extensions.publicSlashCommand
-import dev.kordex.core.i18n.toKey
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.utils.FilterStrategy
 import dev.kordex.core.utils.suggestStringMap
+import dev.kordex.i18n.Key
+import dev.kordex.i18n.toKey
 import dev.kordex.modules.dev.unsafe.annotations.UnsafeAPI
 import dev.kordex.modules.dev.unsafe.commands.slash.InitialSlashCommandResponse
 import dev.kordex.modules.dev.unsafe.extensions.unsafeSubCommand

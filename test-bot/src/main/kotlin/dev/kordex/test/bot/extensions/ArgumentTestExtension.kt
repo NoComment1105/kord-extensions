@@ -25,10 +25,10 @@ import dev.kordex.core.commands.application.slash.converters.impl.stringChoice
 import dev.kordex.core.commands.converters.impl.*
 import dev.kordex.core.extensions.Extension
 import dev.kordex.core.extensions.publicSlashCommand
-import dev.kordex.core.i18n.toKey
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.utils.suggestStringCollection
 import dev.kordex.core.utils.suggestStringMap
+import dev.kordex.i18n.Key
+import dev.kordex.i18n.toKey
 
 public class ArgumentTestExtension : Extension() {
 	override val name: String = "kordex.test-args"

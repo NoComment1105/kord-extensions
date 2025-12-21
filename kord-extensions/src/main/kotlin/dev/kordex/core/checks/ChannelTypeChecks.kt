@@ -14,8 +14,8 @@ import dev.kord.common.entity.ChannelType
 import dev.kord.core.event.Event
 import dev.kordex.core.annotations.NotTranslated
 import dev.kordex.core.checks.types.CheckContext
-import dev.kordex.core.i18n.generated.CoreTranslations
 import dev.kordex.core.utils.toTranslationKey
+import dev.kordex.i18n.generated.CoreTranslations
 import io.github.oshai.kotlinlogging.KotlinLogging
 
 /**

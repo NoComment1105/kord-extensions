@@ -11,7 +11,7 @@ package dev.kordex.core.components.buttons
 import dev.kord.common.entity.DiscordPartialEmoji
 import dev.kordex.core.components.Component
 import dev.kordex.core.components.types.HasPartialEmoji
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 
 /** Abstract class representing a button component. **/
 public abstract class InteractionButton : Component(), HasPartialEmoji {

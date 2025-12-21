@@ -13,7 +13,7 @@ import dev.kordex.core.commands.Argument
 import dev.kordex.core.commands.Arguments
 import dev.kordex.core.commands.CommandContext
 import dev.kordex.core.commands.OptionWrapper
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 import dev.kordex.parser.StringParser
 
 /**

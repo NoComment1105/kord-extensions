@@ -8,8 +8,8 @@
 
 package dev.kordex.test.bot
 
-import dev.kordex.core.i18n.types.Bundle
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Bundle
+import dev.kordex.i18n.Key
 
 /** Written by hand for the sake of these tests. **/
 internal object Translations {

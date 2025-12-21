@@ -9,11 +9,11 @@
 package dev.kordex.modules.dev.time4j
 
 import dev.kordex.core.builders.ExtensibleBotBuilder
-import dev.kordex.core.i18n.generated.CoreTranslations
 import dev.kordex.core.koin.KordExKoinComponent
 import dev.kordex.core.parsers.DurationParserException
 import dev.kordex.core.parsers.InvalidTimeUnitException
 import dev.kordex.core.utils.splitOn
+import dev.kordex.i18n.generated.CoreTranslations
 import net.time4j.Duration
 import net.time4j.IsoUnit
 import org.koin.core.component.inject

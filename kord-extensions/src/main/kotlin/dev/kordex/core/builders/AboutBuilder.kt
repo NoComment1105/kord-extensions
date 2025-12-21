@@ -13,10 +13,10 @@ import dev.kordex.core.annotations.NotTranslated
 import dev.kordex.core.builders.about.Copyright
 import dev.kordex.core.builders.about.CopyrightType
 import dev.kordex.core.builders.about.Section
-import dev.kordex.core.i18n.generated.CoreTranslations
-import dev.kordex.core.i18n.toKey
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.koin.KordExKoinComponent
+import dev.kordex.i18n.Key
+import dev.kordex.i18n.generated.CoreTranslations
+import dev.kordex.i18n.toKey
 
 /**
  * Builder used for configuring the information provided by the "about" chat/slash command.

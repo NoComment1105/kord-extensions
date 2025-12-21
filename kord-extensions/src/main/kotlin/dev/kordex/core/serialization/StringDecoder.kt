@@ -15,7 +15,7 @@ import kotlinx.serialization.encoding.AbstractDecoder
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.modules.EmptySerializersModule
 import kotlinx.serialization.modules.SerializersModule
-import java.util.Locale
+import java.util.*
 
 @OptIn(ExperimentalSerializationApi::class)
 public class StringDecoder(

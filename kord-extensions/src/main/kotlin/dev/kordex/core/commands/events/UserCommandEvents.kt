@@ -12,7 +12,7 @@ import dev.kord.core.event.interaction.UserCommandInteractionCreateEvent
 import dev.kordex.core.commands.application.user.EphemeralUserCommand
 import dev.kordex.core.commands.application.user.PublicUserCommand
 import dev.kordex.core.commands.application.user.UserCommand
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 
 // region Invocation events
 

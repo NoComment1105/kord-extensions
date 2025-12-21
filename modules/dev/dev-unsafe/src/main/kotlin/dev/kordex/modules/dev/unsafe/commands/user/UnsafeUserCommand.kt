@@ -23,11 +23,11 @@ import dev.kordex.core.InvalidCommandException
 import dev.kordex.core.annotations.InternalAPI
 import dev.kordex.core.commands.application.user.UserCommand
 import dev.kordex.core.extensions.Extension
-import dev.kordex.core.i18n.generated.CoreTranslations
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.types.FailureReason
 import dev.kordex.core.utils.MutableStringKeyedMap
 import dev.kordex.core.utils.getLocale
+import dev.kordex.i18n.Key
+import dev.kordex.i18n.generated.CoreTranslations
 import dev.kordex.modules.dev.unsafe.annotations.UnsafeAPI
 import dev.kordex.modules.dev.unsafe.commands.UnsafeUserCommandFailedChecksEvent
 import dev.kordex.modules.dev.unsafe.commands.UnsafeUserCommandFailedWithExceptionEvent

@@ -1,15 +1,23 @@
 import org.gradle.api.Project
+import org.gradle.process.ExecOperations
+import sun.jvmstat.monitor.MonitoredVmUtil.commandLine
 import java.io.ByteArrayOutputStream
+import javax.inject.Inject
 
 object GitCommitState {
 	var branch: String? = null
 	var hash: String? = null
 }
 
+interface InjectedExecOps {
+	@get:Inject
+	val execOps: ExecOperations
+}
+
 fun Project.runCommand(command: String): String {
 	val output = ByteArrayOutputStream()
 
-	exec {
+	providers.exec {
 		commandLine(command.split(" "))
 
 		standardOutput = output
@@ -24,22 +32,19 @@ fun Project.runCommand(command: String): String {
 }
 
 fun Project.runCommand(command: String, cwd: Any): String {
-	val output = ByteArrayOutputStream()
-
-	exec {
+	val output = providers.exec {
 		workingDir(cwd)
 		commandLine(command.split(" "))
-
-		standardOutput = output
-		errorOutput = output
 	}
 
-	val result = output.toString().trim()
+	val stdout = output.standardOutput.asText.get().trim()
+	val stderr = output.standardError.asText.get().trim()
 
 	println("$cwd -> $command")
-	println(result.prependIndent("-> "))
+	println(stdout.prependIndent("OUT -> "))
+	println(stderr.prependIndent("ERR -> "))
 
-	return output.toString().trim()
+	return stdout
 }
 
 fun Project.getCurrentGitBranch(): String {  // https://gist.github.com/lordcodes/15b2a4aecbeff7c3238a70bfd20f0931

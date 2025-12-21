@@ -11,7 +11,7 @@ package dev.kordex.core.components.menus.string
 import dev.kord.rest.builder.component.ActionRowBuilder
 import dev.kord.rest.builder.component.SelectOptionBuilder
 import dev.kordex.core.components.menus.*
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 
 /** Interface for string select menus. **/
 public interface StringSelectMenu {

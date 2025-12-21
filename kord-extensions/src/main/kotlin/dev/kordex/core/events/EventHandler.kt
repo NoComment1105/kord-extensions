@@ -12,17 +12,16 @@ import dev.kord.core.Kord
 import dev.kord.core.event.Event
 import dev.kordex.core.InvalidEventHandlerException
 import dev.kordex.core.annotations.InternalAPI
-import dev.kordex.core.builders.ExtensibleBotBuilder
 import dev.kordex.core.checks.*
 import dev.kordex.core.checks.types.CheckContextWithCache
 import dev.kordex.core.checks.types.CheckWithCache
 import dev.kordex.core.extensions.Extension
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.koin.KordExKoinComponent
 import dev.kordex.core.sentry.BreadcrumbType
 import dev.kordex.core.sentry.SentryAdapter
 import dev.kordex.core.utils.MutableStringKeyedMap
-import dev.kordex.core.utils.getKoin
+import dev.kordex.i18n.I18n
+import dev.kordex.i18n.Key
 import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -31,10 +30,6 @@ import java.util.*
 import kotlin.reflect.KClass
 
 private val logger = KotlinLogging.logger {}
-
-private val defaultLocale: Locale
-	get() =
-		getKoin().get<ExtensibleBotBuilder>().i18nBuilder.defaultLocale
 
 /**
  * Class representing an event handler. Event handlers react to a given Kord event.
@@ -147,7 +142,7 @@ public open class EventHandler<T : Event>(
 		val cache: MutableStringKeyedMap<Any> = mutableMapOf()
 
 		for (check in checkList) {
-			val context = CheckContextWithCache(event, defaultLocale, cache)
+			val context = CheckContextWithCache(event, I18n.defaultLocale, cache)
 
 			check(context)
 
@@ -234,7 +229,7 @@ public open class EventHandler<T : Event>(
 			}
 		}
 
-		resolvedLocale = locale ?: extension.bot.settings.i18nBuilder.defaultLocale
+		resolvedLocale = locale ?: I18n.defaultLocale
 
 		return resolvedLocale!!
 	}

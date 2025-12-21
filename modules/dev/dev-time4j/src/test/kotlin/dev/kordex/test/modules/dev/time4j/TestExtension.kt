@@ -11,8 +11,8 @@ package dev.kordex.test.modules.dev.time4j
 import dev.kordex.core.commands.Arguments
 import dev.kordex.core.extensions.Extension
 import dev.kordex.core.extensions.chatCommand
-import dev.kordex.core.i18n.toKey
 import dev.kordex.core.utils.respond
+import dev.kordex.i18n.toKey
 import dev.kordex.modules.dev.time4j.coalescingT4JDuration
 import dev.kordex.modules.dev.time4j.toHuman
 

@@ -12,7 +12,7 @@ import dev.kord.core.event.Event
 import dev.kordex.core.ArgumentParsingException
 import dev.kordex.core.commands.Command
 import dev.kordex.core.events.KordExEvent
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 
 /**
  * Sealed interface representing a basic command event.

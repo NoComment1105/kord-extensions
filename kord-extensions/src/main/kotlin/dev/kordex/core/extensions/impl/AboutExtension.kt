@@ -20,10 +20,10 @@ import dev.kordex.core.extensions.Extension
 import dev.kordex.core.extensions.chatGroupCommand
 import dev.kordex.core.extensions.ephemeralSlashCommand
 import dev.kordex.core.extensions.publicSlashCommand
-import dev.kordex.core.i18n.generated.CoreTranslations
 import dev.kordex.core.pagination.builders.PaginatorBuilder
+import dev.kordex.i18n.generated.CoreTranslations
 import org.koin.core.component.inject
-import java.util.Locale
+import java.util.*
 
 @Suppress("StringLiteralDuplication", "MagicNumber")
 public class AboutExtension : Extension() {

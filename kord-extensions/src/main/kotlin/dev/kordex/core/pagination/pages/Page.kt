@@ -10,12 +10,12 @@ package dev.kordex.core.pagination.pages
 
 import dev.kord.rest.builder.message.EmbedBuilder
 import dev.kordex.core.ExtensibleBot
-import dev.kordex.core.i18n.generated.CoreTranslations
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.koin.KordExKoinComponent
 import dev.kordex.core.pagination.builders.PageMutator
 import dev.kordex.core.utils.capitalizeWords
 import dev.kordex.core.utils.textOrNull
+import dev.kordex.i18n.Key
+import dev.kordex.i18n.generated.CoreTranslations
 import org.koin.core.component.inject
 import java.util.*
 import kotlin.math.ceil

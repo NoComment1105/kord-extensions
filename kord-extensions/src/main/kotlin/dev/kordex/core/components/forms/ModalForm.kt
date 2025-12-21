@@ -16,7 +16,6 @@ import dev.kord.core.behavior.interaction.modal
 import dev.kord.core.behavior.interaction.response.EphemeralMessageInteractionResponseBehavior
 import dev.kord.core.behavior.interaction.response.PublicMessageInteractionResponseBehavior
 import dev.kord.core.entity.interaction.ModalSubmitInteraction
-import dev.kord.core.event.interaction.ComponentInteractionCreateEvent
 import dev.kord.core.event.interaction.InteractionCreateEvent
 import dev.kord.core.event.interaction.ModalSubmitInteractionCreateEvent
 import dev.kord.rest.builder.interaction.ModalBuilder
@@ -29,9 +28,9 @@ import dev.kordex.core.components.forms.widgets.TextInputWidget
 import dev.kordex.core.components.forms.widgets.Widget
 import dev.kordex.core.events.EventContext
 import dev.kordex.core.events.ModalInteractionCompleteEvent
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.koin.KordExKoinComponent
 import dev.kordex.core.utils.waitFor
+import dev.kordex.i18n.Key
 import org.koin.core.component.inject
 import java.util.*
 import kotlin.time.Duration

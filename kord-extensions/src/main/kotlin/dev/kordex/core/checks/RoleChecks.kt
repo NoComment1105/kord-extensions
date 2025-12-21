@@ -16,8 +16,8 @@ import dev.kord.core.behavior.RoleBehavior
 import dev.kord.core.event.Event
 import dev.kordex.core.annotations.NotTranslated
 import dev.kordex.core.checks.types.CheckContext
-import dev.kordex.core.i18n.generated.CoreTranslations
 import dev.kordex.core.utils.getTopRole
+import dev.kordex.i18n.generated.CoreTranslations
 import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.flow.toList
 

@@ -9,7 +9,7 @@
 package dev.kordex.core.commands.application.slash.converters
 
 import dev.kordex.core.commands.application.slash.converters.impl.EnumChoiceConverter
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 
 /** Interface representing an enum used in the [EnumChoiceConverter]. **/
 public interface ChoiceEnum {

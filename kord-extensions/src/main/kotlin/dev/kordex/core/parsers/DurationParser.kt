@@ -8,12 +8,12 @@
 
 package dev.kordex.core.parsers
 
-import dev.kordex.core.i18n.generated.CoreTranslations
 import dev.kordex.core.koin.KordExKoinComponent
 import dev.kordex.core.parsers.caches.TimeUnitCache
 import dev.kordex.core.time.name
 import dev.kordex.core.utils.MutableStringKeyedMap
 import dev.kordex.core.utils.splitOn
+import dev.kordex.i18n.generated.CoreTranslations
 import kotlinx.datetime.DateTimePeriod
 import java.util.*
 

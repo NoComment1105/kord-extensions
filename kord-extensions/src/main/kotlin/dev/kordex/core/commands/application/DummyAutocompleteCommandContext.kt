@@ -16,7 +16,7 @@ import dev.kord.core.entity.interaction.GuildAutoCompleteInteraction
 import dev.kord.core.event.interaction.AutoCompleteInteractionCreateEvent
 import dev.kordex.core.commands.Command
 import dev.kordex.core.commands.CommandContext
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 
 public class DummyAutocompleteCommandContext(
 	command: Command,

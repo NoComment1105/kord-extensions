@@ -9,8 +9,8 @@
 package dev.kordex.core.parsers
 
 import dev.kordex.core.KordExException
-import dev.kordex.core.i18n.generated.CoreTranslations
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
+import dev.kordex.i18n.generated.CoreTranslations
 
 /**
  * A base exception class for parsers.

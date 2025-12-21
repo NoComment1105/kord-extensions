@@ -8,18 +8,9 @@
 
 package dev.kordex.core.commands
 
-import dev.kord.rest.builder.interaction.AttachmentBuilder
-import dev.kord.rest.builder.interaction.BooleanBuilder
-import dev.kord.rest.builder.interaction.ChannelBuilder
-import dev.kord.rest.builder.interaction.IntegerOptionBuilder
-import dev.kord.rest.builder.interaction.MentionableBuilder
-import dev.kord.rest.builder.interaction.NumberOptionBuilder
-import dev.kord.rest.builder.interaction.OptionsBuilder
-import dev.kord.rest.builder.interaction.RoleBuilder
-import dev.kord.rest.builder.interaction.StringChoiceBuilder
-import dev.kord.rest.builder.interaction.UserBuilder
+import dev.kord.rest.builder.interaction.*
 import dev.kordex.core.annotations.InternalAPI
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 import kotlin.reflect.KClass
 
 @Suppress("UNCHECKED_CAST")

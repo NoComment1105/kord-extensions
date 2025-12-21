@@ -16,11 +16,12 @@ import dev.kord.rest.builder.message.MessageBuilder
 import dev.kord.rest.builder.message.embed
 import dev.kordex.core.DISCORD_BLURPLE
 import dev.kordex.core.ExtensibleBot
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.koin.KordExKoinComponent
 import dev.kordex.core.pagination.builders.PageTransitionCallback
 import dev.kordex.core.pagination.pages.Page
 import dev.kordex.core.pagination.pages.Pages
+import dev.kordex.i18n.I18n
+import dev.kordex.i18n.Key
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.koin.core.component.inject
@@ -83,7 +84,7 @@ public abstract class BasePaginator(
 	public val kord: Kord by inject()
 
 	/** Locale to use for translations. **/
-	public open val localeObj: Locale = locale ?: bot.settings.i18nBuilder.defaultLocale
+	public open val localeObj: Locale = locale ?: I18n.defaultLocale
 
 	/** What to do after the paginator times out. **/
 	public val timeoutCallbacks: MutableList<suspend () -> Unit> = mutableListOf()

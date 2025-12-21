@@ -17,8 +17,6 @@ import dev.kordex.core.commands.converters.impl.stringList
 import dev.kordex.core.extensions.Extension
 import dev.kordex.core.extensions.base.HelpProvider
 import dev.kordex.core.extensions.chatCommand
-import dev.kordex.core.i18n.EMPTY_KEY
-import dev.kordex.core.i18n.generated.CoreTranslations
 import dev.kordex.core.pagination.BasePaginator
 import dev.kordex.core.pagination.MessageButtonPaginator
 import dev.kordex.core.pagination.pages.Page
@@ -26,6 +24,9 @@ import dev.kordex.core.pagination.pages.Pages
 import dev.kordex.core.utils.deleteIgnoringNotFound
 import dev.kordex.core.utils.getLocale
 import dev.kordex.core.utils.translate
+import dev.kordex.i18n.EMPTY_KEY
+import dev.kordex.i18n.I18n
+import dev.kordex.i18n.generated.CoreTranslations
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.koin.core.component.inject
 
@@ -261,7 +262,7 @@ public class HelpExtension : HelpProvider, Extension() {
 		longDescription: Boolean,
 	): Triple<String, String, String> {
 		val locale = event.getLocale()
-		val defaultLocale = botSettings.i18nBuilder.defaultLocale
+		val defaultLocale = I18n.defaultLocale
 
 		val commandName = when (command) {
 			is ChatSubCommand -> command.getFullTranslatedName(locale)

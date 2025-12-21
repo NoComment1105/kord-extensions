@@ -20,11 +20,11 @@ import dev.kordex.core.commands.OptionWrapper
 import dev.kordex.core.commands.converters.SingleConverter
 import dev.kordex.core.commands.converters.Validator
 import dev.kordex.core.commands.wrapOption
-import dev.kordex.core.i18n.generated.CoreTranslations
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.i18n.withContext
 import dev.kordex.core.parsers.DurationParserException
 import dev.kordex.core.parsers.InvalidTimeUnitException
+import dev.kordex.i18n.Key
+import dev.kordex.i18n.generated.CoreTranslations
 import dev.kordex.parser.StringParser
 import java.time.Duration
 import java.time.LocalDateTime

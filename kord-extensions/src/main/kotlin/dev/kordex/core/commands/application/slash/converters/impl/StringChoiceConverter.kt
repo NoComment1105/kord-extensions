@@ -20,10 +20,10 @@ import dev.kordex.core.commands.OptionWrapper
 import dev.kordex.core.commands.application.slash.converters.ChoiceConverter
 import dev.kordex.core.commands.converters.Validator
 import dev.kordex.core.commands.wrapStringOption
-import dev.kordex.core.i18n.generated.CoreTranslations
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.i18n.withContext
 import dev.kordex.core.utils.getIgnoringCase
+import dev.kordex.i18n.Key
+import dev.kordex.i18n.generated.CoreTranslations
 import dev.kordex.parser.StringParser
 
 /**

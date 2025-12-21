@@ -21,13 +21,13 @@ import dev.kordex.core.commands.application.slash.converters.ChoiceConverter
 import dev.kordex.core.commands.application.slash.converters.ChoiceEnum
 import dev.kordex.core.commands.converters.Validator
 import dev.kordex.core.commands.wrapStringOption
-import dev.kordex.core.i18n.generated.CoreTranslations
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.i18n.withContext
 import dev.kordex.core.utils.getIgnoringCase
+import dev.kordex.i18n.Key
+import dev.kordex.i18n.generated.CoreTranslations
 import dev.kordex.parser.StringParser
 import io.github.oshai.kotlinlogging.KotlinLogging
-import java.util.Locale
+import java.util.*
 
 /**
  * Choice converter for enum arguments. Supports mapping up to 25 choices to an enum type.

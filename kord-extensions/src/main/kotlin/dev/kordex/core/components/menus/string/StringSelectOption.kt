@@ -11,8 +11,7 @@ package dev.kordex.core.components.menus.string
 import dev.kord.common.entity.DiscordPartialEmoji
 import dev.kord.rest.builder.component.SelectOptionBuilder
 import dev.kordex.core.components.types.HasPartialEmoji
-import dev.kordex.core.components.types.emoji
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 
 public class StringSelectOption(
 	public var label: Key,

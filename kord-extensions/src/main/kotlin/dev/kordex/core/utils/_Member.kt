@@ -22,7 +22,10 @@ import kotlinx.coroutines.flow.toList
 import kotlinx.datetime.DateTimePeriod
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
-import kotlin.time.*
+import kotlin.time.Clock
+import kotlin.time.Duration
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 /** A more sensible name than `communicationDisabledUntil`. **/
 public val Member.timeoutUntil: Instant?

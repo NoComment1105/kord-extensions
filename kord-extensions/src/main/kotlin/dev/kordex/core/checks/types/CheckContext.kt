@@ -11,9 +11,9 @@ package dev.kordex.core.checks.types
 import dev.kord.core.event.Event
 import dev.kordex.core.DiscordRelayedException
 import dev.kordex.core.annotations.NotTranslated
-import dev.kordex.core.i18n.generated.CoreTranslations
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.koin.KordExKoinComponent
+import dev.kordex.i18n.Key
+import dev.kordex.i18n.generated.CoreTranslations
 import java.util.*
 
 /**

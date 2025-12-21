@@ -8,9 +8,9 @@
 
 package dev.kordex.core.parsers.caches
 
-import dev.kordex.core.i18n.generated.CoreTranslations
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.koin.KordExKoinComponent
+import dev.kordex.i18n.Key
+import dev.kordex.i18n.generated.CoreTranslations
 import kotlinx.datetime.DateTimeUnit
 import java.util.*
 

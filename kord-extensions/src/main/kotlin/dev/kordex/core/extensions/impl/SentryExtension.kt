@@ -16,10 +16,10 @@ import dev.kordex.core.commands.converters.impl.string
 import dev.kordex.core.extensions.Extension
 import dev.kordex.core.extensions.chatCommand
 import dev.kordex.core.extensions.ephemeralSlashCommand
-import dev.kordex.core.i18n.generated.CoreTranslations
 import dev.kordex.core.sentry.SentryAdapter
 import dev.kordex.core.sentry.sentryId
 import dev.kordex.core.utils.respond
+import dev.kordex.i18n.generated.CoreTranslations
 import io.sentry.UserFeedback
 import io.sentry.protocol.SentryId
 import org.koin.core.component.inject

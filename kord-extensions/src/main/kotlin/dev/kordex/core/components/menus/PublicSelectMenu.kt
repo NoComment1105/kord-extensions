@@ -16,12 +16,12 @@ import dev.kord.core.behavior.interaction.response.PublicMessageInteractionRespo
 import dev.kord.core.event.interaction.SelectMenuInteractionCreateEvent
 import dev.kordex.core.DiscordRelayedException
 import dev.kordex.core.components.forms.ModalForm
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.types.FailureReason
 import dev.kordex.core.types.PublicInteractionContext
 import dev.kordex.core.utils.MutableStringKeyedMap
 import dev.kordex.core.utils.getLocale
 import dev.kordex.core.utils.scheduling.Task
+import dev.kordex.i18n.Key
 
 /** Class representing a public-only select (dropdown) menu. **/
 public abstract class PublicSelectMenu<C, M : ModalForm>(

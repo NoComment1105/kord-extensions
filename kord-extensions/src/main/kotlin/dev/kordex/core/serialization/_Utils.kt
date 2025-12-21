@@ -9,7 +9,7 @@
 package dev.kordex.core.serialization
 
 import kotlinx.serialization.KSerializer
-import java.util.Locale
+import java.util.*
 
 public fun <T : Any> KSerializer<T>.deserializeRaw(string: String, locale: Locale? = null): T {
 	val decoder = StringDecoder(string, locale)

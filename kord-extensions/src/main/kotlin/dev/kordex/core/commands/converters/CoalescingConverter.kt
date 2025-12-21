@@ -11,7 +11,7 @@ package dev.kordex.core.commands.converters
 import dev.kordex.core.DiscordRelayedException
 import dev.kordex.core.commands.converters.builders.CoalescingConverterBuilder
 import dev.kordex.core.commands.converters.types.MultiNamedInputConverter
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 
 /**
  * Abstract base class for a coalescing converter.

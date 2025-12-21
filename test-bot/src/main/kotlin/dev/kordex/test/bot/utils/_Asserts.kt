@@ -12,8 +12,8 @@ package dev.kordex.test.bot.utils
 
 import dev.kordex.core.DiscordRelayedException
 import dev.kordex.core.commands.CommandContext
-import dev.kordex.core.i18n.generated.CoreTranslations
 import dev.kordex.core.i18n.withContext
+import dev.kordex.i18n.generated.CoreTranslations
 
 public typealias AssertBody = (suspend () -> Any)?
 

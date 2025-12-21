@@ -9,9 +9,8 @@
 package dev.kordex.core.commands
 
 import dev.kordex.core.commands.converters.Converter
-import dev.kordex.core.i18n.TranslationsProvider
-import dev.kordex.core.i18n.types.Key
-import dev.kordex.core.utils.getKoin
+import dev.kordex.i18n.I18n
+import dev.kordex.i18n.Key
 
 /**
  * Data class representing a single argument.
@@ -31,4 +30,4 @@ public data class Argument<T : Any?>(
 }
 
 internal fun Argument<*>.getDefaultTranslatedDisplayName(): String =
-	displayName.translateLocale(getKoin().get<TranslationsProvider>().defaultLocale)
+	displayName.translateLocale(I18n.defaultLocale)

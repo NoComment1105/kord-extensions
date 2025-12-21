@@ -8,8 +8,8 @@
 
 package dev.kordex.core.pagination.pages
 
-import dev.kordex.core.i18n.EMPTY_KEY
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.EMPTY_KEY
+import dev.kordex.i18n.Key
 
 /**
  * Class representing a set of pages in a paginator. You can subclass this to customize it if you wish!

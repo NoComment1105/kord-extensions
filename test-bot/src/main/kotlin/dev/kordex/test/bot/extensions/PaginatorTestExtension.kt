@@ -13,7 +13,7 @@ package dev.kordex.test.bot.extensions
 import dev.kordex.core.commands.application.slash.publicSubCommand
 import dev.kordex.core.extensions.Extension
 import dev.kordex.core.extensions.publicSlashCommand
-import dev.kordex.core.i18n.toKey
+import dev.kordex.i18n.toKey
 
 public class PaginatorTestExtension : Extension() {
 	override val name: String = "kordex.test-paginator"

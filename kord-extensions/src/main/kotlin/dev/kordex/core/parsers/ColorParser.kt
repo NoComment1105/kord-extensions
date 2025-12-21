@@ -9,10 +9,9 @@
 package dev.kordex.core.parsers
 
 import dev.kord.common.Color
-import dev.kordex.core.builders.ExtensibleBotBuilder
 import dev.kordex.core.koin.KordExKoinComponent
 import dev.kordex.core.parsers.caches.ColorCache
-import org.koin.core.component.inject
+import dev.kordex.i18n.I18n
 import java.util.*
 
 /**
@@ -32,14 +31,12 @@ import java.util.*
  * Translations may be split using commas, in which case any of the given values will be suitable.
  */
 public object ColorParser : KordExKoinComponent {
-	private val settings: ExtensibleBotBuilder by inject()
-
 	/**
 	 * Parse the given string into a [Color] based on the translations for the given locale. Falls back to the bot's
 	 * default locale as required.
 	 */
 	public fun parse(input: String, locale: Locale): Color? {
-		val defaultColorMap = ColorCache.getColors(settings.i18nBuilder.defaultLocale)
+		val defaultColorMap = ColorCache.getColors(I18n.defaultLocale)
 		val colorMap = ColorCache.getColors(locale)
 
 		return colorMap[input] ?: defaultColorMap[input]

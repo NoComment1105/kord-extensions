@@ -9,7 +9,7 @@
 package dev.kordex.modules.func.mappings.enums
 
 import dev.kordex.core.commands.application.slash.converters.ChoiceEnum
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 import dev.kordex.modules.func.mappings.i18n.generated.MappingsTranslations
 
 /**

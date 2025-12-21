@@ -8,10 +8,10 @@
 
 package dev.kordex.core.i18n
 
-import dev.kordex.core.i18n.types.Bundle
-import dev.kordex.core.i18n.types.Key
-import dev.kordex.core.i18n.types.PlaceholderPosition
-import java.util.Locale
+import dev.kordex.i18n.Bundle
+import dev.kordex.i18n.Key
+import dev.kordex.i18n.PlaceholderPosition
+import java.util.*
 
 private val translationKeyMap: MutableMap<String, Key> = mutableMapOf()
 

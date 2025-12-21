@@ -9,7 +9,7 @@
 package dev.kordex.core.commands.application.slash.converters
 
 import dev.kordex.core.commands.converters.SingleConverter
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 
 private const val CHOICE_LIMIT = 25  // Discord doesn't allow more choices than this
 

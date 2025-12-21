@@ -21,11 +21,11 @@ import dev.kord.rest.builder.component.ActionRowBuilder
 import dev.kord.rest.builder.message.create.InteractionResponseCreateBuilder
 import dev.kordex.core.DiscordRelayedException
 import dev.kordex.core.components.forms.ModalForm
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.types.FailureReason
 import dev.kordex.core.utils.MutableStringKeyedMap
 import dev.kordex.core.utils.getLocale
 import dev.kordex.core.utils.scheduling.Task
+import dev.kordex.i18n.Key
 
 public typealias InitialPublicButtonResponseBuilder =
 	(suspend InteractionResponseCreateBuilder.(ButtonInteractionCreateEvent) -> Unit)?

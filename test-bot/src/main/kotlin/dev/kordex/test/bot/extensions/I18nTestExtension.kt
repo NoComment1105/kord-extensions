@@ -24,8 +24,8 @@ import dev.kordex.core.commands.converters.impl.string
 import dev.kordex.core.extensions.Extension
 import dev.kordex.core.extensions.ephemeralSlashCommand
 import dev.kordex.core.extensions.publicSlashCommand
-import dev.kordex.core.i18n.toKey
-import dev.kordex.core.i18n.types.Bundle
+import dev.kordex.i18n.Bundle
+import dev.kordex.i18n.toKey
 import dev.kordex.test.bot.Translations
 
 @OptIn(NotTranslated::class)

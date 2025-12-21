@@ -12,6 +12,7 @@ import dev.kord.common.entity.Snowflake
 import dev.kordex.core.ExtensibleBot
 import dev.kordex.core.i18n.SupportedLocales
 import dev.kordex.core.utils.env
+import dev.kordex.i18n.I18n
 import org.koin.core.logger.Level
 
 val TEST_SERVER_ID = Snowflake(787452339908116521UL)
@@ -30,7 +31,7 @@ suspend fun main() {
 					667552017434017794UL -> SupportedLocales.CHINESE_SIMPLIFIED
 					185461862878543872UL -> SupportedLocales.GERMAN
 
-					else -> defaultLocale
+					else -> I18n.defaultLocale
 				}
 			}
 		}

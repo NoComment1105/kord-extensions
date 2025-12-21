@@ -20,6 +20,7 @@ public fun Intent.getName(): String = when (this) {
 	is Intent.DirectMessages -> "Direct Messages"
 	is Intent.DirectMessagesReactions -> "Direct Messages Reactions"
 	is Intent.GuildEmojis -> "Guild Emojis"
+	is Intent.GuildExpressions -> "Guild Expressions"
 	is Intent.GuildIntegrations -> "Guild Integrations"
 	is Intent.GuildInvites -> "Guild Invites"
 	is Intent.GuildMembers -> "Guild Members"

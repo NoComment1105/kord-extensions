@@ -8,10 +8,9 @@
 
 package dev.kordex.core.parsers
 
-import dev.kordex.core.builders.ExtensibleBotBuilder
-import dev.kordex.core.i18n.generated.CoreTranslations
 import dev.kordex.core.koin.KordExKoinComponent
-import org.koin.core.component.inject
+import dev.kordex.i18n.I18n
+import dev.kordex.i18n.generated.CoreTranslations
 import java.util.*
 
 /**
@@ -26,8 +25,6 @@ import java.util.*
  * Translations may be split using commas, in which case any of the given values will be suitable.
  */
 public object BooleanParser : KordExKoinComponent {
-	private val settings: ExtensibleBotBuilder by inject()
-
 	private val valueCache: MutableMap<Locale, Pair<List<String>, List<String>>> = mutableMapOf()
 
 	/**
@@ -61,10 +58,10 @@ public object BooleanParser : KordExKoinComponent {
 			else -> null
 		}
 
-		if (result == null && locale != settings.i18nBuilder.defaultLocale) {
+		if (result == null && locale != I18n.defaultLocale) {
 			// Try it again in the default locale as a fallback
 
-			return parse(input, settings.i18nBuilder.defaultLocale)
+			return parse(input, I18n.defaultLocale)
 		}
 
 		return result

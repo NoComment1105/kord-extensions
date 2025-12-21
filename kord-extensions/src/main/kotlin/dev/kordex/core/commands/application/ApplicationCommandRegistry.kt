@@ -46,6 +46,7 @@ import dev.kordex.core.commands.application.user.UserCommand
 import dev.kordex.core.commands.converters.SlashCommandConverter
 import dev.kordex.core.commands.getDefaultTranslatedDisplayName
 import dev.kordex.core.koin.KordExKoinComponent
+import dev.kordex.i18n.I18n
 import io.github.oshai.kotlinlogging.KLogger
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.koin.core.component.inject
@@ -244,7 +245,7 @@ public abstract class ApplicationCommandRegistry : KordExKoinComponent {
 	 * Creates a KordEx [SlashCommand] as discord command and returns the created command's id as [Snowflake].
 	 */
 	public open suspend fun createDiscordSlashCommand(command: SlashCommand<*, *, *>): Snowflake? {
-		val locale = bot.settings.i18nBuilder.defaultLocale
+		val locale = I18n.defaultLocale
 
 		val guild = if (command.guildId != null) {
 			kord.getGuildOrNull(command.guildId!!)
@@ -286,7 +287,7 @@ public abstract class ApplicationCommandRegistry : KordExKoinComponent {
 	 * Creates a KordEx [UserCommand] as discord command and returns the created command's id as [Snowflake].
 	 */
 	public open suspend fun createDiscordUserCommand(command: UserCommand<*, *>): Snowflake? {
-		val locale = bot.settings.i18nBuilder.defaultLocale
+		val locale = I18n.defaultLocale
 
 		val guild = if (command.guildId != null) {
 			kord.getGuildOrNull(command.guildId!!)
@@ -323,7 +324,7 @@ public abstract class ApplicationCommandRegistry : KordExKoinComponent {
 	 * Creates a KordEx [MessageCommand] as discord command and returns the created command's id as [Snowflake].
 	 */
 	public open suspend fun createDiscordMessageCommand(command: MessageCommand<*, *>): Snowflake? {
-		val locale = bot.settings.i18nBuilder.defaultLocale
+		val locale = I18n.defaultLocale
 
 		val guild = if (command.guildId != null) {
 			kord.getGuildOrNull(command.guildId!!)
@@ -552,10 +553,10 @@ public abstract class ApplicationCommandRegistry : KordExKoinComponent {
 	) {
 		val defaultName = argObj.getDefaultTranslatedDisplayName()
 
-		if (defaultName != defaultName.lowercase(command.translationsProvider.defaultLocale)) {
+		if (defaultName != defaultName.lowercase(I18n.defaultLocale)) {
 			throw InvalidNameException(
 				"Argument $name for command ${command.name} does not have a lower-case name in the configured " +
-					"default locale: ${command.translationsProvider.defaultLocale} -> $defaultName - this will " +
+					"default locale: ${I18n.defaultLocale} -> $defaultName - this will " +
 					"cause issues with matching your command arguments to the options provided by users on Discord"
 			)
 		}

@@ -20,9 +20,9 @@ import dev.kordex.core.commands.application.slash.converters.ChoiceEnum
 import dev.kordex.core.commands.converters.SingleConverter
 import dev.kordex.core.commands.converters.Validator
 import dev.kordex.core.commands.wrapOption
-import dev.kordex.core.i18n.types.Key
+import dev.kordex.i18n.Key
 import dev.kordex.parser.StringParser
-import java.util.Locale
+import java.util.*
 
 /**
  * Argument converter for arbitrary enum arguments.

@@ -11,9 +11,9 @@ package dev.kordex.core.pagination
 import dev.kord.core.behavior.interaction.response.EphemeralMessageInteractionResponseBehavior
 import dev.kord.core.behavior.interaction.response.FollowupPermittingInteractionResponseBehavior
 import dev.kord.core.behavior.interaction.response.PublicMessageInteractionResponseBehavior
-import dev.kordex.core.i18n.EMPTY_KEY
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.pagination.builders.PaginatorBuilder
+import dev.kordex.i18n.EMPTY_KEY
+import dev.kordex.i18n.Key
 import java.util.*
 
 /** Create a paginator that edits the original interaction. **/

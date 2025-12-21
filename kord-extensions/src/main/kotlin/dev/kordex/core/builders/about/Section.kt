@@ -10,10 +10,10 @@ package dev.kordex.core.builders.about
 
 import dev.kord.rest.builder.message.MessageBuilder
 import dev.kordex.core.annotations.NotTranslated
-import dev.kordex.core.i18n.toKey
-import dev.kordex.core.i18n.types.Key
 import dev.kordex.core.koin.KordExKoinComponent
-import java.util.Locale
+import dev.kordex.i18n.Key
+import dev.kordex.i18n.toKey
+import java.util.*
 
 internal typealias SectionBuilder = suspend MessageBuilder.(locale: Locale) -> Unit
 
