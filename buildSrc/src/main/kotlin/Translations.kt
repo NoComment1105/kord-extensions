@@ -29,7 +29,7 @@ fun Project.getTranslations(
 		description = "Copy correct module translations."
 
 		from(gitDir.get().dir(name))
-		into(outputDir.get().dir("kordex"))
+		into(outputDir.get().dir("translations/kordex"))
 
 		dependsOn(rootProject.tasks.named("pullTranslations"))
 	}
@@ -37,7 +37,7 @@ fun Project.getTranslations(
 	with(extensions.getByType<I18nExtension>()) {
 		bundle(bundle, "$classesPackage.generated") {
 			className = translationsClass
-			basePath = outputDir.get().asFile
+			basePath = outputDir.get().dir("translations").asFile
 		}
 	}
 
