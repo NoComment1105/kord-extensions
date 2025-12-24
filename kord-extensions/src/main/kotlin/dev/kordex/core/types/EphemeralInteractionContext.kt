@@ -50,10 +50,10 @@ public interface EphemeralInteractionContext : InteractionContext<
 		builder: suspend InteractionResponseModifyBuilder.() -> Unit,
 	): EphemeralMessageInteractionResponse = interactionResponse.edit { builder() }
 
-	public override fun editingPaginator(
+	public override suspend fun editingPaginator(
 		defaultGroup: Key,
 		locale: Locale?,
-		builder: (PaginatorBuilder).() -> Unit,
+		builder: suspend PaginatorBuilder.() -> Unit,
 	): EphemeralResponsePaginator {
 		val pages = PaginatorBuilder(locale = locale, defaultGroup = defaultGroup)
 

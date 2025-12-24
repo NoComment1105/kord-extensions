@@ -49,10 +49,10 @@ public interface PublicInteractionContext : InteractionContext<
 		builder: suspend InteractionResponseModifyBuilder.() -> Unit,
 	): PublicMessageInteractionResponse = interactionResponse.edit { builder() }
 
-	public override fun editingPaginator(
+	public override suspend fun editingPaginator(
 		defaultGroup: Key,
 		locale: Locale?,
-		builder: (PaginatorBuilder).() -> Unit,
+		builder: suspend PaginatorBuilder.() -> Unit,
 	): PublicResponsePaginator {
 		val pages = PaginatorBuilder(locale = locale, defaultGroup = defaultGroup)
 

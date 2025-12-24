@@ -17,10 +17,10 @@ import dev.kordex.i18n.Key
 import java.util.*
 
 /** Create a paginator that edits the original interaction. **/
-public inline fun PublicMessageInteractionResponseBehavior.editingPaginator(
+public suspend inline fun PublicMessageInteractionResponseBehavior.editingPaginator(
 	defaultGroup: Key = EMPTY_KEY,
 	locale: Locale? = null,
-	builder: (PaginatorBuilder).() -> Unit,
+	builder: suspend (PaginatorBuilder).() -> Unit,
 ): PublicResponsePaginator {
 	val pages = PaginatorBuilder(locale = locale, defaultGroup = defaultGroup)
 
@@ -30,10 +30,10 @@ public inline fun PublicMessageInteractionResponseBehavior.editingPaginator(
 }
 
 /** Create a paginator that creates a follow-up message, and edits that. **/
-public inline fun FollowupPermittingInteractionResponseBehavior.respondingPaginator(
+public suspend inline fun FollowupPermittingInteractionResponseBehavior.respondingPaginator(
 	defaultGroup: Key = EMPTY_KEY,
 	locale: Locale? = null,
-	builder: (PaginatorBuilder).() -> Unit,
+	builder: suspend (PaginatorBuilder).() -> Unit,
 ): PublicFollowUpPaginator {
 	val pages = PaginatorBuilder(locale = locale, defaultGroup = defaultGroup)
 
@@ -46,10 +46,10 @@ public inline fun FollowupPermittingInteractionResponseBehavior.respondingPagina
  * Create a paginator that edits the original interaction. This is the only option for an ephemeral interaction, as
  * it's impossible to edit an ephemeral follow-up.
  */
-public inline fun EphemeralMessageInteractionResponseBehavior.editingPaginator(
+public suspend inline fun EphemeralMessageInteractionResponseBehavior.editingPaginator(
 	defaultGroup: Key = EMPTY_KEY,
 	locale: Locale? = null,
-	builder: (PaginatorBuilder).() -> Unit,
+	builder: suspend (PaginatorBuilder).() -> Unit,
 ): EphemeralResponsePaginator {
 	val pages = PaginatorBuilder(locale = locale, defaultGroup = defaultGroup)
 

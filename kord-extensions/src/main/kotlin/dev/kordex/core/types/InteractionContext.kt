@@ -49,10 +49,10 @@ public interface InteractionContext<
 	public val interactionResponse: ResponseBehavior
 
 	/** Create a paginator that edits the original interaction response. **/
-	public fun editingPaginator(
+	public suspend fun editingPaginator(
 		defaultGroup: Key = EMPTY_KEY,
 		locale: Locale? = null,
-		builder: (PaginatorBuilder).() -> Unit,
+		builder: suspend (PaginatorBuilder).() -> Unit,
 	): BaseButtonPaginator
 
 	/**
