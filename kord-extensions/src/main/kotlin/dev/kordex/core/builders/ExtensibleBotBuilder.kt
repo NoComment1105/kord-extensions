@@ -660,7 +660,7 @@ public open class ExtensibleBotBuilder {
 		@Suppress("TooGenericExceptionCaught")
 		extensionsBuilder.extensions.forEach {
 			try {
-				bot.addExtension(it)
+				bot.addExtension(true, it)
 			} catch (e: Exception) {
 				logger.error(e) {
 					"Failed to set up extension: $it"

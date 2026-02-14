@@ -40,6 +40,17 @@ public val kordexProps: Properties? by lazy { loadResource("/kordex.properties")
 public val kordexBuildProps: Properties? by lazy { loadResource("/kordex-build.properties") }
 
 /**
+ * List of extension names that should be disabled when the bot is first started.
+ */
+public val DISABLED_EXTENSIONS: Set<String> by lazy {
+	(
+		System.getProperties()["disabledExtensions"] as? String
+			?: envOrNull("DISABLED_EXTENSIONS")
+			?: ""
+		).split(",").map { it.trim() }.filter { it != "kordex.about" }.toSet()
+}
+
+/**
  * Location of the data collection state file.
  *
  * Don't delete this, otherwise KordEx can't automatically remove your data when you disable data collection.

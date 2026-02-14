@@ -347,7 +347,7 @@ public open class ExtensibleBot(
 		}
 	}
 
-	/** This function adds all of the default extensions when the bot is being set up. **/
+	/** This function adds all the default extensions when the bot is being set up. **/
 	public open suspend fun addDefaultExtensions() {
 		val extBuilder = settings.extensionsBuilder
 
@@ -496,6 +496,9 @@ public open class ExtensibleBot(
 		}
 	}
 
+	public open suspend fun addExtension(builder: () -> Extension): Unit =
+		addExtension(false, builder)
+
 	/**
 	 * Install an [Extension] to this bot.
 	 *
@@ -505,7 +508,8 @@ public open class ExtensibleBot(
 	 * @param builder Builder function (or extension constructor) that takes an [ExtensibleBot] instance and
 	 * returns an [Extension].
 	 */
-	public open suspend fun addExtension(builder: () -> Extension) {
+
+	public open suspend fun addExtension(checkDisabledByConstant: Boolean = false, builder: () -> Extension) {
 		val extensionObj = builder.invoke()
 
 		if (extensions.contains(extensionObj.name)) {
@@ -517,6 +521,15 @@ public open class ExtensibleBot(
 		}
 
 		extensions[extensionObj.name] = extensionObj
+
+		if (checkDisabledByConstant && extensionObj.name in DISABLED_EXTENSIONS) {
+			logger.warn {
+				"Loaded and disabled extension: ${extensionObj.name}"
+			}
+
+			return
+		}
+
 		loadExtension(extensionObj.name)
 
 		if (!extensionObj.loaded) {
@@ -533,7 +546,7 @@ public open class ExtensibleBot(
 	 *
 	 * This function **does not** create a new extension object - it simply
 	 * calls its `setup()` function. Loaded extensions can
-	 * be unload again by calling [unloadExtension].
+	 * be unloaded again by calling [unloadExtension].
 	 *
 	 * This function simply returns if the extension isn't found.
 	 *
