@@ -6,12 +6,9 @@
  * Any redistribution must include the specific provision above.
  */
 
-@file:OptIn(ExperimentalTime::class)
-
 package dev.kordex.core.time
 
 import kotlinx.datetime.DateTimeUnit
-import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 /**

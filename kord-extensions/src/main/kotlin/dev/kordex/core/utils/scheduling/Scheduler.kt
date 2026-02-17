@@ -6,8 +6,6 @@
  * Any redistribution must include the specific provision above.
  */
 
-@file:OptIn(ExperimentalTime::class)
-
 package dev.kordex.core.utils.scheduling
 
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -19,7 +17,6 @@ import java.util.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
-import kotlin.time.ExperimentalTime
 
 private val logger = KotlinLogging.logger {}
 

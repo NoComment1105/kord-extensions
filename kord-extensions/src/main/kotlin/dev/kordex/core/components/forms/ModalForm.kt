@@ -131,7 +131,7 @@ public abstract class ModalForm : Form(), KordExKoinComponent {
 	}
 
 	/** Wait for this modal to be completed and call the [callback]. Parameter will be `null` if timed out. **/
-	public suspend fun <T : Any?> awaitCompletion(callback: suspend (interaction: ModalSubmitInteraction?) -> T): T {
+	public suspend fun <T> awaitCompletion(callback: suspend (interaction: ModalSubmitInteraction?) -> T): T {
 		val completionEvent = bot.waitFor<ModalInteractionCompleteEvent>(timeout) { id == this@ModalForm.id }
 
 		return callback(completionEvent?.interaction)
@@ -151,7 +151,7 @@ public abstract class ModalForm : Form(), KordExKoinComponent {
 	 *
 	 * More specific convenience functions are available, such as [sendAndDeferEphemeral] and [sendAndDeferPublic].
 	 */
-	public suspend fun <T : Any?> sendAndAwait(
+	public suspend fun <T> sendAndAwait(
 		locale: Locale,
 		interaction: ModalParentInteractionBehavior,
 		callback: suspend (interaction: ModalSubmitInteraction?) -> T,
@@ -171,7 +171,7 @@ public abstract class ModalForm : Form(), KordExKoinComponent {
 	 *
 	 * `null` will be provided to the callback if the modal times out before the user responds.
 	 */
-	public suspend fun <T : Any?, E : InteractionCreateEvent> sendAndAwait(
+	public suspend fun <T, E : InteractionCreateEvent> sendAndAwait(
 		context: EventContext<E>,
 		callback: suspend (ModalSubmitInteraction?) -> T,
 	): T {
@@ -187,7 +187,7 @@ public abstract class ModalForm : Form(), KordExKoinComponent {
 	 *
 	 * `null` will be provided to the callback if the modal times out before the user responds.
 	 */
-	public suspend fun <T : Any?> sendAndAwait(
+	public suspend fun <T> sendAndAwait(
 		context: dev.kordex.core.commands.application.ApplicationCommandContext,
 		callback: suspend (ModalSubmitInteraction?) -> T,
 	): T {
@@ -203,7 +203,7 @@ public abstract class ModalForm : Form(), KordExKoinComponent {
 	 *
 	 * `null` will be provided to the callback if the modal times out before the user responds.
 	 */
-	public suspend fun <T : Any?> sendAndAwait(
+	public suspend fun <T> sendAndAwait(
 		context: ComponentContext<*>,
 		callback: suspend (ModalSubmitInteraction?) -> T,
 	): T {

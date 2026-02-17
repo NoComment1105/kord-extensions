@@ -6,7 +6,6 @@
  * Any redistribution must include the specific provision above.
  */
 
-@file:OptIn(ExperimentalTime::class)
 @file:Suppress("MagicNumber")
 
 package dev.kordex.modules.func.phishing
@@ -15,7 +14,6 @@ import dev.kord.common.entity.Permission
 import dev.kord.core.event.Event
 import dev.kordex.core.checks.types.CheckWithCache
 import kotlin.time.Duration.Companion.minutes
-import kotlin.time.ExperimentalTime
 
 /** Builder used to configure the phishing extension. **/
 class ExtPhishingBuilder {

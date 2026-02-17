@@ -7,13 +7,11 @@
  */
 
 @file:Suppress("UndocumentedPublicClass", "UndocumentedPublicFunction", "UndocumentedPublicProperty")
-@file:OptIn(ExperimentalTime::class)
 
 package dev.kordex.modules.pluralkit.api
 
 import dev.kord.common.entity.Snowflake
 import kotlinx.serialization.Serializable
-import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 @Serializable

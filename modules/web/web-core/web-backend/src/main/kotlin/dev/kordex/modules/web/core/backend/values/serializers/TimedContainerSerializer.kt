@@ -21,7 +21,7 @@ import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
-public class TimedContainerSerializer<T : Any?>(
+public class TimedContainerSerializer<T>(
 	private val dataSerializer: KSerializer<T>,
 ) : KSerializer<TimedContainer<T>> {
 	override val descriptor: SerialDescriptor =

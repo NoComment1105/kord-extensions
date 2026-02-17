@@ -6,8 +6,6 @@
  * Any redistribution must include the specific provision above.
  */
 
-@file:OptIn(ExperimentalTime::class)
-
 package dev.kordex.core.utils
 
 import dev.kord.rest.builder.message.EmbedBuilder
@@ -22,7 +20,6 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
 import kotlin.time.Clock
 import kotlin.time.Duration
-import kotlin.time.ExperimentalTime
 
 /**
  * Simple convenience function for mapping from `0` to the given [Int], exclusively.
@@ -54,7 +51,7 @@ public suspend fun <T> runSuspended(
 public fun EmbedBuilder.Footer.textOrNull(): String? =
 	try {
 		text
-	} catch (e: UninitializedPropertyAccessException) {
+	} catch (_: UninitializedPropertyAccessException) {
 		null
 	}
 

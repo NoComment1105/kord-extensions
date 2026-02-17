@@ -7,7 +7,6 @@
  */
 
 @file:Suppress("MagicNumber")
-@file:OptIn(ExperimentalTime::class)
 
 package dev.kordex.modules.func.minecraft
 
@@ -53,7 +52,6 @@ import java.util.*
 import kotlin.io.path.createTempFile
 import kotlin.io.path.writeBytes
 import kotlin.time.Clock
-import kotlin.time.ExperimentalTime
 
 private const val PAGINATOR_TIMEOUT = 60_000L  // One minute
 private const val CHUNK_SIZE = 10

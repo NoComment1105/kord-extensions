@@ -7,7 +7,6 @@
  */
 
 @file:Suppress("DataClassContainsFunctions")
-@file:OptIn(ExperimentalTime::class)
 
 package dev.kordex.modules.func.welcome.blocks
 
@@ -33,7 +32,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.koin.core.component.inject
 import kotlin.time.Clock
-import kotlin.time.ExperimentalTime
 
 @Suppress("MagicNumber")
 @Serializable

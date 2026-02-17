@@ -6,8 +6,6 @@
  * Any redistribution must include the specific provision above.
  */
 
-@file:OptIn(ExperimentalTime::class)
-
 package dev.kordex.core.commands.converters.impl
 
 import dev.kord.core.entity.interaction.OptionValue
@@ -37,7 +35,6 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
 import kotlinx.datetime.toDateTimePeriod
 import kotlin.time.Clock
-import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 /**

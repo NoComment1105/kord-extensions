@@ -12,7 +12,6 @@
 	"UndocumentedPublicFunction",
 	"UndocumentedPublicProperty",
 )
-@file:OptIn(ExperimentalTime::class)
 
 package dev.kordex.modules.pluralkit
 
@@ -59,7 +58,6 @@ import kotlinx.coroutines.sync.withLock
 import kotlin.text.split
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.seconds
-import kotlin.time.ExperimentalTime
 
 const val NEGATIVE_EMOTE = "❌"
 const val POSITIVE_EMOTE = "✅"
@@ -453,21 +451,21 @@ class PKExtension(val config: PKConfigBuilder) : Extension() {
 			?: config.save(PKGuildConfig())
 	}
 
-	inner class ApiUrlArgs : Arguments() {
+	class ApiUrlArgs : Arguments() {
 		val url by optionalString {
 			name = PluralKitTranslations.Argument.ApiUrl.name
 			description = PluralKitTranslations.Argument.ApiUrl.description
 		}
 	}
 
-	inner class BotArgs : Arguments() {
+	class BotArgs : Arguments() {
 		val bot by optionalUser {
 			name = PluralKitTranslations.Argument.Bot.name
 			description = PluralKitTranslations.Argument.Bot.description
 		}
 	}
 
-	inner class ToggleSupportArgs : Arguments() {
+	class ToggleSupportArgs : Arguments() {
 		val toggle by optionalBoolean {
 			name = PluralKitTranslations.Argument.Toggle.name
 			description = PluralKitTranslations.Argument.Toggle.description

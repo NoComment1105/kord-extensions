@@ -6,8 +6,6 @@
  * Any redistribution must include the specific provision above.
  */
 
-@file:OptIn(ExperimentalTime::class)
-
 package dev.kordex.core.utils
 
 import dev.kord.common.entity.Permission
@@ -24,7 +22,6 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
 import kotlin.time.Clock
 import kotlin.time.Duration
-import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 /** A more sensible name than `communicationDisabledUntil`. **/

@@ -7,7 +7,6 @@
  */
 
 @file:Suppress("StringLiteralDuplication")
-@file:OptIn(ExperimentalTime::class)
 
 package dev.kordex.modules.func.welcome.blocks
 
@@ -30,7 +29,6 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.toList
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlin.time.ExperimentalTime
 
 @Suppress("DataClassContainsFunctions")
 @Serializable

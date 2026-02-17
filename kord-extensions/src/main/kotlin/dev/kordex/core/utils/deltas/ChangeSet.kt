@@ -6,8 +6,6 @@
  * Any redistribution must include the specific provision above.
  */
 
-@file:OptIn(ExperimentalTime::class)
-
 package dev.kordex.core.utils.deltas
 
 import dev.kord.common.entity.optional.Optional
@@ -15,7 +13,6 @@ import dev.kord.common.entity.optional.optional
 import dev.kord.core.entity.VoiceState
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
-import kotlin.time.ExperimentalTime
 
 public class ChangeSet(public val clazz: KClass<*>) {
 	private val changes: MutableMap<KProperty<*>, Change<*>> = mutableMapOf()
@@ -24,7 +21,7 @@ public class ChangeSet(public val clazz: KClass<*>) {
 	public operator fun <
 		@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 		@kotlin.internal.OnlyInputTypes
-		T : Any?,
+		T,
 		> get(key: KProperty<T>): Change<T> =
 
 		changes[key] as? Change<T>?
@@ -33,7 +30,7 @@ public class ChangeSet(public val clazz: KClass<*>) {
 	public operator fun <
 		@Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
 		@kotlin.internal.OnlyInputTypes
-		T : Any?,
+		T,
 		> set(
 
 		key: KProperty<T>,
@@ -42,7 +39,7 @@ public class ChangeSet(public val clazz: KClass<*>) {
 		changes[key] = value
 	}
 
-	public data class Change<T : Any?>(
+	public data class Change<T>(
 		public val old: Optional<T>,
 		public val new: T,
 

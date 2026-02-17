@@ -6,8 +6,6 @@
  * Any redistribution must include the specific provision above.
  */
 
-@file:OptIn(ExperimentalTime::class)
-
 package dev.kordex.test.bot.utils
 
 import dev.kord.core.behavior.channel.createMessage
@@ -22,7 +20,6 @@ import dev.kordex.test.bot.TEST_SERVER_ID
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlin.time.Clock
-import kotlin.time.ExperimentalTime
 
 public typealias LogBody = (suspend () -> Any?)?
 

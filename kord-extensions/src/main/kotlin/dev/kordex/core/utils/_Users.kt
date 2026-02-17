@@ -6,8 +6,6 @@
  * Any redistribution must include the specific provision above.
  */
 
-@file:OptIn(ExperimentalTime::class)
-
 package dev.kordex.core.utils
 
 import dev.kord.common.entity.Snowflake
@@ -19,7 +17,6 @@ import dev.kord.rest.builder.message.create.MessageCreateBuilder
 import dev.kord.rest.request.RestRequestException
 import io.ktor.http.*
 import kotlin.contracts.contract
-import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 private const val DISCORD_USERS_URI = "https://discord.com/users"

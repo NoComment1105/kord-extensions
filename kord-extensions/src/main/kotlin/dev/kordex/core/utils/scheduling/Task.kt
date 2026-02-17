@@ -33,7 +33,6 @@ import kotlin.time.*
  * @param name Optional task name, "Unnamed" by default.
  * @param repeat Whether the task should repeat after completion. `false` by default.
  */
-@OptIn(ExperimentalTime::class)
 public open class Task(
 	public open var duration: Duration,
 	public open val callback: suspend () -> Unit,

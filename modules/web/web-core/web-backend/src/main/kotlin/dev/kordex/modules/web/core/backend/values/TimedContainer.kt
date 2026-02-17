@@ -6,17 +6,14 @@
  * Any redistribution must include the specific provision above.
  */
 
-@file:OptIn(ExperimentalTime::class)
-
 package dev.kordex.modules.web.core.backend.values
 
 import dev.kordex.modules.web.core.backend.values.serializers.TimedContainerSerializer
 import kotlinx.serialization.Serializable
-import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 @Serializable(with = TimedContainerSerializer::class)
-public data class TimedContainer<V : Any?>(
+public data class TimedContainer<V>(
 	val value: V,
 	val time: Instant,
 )
