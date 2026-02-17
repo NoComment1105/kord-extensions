@@ -1,7 +1,7 @@
 plugins {
 	`kotlin-dsl`
 
-	kotlin("plugin.serialization") version "2.2.20"
+	kotlin("plugin.serialization") version "2.3.10"
 }
 
 repositories {
@@ -14,11 +14,11 @@ repositories {
 }
 
 dependencies {
-	implementation(kotlin("gradle-plugin", version = "2.2.20"))
-	implementation(kotlin("serialization", version = "2.2.20"))
+	implementation(kotlin("gradle-plugin", version = "2.3.10"))
+	implementation(kotlin("serialization", version = "2.3.10"))
 
 	implementation("com.github.ben-manes", "gradle-versions-plugin", "0.51.0")
-	implementation("com.google.devtools.ksp", "com.google.devtools.ksp.gradle.plugin", "2.2.20-2.0.3")
+	implementation("com.google.devtools.ksp", "com.google.devtools.ksp.gradle.plugin", "2.3.5")
 	implementation("com.hanggrian", "kotlinpoet-dsl", "0.2")
 	implementation("com.squareup", "kotlinpoet", "1.18.1")
 	implementation("dev.kordex.gradle.i18n", "dev.kordex.gradle.i18n.gradle.plugin", "1.1.1")
