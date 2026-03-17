@@ -63,6 +63,7 @@ public fun Permission.toTranslationKey(): Key? = when (this) {
 	Permission.ViewChannel -> CoreTranslations.Permission.viewChannel
 	Permission.ViewCreatorMonetizationAnalytics -> CoreTranslations.Permission.viewCreatorMonetizationAnalytics
 	Permission.ViewGuildInsights -> CoreTranslations.Permission.viewGuildInsights
+	Permission.USE_EXTERNAL_APPS -> CoreTranslations.Permission.useExternalApps
 
 	is Permission.Unknown -> null
 }

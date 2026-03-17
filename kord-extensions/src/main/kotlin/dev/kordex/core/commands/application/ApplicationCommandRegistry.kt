@@ -85,6 +85,7 @@ public abstract class ApplicationCommandRegistry : KordExKoinComponent {
 			ApplicationCommandType.ChatInput -> "slash"
 			ApplicationCommandType.Message -> "message"
 			ApplicationCommandType.User -> "user"
+			ApplicationCommandType.PrimaryEntryPoint -> "entry-point"
 		}
 
 	/** Handles the initial registration of commands, after extensions have been loaded. **/

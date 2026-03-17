@@ -14,7 +14,6 @@ import dev.kord.common.annotation.KordPreview
 import dev.kord.core.Kord
 import dev.kord.core.behavior.requestMembers
 import dev.kord.core.event.Event
-import dev.kord.core.event.UnknownEvent
 import dev.kord.core.event.gateway.DisconnectEvent
 import dev.kord.core.event.gateway.ReadyEvent
 import dev.kord.core.event.guild.GuildCreateEvent
@@ -31,10 +30,6 @@ import dev.kordex.core.components.ComponentRegistry
 import dev.kordex.core.datacollection.DataCollector
 import dev.kordex.core.events.EventHandler
 import dev.kordex.core.events.KordExEvent
-import dev.kordex.core.events.extra.GuildJoinRequestDeleteEvent
-import dev.kordex.core.events.extra.GuildJoinRequestUpdateEvent
-import dev.kordex.core.events.extra.models.GuildJoinRequestDelete
-import dev.kordex.core.events.extra.models.GuildJoinRequestUpdate
 import dev.kordex.core.extensions.Extension
 import dev.kordex.core.extensions.impl.HelpExtension
 import dev.kordex.core.extensions.impl.SentryExtension
@@ -50,8 +45,6 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.sync.Mutex
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromJsonElement
 import org.koin.core.component.inject
 import org.koin.dsl.bind
 import java.util.concurrent.Executors
@@ -254,10 +247,6 @@ public open class ExtensibleBot(
 
 	@Suppress("TooGenericExceptionCaught")
 	public open suspend fun registerListeners() {
-		val eventJson = Json {
-			ignoreUnknownKeys = true
-		}
-
 		on<ReadyEvent> {
 			try {
 				dataCollector.start()
@@ -283,30 +272,6 @@ public open class ExtensibleBot(
 				} catch (e: Exception) {
 					logger.error(e) { "Exception thrown while requesting guild members" }
 				}
-			}
-		}
-
-		on<UnknownEvent> {
-			try {
-				val eventObj = when (name) {
-					"GUILD_JOIN_REQUEST_DELETE" -> {
-						val data: GuildJoinRequestDelete = eventJson.decodeFromJsonElement(this.data!!)
-
-						GuildJoinRequestDeleteEvent(data)
-					}
-
-					"GUILD_JOIN_REQUEST_UPDATE" -> {
-						val data: GuildJoinRequestUpdate = eventJson.decodeFromJsonElement(this.data!!)
-
-						GuildJoinRequestUpdateEvent(data)
-					}
-
-					else -> return@on
-				}
-
-				send(eventObj)
-			} catch (e: Exception) {
-				logger.error(e) { "Failed to deserialize event: $data" }
 			}
 		}
 
