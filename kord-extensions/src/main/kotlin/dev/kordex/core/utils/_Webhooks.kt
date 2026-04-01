@@ -61,6 +61,7 @@ public suspend inline fun Webhook.editStored(
  */
 public suspend inline fun Webhook.executeStored(
 	threadId: Snowflake? = null,
+	withComponents: Boolean? = null,
 	builder: WebhookMessageCreateBuilder.() -> Unit,
 ): Message {
 	contract {
@@ -71,7 +72,7 @@ public suspend inline fun Webhook.executeStored(
 		error(ERR_TOKEN_NULL)
 	}
 
-	return execute(token!!, threadId, builder)
+	return execute(token!!, threadId, withComponents, builder)
 }
 
 /**
@@ -88,6 +89,7 @@ public suspend inline fun Webhook.executeStored(
  */
 public suspend inline fun Webhook.executeStoredIgnored(
 	threadId: Snowflake? = null,
+	withComponents: Boolean? = null,
 	builder: WebhookMessageCreateBuilder.() -> Unit,
 ) {
 	contract {
@@ -98,5 +100,5 @@ public suspend inline fun Webhook.executeStoredIgnored(
 		error(ERR_TOKEN_NULL)
 	}
 
-	executeIgnored(token!!, threadId, builder)
+	executeIgnored(token!!, threadId, withComponents, builder)
 }

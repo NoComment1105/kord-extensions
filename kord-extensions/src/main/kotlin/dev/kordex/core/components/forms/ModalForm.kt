@@ -11,6 +11,7 @@
 package dev.kordex.core.components.forms
 
 import dev.kord.common.annotation.KordUnsafe
+import dev.kord.common.entity.Snowflake
 import dev.kord.core.behavior.interaction.ModalParentInteractionBehavior
 import dev.kord.core.behavior.interaction.modal
 import dev.kord.core.behavior.interaction.response.EphemeralMessageInteractionResponseBehavior
@@ -22,9 +23,14 @@ import dev.kord.rest.builder.interaction.ModalBuilder
 import dev.kordex.core.ExtensibleBot
 import dev.kordex.core.components.ComponentContext
 import dev.kordex.core.components.ComponentRegistry
+import dev.kordex.core.components.forms.widgets.menus.ChannelSelectMenuWidget
 import dev.kordex.core.components.forms.widgets.LineTextWidget
+import dev.kordex.core.components.forms.widgets.menus.MentionableSelectMenuWidget
 import dev.kordex.core.components.forms.widgets.ParagraphTextWidget
+import dev.kordex.core.components.forms.widgets.menus.RoleSelectMenuWidget
+import dev.kordex.core.components.forms.widgets.menus.StringSelectMenuWidget
 import dev.kordex.core.components.forms.widgets.TextInputWidget
+import dev.kordex.core.components.forms.widgets.menus.UserSelectMenuWidget
 import dev.kordex.core.components.forms.widgets.Widget
 import dev.kordex.core.events.EventContext
 import dev.kordex.core.events.ModalInteractionCompleteEvent
@@ -86,17 +92,167 @@ public abstract class ModalForm : Form(), KordExKoinComponent {
 		return widget
 	}
 
+	public fun channelSelect(
+		coordinate: CoordinatePair? = null,
+		builder: ChannelSelectMenuWidget.() -> Unit,
+	): ChannelSelectMenuWidget {
+		val widget = ChannelSelectMenuWidget()
+
+		builder(widget)
+		widget.validate()
+
+		grid.setAtCoordinateOrFirstRow(coordinate, widget)
+
+		return widget
+	}
+
+	public fun mentionableSelect(
+		coordinate: CoordinatePair? = null,
+		builder: MentionableSelectMenuWidget.() -> Unit,
+	): MentionableSelectMenuWidget {
+		val widget = MentionableSelectMenuWidget()
+
+		builder(widget)
+		widget.validate()
+
+		grid.setAtCoordinateOrFirstRow(coordinate, widget)
+
+		return widget
+	}
+
+	public fun roleSelect(
+		coordinate: CoordinatePair? = null,
+		builder: RoleSelectMenuWidget.() -> Unit,
+	): RoleSelectMenuWidget {
+		val widget = RoleSelectMenuWidget()
+
+		builder(widget)
+		widget.validate()
+
+		grid.setAtCoordinateOrFirstRow(coordinate, widget)
+
+		return widget
+	}
+
+	public fun stringSelect(
+		coordinate: CoordinatePair? = null,
+		builder: StringSelectMenuWidget.() -> Unit,
+	): StringSelectMenuWidget {
+		val widget = StringSelectMenuWidget()
+
+		builder(widget)
+		widget.validate()
+
+		grid.setAtCoordinateOrFirstRow(coordinate, widget)
+
+		return widget
+	}
+
+	public fun userSelect(
+		coordinate: CoordinatePair? = null,
+		builder: UserSelectMenuWidget.() -> Unit,
+	): UserSelectMenuWidget {
+		val widget = UserSelectMenuWidget()
+
+		builder(widget)
+		widget.validate()
+
+		grid.setAtCoordinateOrFirstRow(coordinate, widget)
+
+		return widget
+	}
+
 	/** @suppress Internal function called by the component registry. **/
 	public suspend fun call(event: ModalSubmitInteractionCreateEvent) {
 		grid.filter { it.isNotEmpty() }
 			.forEach { row ->
 				row.filterNotNull()
 					.forEach { widget ->
-						val textInput = widget as TextInputWidget<*>
-						val value = event.interaction.textInputs[textInput.id]?.value
+						val textInput = try {
+							widget as TextInputWidget<*>
+						} catch (_: ClassCastException) {
+							null
+						}
 
-						if (value != null) {
-							textInput.setValue(value)
+						val channelSelect = if (textInput == null) {
+							try {
+								widget as ChannelSelectMenuWidget
+							} catch (_: ClassCastException) {
+								null
+							}
+						} else { null }
+
+						val mentionableSelect = if (textInput == null && channelSelect == null) {
+							try {
+								widget as MentionableSelectMenuWidget
+							} catch (_: ClassCastException) {
+								null
+							}
+						} else { null }
+
+						val roleSelect =
+							if (textInput == null && channelSelect == null && mentionableSelect == null) {
+								try {
+									widget as RoleSelectMenuWidget
+								} catch (_: ClassCastException) {
+									null
+								}
+							} else { null }
+
+						val stringSelect =
+							if (
+								textInput == null && channelSelect == null &&
+								mentionableSelect == null && roleSelect == null
+							) {
+								try {
+									widget as StringSelectMenuWidget
+								} catch (_: ClassCastException) {
+									null
+								}
+							} else { null }
+
+						val userSelect =
+							if (
+								textInput == null && channelSelect == null &&
+								mentionableSelect == null && roleSelect == null && stringSelect == null
+							) {
+								try {
+									widget as UserSelectMenuWidget
+								} catch (_: ClassCastException) {
+									null
+								}
+							} else { null }
+
+						val textInputValue = textInput?.let { event.interaction.textInputs[it.id]?.value }
+						val channelSelectValues = channelSelect?.let {
+							event.interaction.channelSelects[it.id]?.values.stringListToSnowflakeList()
+						}
+						val mentionableSelectValues = mentionableSelect?.let {
+							event.interaction.mentionableSelects[it.id]?.values.stringListToSnowflakeList()
+						}
+						val roleSelectValues =
+							roleSelect?.let { event.interaction.roleSelects[it.id]?.values.stringListToSnowflakeList() }
+						val stringSelectValues = stringSelect?.let { event.interaction.stringSelects[it.id]?.values }
+						val userSelectValues =
+							userSelect?.let { event.interaction.userSelects[it.id]?.values.stringListToSnowflakeList() }
+
+						if (textInputValue != null) {
+							textInput.setValue(textInputValue)
+						}
+						if (channelSelectValues != null) {
+							channelSelect.setValue(channelSelectValues)
+						}
+						if (mentionableSelectValues != null) {
+							mentionableSelect.setValue(mentionableSelectValues)
+						}
+						if (roleSelectValues != null) {
+							roleSelect.setValue(roleSelectValues)
+						}
+						if (stringSelectValues != null) {
+							stringSelect.setValue(stringSelectValues)
+						}
+						if (userSelectValues != null) {
+							userSelect.setValue(userSelectValues)
 						}
 					}
 			}
@@ -283,5 +439,23 @@ public abstract class ModalForm : Form(), KordExKoinComponent {
 		context: ComponentContext<*>,
 	): PublicMessageInteractionResponseBehavior? = sendAndAwait(context) {
 		it?.deferPublicResponseUnsafe()
+	}
+
+	/**
+	 * Converts a list of strings to list of snowflakes
+	 *
+	 * For some reason, Kord will always return a List of Strings for select menu values, despite most of them being
+	 * lists of snowflakes. This function combats that safely and avoids unchecked cast warnings.
+	 */
+	private fun List<String>?.stringListToSnowflakeList(): List<Snowflake>? {
+		this ?: return null
+
+		val snowflakeList = mutableListOf<Snowflake>()
+
+		this.forEach {
+			snowflakeList.add(Snowflake(it))
+		}
+
+		return snowflakeList
 	}
 }

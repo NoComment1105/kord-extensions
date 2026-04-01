@@ -25,8 +25,8 @@ public const val MIN_LENGTH: Int = 0
 /** The limit for the length of the widget's label. **/
 public const val LABEL_LENGTH: Int = 45
 
-/** The maximum number of characters that can be present in the wdget's placeholder. **/
-public const val PLACEHOLDER_LENGTH: Int = 100
+/** The maximum number of characters that can be present in the text widget's placeholder. **/
+public const val TEXT_INPUT_PLACEHOLDER_LENGTH: Int = 100
 
 /** An abstract type representing a widget that accepts text from the user. */
 public abstract class TextInputWidget<T : TextInputWidget<T>> : Widget<String?>(), KordExKoinComponent {
@@ -116,11 +116,11 @@ public abstract class TextInputWidget<T : TextInputWidget<T>> : Widget<String?>(
 
 		if (
 			translatedPlaceholder != null &&
-			(translatedPlaceholder.length > PLACEHOLDER_LENGTH || translatedPlaceholder.isEmpty())
+			(translatedPlaceholder.length > TEXT_INPUT_PLACEHOLDER_LENGTH || translatedPlaceholder.isEmpty())
 		) {
 			error(
 				"Invalid value for placeholder provided (${translatedPlaceholder.length} characters) - expected " +
-					"${MIN_LENGTH + 1} - $PLACEHOLDER_LENGTH characters"
+					"${MIN_LENGTH + 1} - $TEXT_INPUT_PLACEHOLDER_LENGTH characters"
 			)
 		}
 
