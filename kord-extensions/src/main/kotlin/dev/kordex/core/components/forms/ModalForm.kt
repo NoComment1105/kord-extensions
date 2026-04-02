@@ -215,6 +215,7 @@ public abstract class ModalForm : Form(), KordExKoinComponent {
 	public suspend fun call(event: ModalSubmitInteractionCreateEvent) {
 		grid.filter { it.isNotEmpty() }
 			.forEach { row ->
+				@Suppress("LoopWithTooManyJumpStatements")
 				for (widget in row.filterNotNull()) {
 					(widget as? TextInputWidget<*>)?.let { textInput ->
 						event.interaction.textInputs[textInput.id]?.value?.let { textInputValue ->
@@ -277,7 +278,6 @@ public abstract class ModalForm : Form(), KordExKoinComponent {
 							continue
 						}
 					}
-
 
 					(widget as? CheckboxGroupWidget)?.let { checkboxGroup ->
 						event.interaction.checkboxGroups[checkboxGroup.id]?.values?.let { checkboxGroupValues ->

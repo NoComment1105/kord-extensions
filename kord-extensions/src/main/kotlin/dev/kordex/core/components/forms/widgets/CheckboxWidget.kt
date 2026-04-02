@@ -12,6 +12,7 @@ import dev.kord.rest.builder.component.LabelComponentBuilder
 import dev.kordex.core.koin.KordExKoinComponent
 import java.util.*
 
+/** A checkbox widget that supports a single checkbox. **/
 public class CheckboxWidget : Widget<Boolean?>(), KordExKoinComponent {
 	@Suppress("MagicNumber")
 	override var width: Int = 5
@@ -21,9 +22,11 @@ public class CheckboxWidget : Widget<Boolean?>(), KordExKoinComponent {
 	/** The widget's unique ID on Discord, defaulting to a UUID. **/
 	public var id: String = UUID.randomUUID().toString()
 
+	/** Whether the checkbox is selected by default. **/
 	public var default: Boolean = false
 
-	public override fun validate() { }
+	@Suppress("EmptyFunctionBlock")
+	public override fun validate() {}
 
 	public override suspend fun apply(builder: LabelComponentBuilder, locale: Locale) {
 		builder.checkbox(id) {

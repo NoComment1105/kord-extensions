@@ -13,21 +13,26 @@ import dev.kord.rest.builder.component.LabelComponentBuilder
 import dev.kordex.core.koin.KordExKoinComponent
 import java.util.*
 
+/** A checkbox widget that supports multiple checkboxes. **/
 public class CheckboxGroupWidget : Widget<List<String>>(), KordExKoinComponent {
 	@Suppress("MagicNumber")
 	override var width: Int = 5
 	override var height: Int = 1
 	override var value: List<String> = emptyList()
 
+	/** The widget's unique ID on Discord, defaulting to a UUID. **/
 	public var id: String = UUID.randomUUID().toString()
 
+	/** The list of options to show. **/
 	public lateinit var options: List<DiscordSelectOption>
 
 	/** Whether this widget must be filled out for the form to be valid. **/
 	public var required: Boolean = true
 
+	/** The minimum number of items that must be chosen. **/
 	public var minValues: Int = if (required) MIN_VALUES + 1 else MIN_VALUES
 
+	/** The maximum number of items that can be chosen. **/
 	public var maxValues: Int = MAX_VALUES
 
 	public override fun validate() {
@@ -35,6 +40,7 @@ public class CheckboxGroupWidget : Widget<List<String>>(), KordExKoinComponent {
 			error("You must provide options for the checkbox group!")
 		}
 
+		@Suppress("UnnecessaryParentheses")
 		if (options.size !in (MIN_VALUES + 1)..MAX_VALUES) {
 			error("Invalid number of options provided: ${options.size} - expected ${MIN_VALUES + 1} - $MAX_VALUES")
 		}

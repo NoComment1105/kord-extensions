@@ -14,10 +14,13 @@ import dev.kordex.core.koin.KordExKoinComponent
 import java.util.Locale
 import java.util.UUID
 
+/** The min number of values for the widget. **/
 public const val MIN_VALUES: Int = 0
 
+/** The max number of values for the widget. **/
 public const val MAX_VALUES: Int = 10
 
+/** A widget for uploading files to discord. **/
 public class FileUploadWidget : Widget<List<Snowflake>?>(), KordExKoinComponent {
 	@Suppress("MagicNumber")
 	override var width: Int = 5
