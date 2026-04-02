@@ -9,7 +9,7 @@
 package dev.kordex.core.components.forms.widgets.menus
 
 import dev.kord.common.entity.Snowflake
-import dev.kord.rest.builder.component.ActionRowBuilder
+import dev.kord.rest.builder.component.LabelComponentBuilder
 import dev.kordex.core.components.forms.widgets.MIN_LENGTH
 import java.util.Locale
 
@@ -21,7 +21,7 @@ public class MentionableSelectMenuWidget : SelectMenuWidget<Snowflake, Mentionab
 	/** Default channel values for autopopulated select menu components. **/
 	public val defaultRoles: MutableList<Snowflake> = mutableListOf()
 
-	override suspend fun apply(builder: ActionRowBuilder, locale: Locale) {
+	override suspend fun apply(builder: LabelComponentBuilder, locale: Locale) {
 		val translatedPlaceholder = placeholder
 			?.withLocale(locale)
 			?.translate()

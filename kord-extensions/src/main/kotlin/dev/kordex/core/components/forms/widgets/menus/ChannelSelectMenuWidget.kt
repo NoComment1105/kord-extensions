@@ -9,7 +9,7 @@
 package dev.kordex.core.components.forms.widgets.menus
 
 import dev.kord.common.entity.Snowflake
-import dev.kord.rest.builder.component.ActionRowBuilder
+import dev.kord.rest.builder.component.LabelComponentBuilder
 import dev.kordex.core.components.forms.widgets.MIN_LENGTH
 import java.util.Locale
 
@@ -18,7 +18,7 @@ public class ChannelSelectMenuWidget : SelectMenuWidget<Snowflake, ChannelSelect
 	/** Default values for autopopulated select menu components. **/
 	public val defaultChannels: MutableList<Snowflake> = mutableListOf()
 
-	override suspend fun apply(builder: ActionRowBuilder, locale: Locale) {
+	override suspend fun apply(builder: LabelComponentBuilder, locale: Locale) {
 		val translatedPlaceholder = placeholder
 			?.withLocale(locale)
 			?.translate()
@@ -29,7 +29,7 @@ public class ChannelSelectMenuWidget : SelectMenuWidget<Snowflake, ChannelSelect
 		) {
 			error(
 				"Invalid value for placeholder provided (${translatedPlaceholder.length} characters) - expected " +
-					"${MIN_LENGTH + 1} - ${SELECT_PLACEHOLDER_LENGTH} characters"
+					"${MIN_LENGTH + 1} - $SELECT_PLACEHOLDER_LENGTH characters"
 			)
 		}
 

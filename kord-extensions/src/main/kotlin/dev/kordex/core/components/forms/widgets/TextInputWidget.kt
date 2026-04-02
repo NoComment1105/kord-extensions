@@ -10,6 +10,7 @@ package dev.kordex.core.components.forms.widgets
 
 import dev.kord.common.entity.TextInputStyle
 import dev.kord.rest.builder.component.ActionRowBuilder
+import dev.kord.rest.builder.component.LabelComponentBuilder
 import dev.kordex.core.koin.KordExKoinComponent
 import dev.kordex.i18n.EMPTY_VALUE_STRING
 import dev.kordex.i18n.Key
@@ -41,6 +42,7 @@ public abstract class TextInputWidget<T : TextInputWidget<T>> : Widget<String?>(
 	public abstract val style: TextInputStyle
 
 	/** The widget's label, to be shown on Discord. **/
+	@Deprecated("The label field on a Text Input is deprecated in favor of label and description on the Label component.")
 	public lateinit var label: Key
 
 	/** The widget's unique ID on Discord, defaulting to a UUID. **/
@@ -65,10 +67,6 @@ public abstract class TextInputWidget<T : TextInputWidget<T>> : Widget<String?>(
 	public var translateInitialValue: Boolean = false
 
 	public override fun validate() {
-		if (this::label.isInitialized.not() || label.key.isEmpty()) {
-			error("Text input widgets must be given a label, but no label was provided.")
-		}
-
 		@Suppress("UnnecessaryParentheses")
 		if (maxLength !in (MIN_LENGTH + 1)..MAX_LENGTH) {
 			error(
@@ -83,10 +81,12 @@ public abstract class TextInputWidget<T : TextInputWidget<T>> : Widget<String?>(
 		}
 	}
 
-	override suspend fun apply(builder: ActionRowBuilder, locale: Locale) {
-		val translatedLabel = label
-			.withLocale(locale)
-			.translate()
+	override suspend fun apply(builder: LabelComponentBuilder, locale: Locale) {
+		val translatedLabel = if (this::label.isInitialized.not() || label.key.isEmpty()) {
+			label
+				.withLocale(locale)
+				.translate()
+		} else { null }
 
 		val translatedPlaceholder = placeholder
 			?.withLocale(locale)
@@ -107,7 +107,7 @@ public abstract class TextInputWidget<T : TextInputWidget<T>> : Widget<String?>(
 			initialValue?.key
 		}
 
-		if (translatedLabel.length > LABEL_LENGTH) {
+		if (translatedLabel != null && translatedLabel.length > LABEL_LENGTH) {
 			error(
 				"Labels must be shorter than $LABEL_LENGTH characters, but ${translatedLabel.length} " +
 					"characters were provided. $label -> $translatedLabel"
@@ -134,7 +134,8 @@ public abstract class TextInputWidget<T : TextInputWidget<T>> : Widget<String?>(
 			)
 		}
 
-		builder.textInput(style, id, translatedLabel) {
+		builder.textInput(style, id) {
+			this.label = translatedLabel
 			this.allowedLength = this@TextInputWidget.minLength..this@TextInputWidget.maxLength
 			this.required = this@TextInputWidget.required
 

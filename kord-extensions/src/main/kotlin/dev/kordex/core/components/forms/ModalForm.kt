@@ -23,15 +23,8 @@ import dev.kord.rest.builder.interaction.ModalBuilder
 import dev.kordex.core.ExtensibleBot
 import dev.kordex.core.components.ComponentContext
 import dev.kordex.core.components.ComponentRegistry
-import dev.kordex.core.components.forms.widgets.menus.ChannelSelectMenuWidget
-import dev.kordex.core.components.forms.widgets.LineTextWidget
-import dev.kordex.core.components.forms.widgets.menus.MentionableSelectMenuWidget
-import dev.kordex.core.components.forms.widgets.ParagraphTextWidget
-import dev.kordex.core.components.forms.widgets.menus.RoleSelectMenuWidget
-import dev.kordex.core.components.forms.widgets.menus.StringSelectMenuWidget
-import dev.kordex.core.components.forms.widgets.TextInputWidget
-import dev.kordex.core.components.forms.widgets.menus.UserSelectMenuWidget
-import dev.kordex.core.components.forms.widgets.Widget
+import dev.kordex.core.components.forms.widgets.*
+import dev.kordex.core.components.forms.widgets.menus.*
 import dev.kordex.core.events.EventContext
 import dev.kordex.core.events.ModalInteractionCompleteEvent
 import dev.kordex.core.koin.KordExKoinComponent
@@ -162,99 +155,144 @@ public abstract class ModalForm : Form(), KordExKoinComponent {
 		return widget
 	}
 
+	public fun fileUpload(
+		coordinate: CoordinatePair? = null,
+		builder: FileUploadWidget.() -> Unit,
+	): FileUploadWidget {
+		val widget = FileUploadWidget()
+
+		builder(widget)
+		widget.validate()
+
+		grid.setAtCoordinateOrFirstRow(coordinate, widget)
+
+		return widget
+	}
+
+	public fun radioGroup(
+		coordinate: CoordinatePair? = null,
+		builder: RadioGroupWidget.() -> Unit,
+	): RadioGroupWidget {
+		val widget = RadioGroupWidget()
+
+		builder(widget)
+		widget.validate()
+
+		grid.setAtCoordinateOrFirstRow(coordinate, widget)
+
+		return widget
+	}
+
+	public fun checkboxGroup(
+		coordinate: CoordinatePair? = null,
+		builder: CheckboxGroupWidget.() -> Unit,
+	): CheckboxGroupWidget {
+		val widget = CheckboxGroupWidget()
+
+		builder(widget)
+		widget.validate()
+
+		grid.setAtCoordinateOrFirstRow(coordinate, widget)
+
+		return widget
+	}
+
+	public fun checkbox(
+		coordinate: CoordinatePair? = null,
+		builder: CheckboxWidget.() -> Unit,
+	): CheckboxWidget {
+		val widget = CheckboxWidget()
+
+		builder(widget)
+		widget.validate()
+
+		grid.setAtCoordinateOrFirstRow(coordinate, widget)
+
+		return widget
+	}
+
 	/** @suppress Internal function called by the component registry. **/
 	public suspend fun call(event: ModalSubmitInteractionCreateEvent) {
 		grid.filter { it.isNotEmpty() }
 			.forEach { row ->
-				row.filterNotNull()
-					.forEach { widget ->
-						val textInput = try {
-							widget as TextInputWidget<*>
-						} catch (_: ClassCastException) {
-							null
-						}
-
-						val channelSelect = if (textInput == null) {
-							try {
-								widget as ChannelSelectMenuWidget
-							} catch (_: ClassCastException) {
-								null
-							}
-						} else { null }
-
-						val mentionableSelect = if (textInput == null && channelSelect == null) {
-							try {
-								widget as MentionableSelectMenuWidget
-							} catch (_: ClassCastException) {
-								null
-							}
-						} else { null }
-
-						val roleSelect =
-							if (textInput == null && channelSelect == null && mentionableSelect == null) {
-								try {
-									widget as RoleSelectMenuWidget
-								} catch (_: ClassCastException) {
-									null
-								}
-							} else { null }
-
-						val stringSelect =
-							if (
-								textInput == null && channelSelect == null &&
-								mentionableSelect == null && roleSelect == null
-							) {
-								try {
-									widget as StringSelectMenuWidget
-								} catch (_: ClassCastException) {
-									null
-								}
-							} else { null }
-
-						val userSelect =
-							if (
-								textInput == null && channelSelect == null &&
-								mentionableSelect == null && roleSelect == null && stringSelect == null
-							) {
-								try {
-									widget as UserSelectMenuWidget
-								} catch (_: ClassCastException) {
-									null
-								}
-							} else { null }
-
-						val textInputValue = textInput?.let { event.interaction.textInputs[it.id]?.value }
-						val channelSelectValues = channelSelect?.let {
-							event.interaction.channelSelects[it.id]?.values.stringListToSnowflakeList()
-						}
-						val mentionableSelectValues = mentionableSelect?.let {
-							event.interaction.mentionableSelects[it.id]?.values.stringListToSnowflakeList()
-						}
-						val roleSelectValues =
-							roleSelect?.let { event.interaction.roleSelects[it.id]?.values.stringListToSnowflakeList() }
-						val stringSelectValues = stringSelect?.let { event.interaction.stringSelects[it.id]?.values }
-						val userSelectValues =
-							userSelect?.let { event.interaction.userSelects[it.id]?.values.stringListToSnowflakeList() }
-
-						if (textInputValue != null) {
+				for (widget in row.filterNotNull()) {
+					(widget as? TextInputWidget<*>)?.let { textInput ->
+						event.interaction.textInputs[textInput.id]?.value?.let { textInputValue ->
 							textInput.setValue(textInputValue)
-						}
-						if (channelSelectValues != null) {
-							channelSelect.setValue(channelSelectValues)
-						}
-						if (mentionableSelectValues != null) {
-							mentionableSelect.setValue(mentionableSelectValues)
-						}
-						if (roleSelectValues != null) {
-							roleSelect.setValue(roleSelectValues)
-						}
-						if (stringSelectValues != null) {
-							stringSelect.setValue(stringSelectValues)
-						}
-						if (userSelectValues != null) {
-							userSelect.setValue(userSelectValues)
+							continue
 						}
 					}
+
+					(widget as? ChannelSelectMenuWidget)?.let { channelSelect ->
+						event.interaction.channelSelects[channelSelect.id]?.values.stringListToSnowflakeList()
+							?.let { channelSelectValues ->
+								channelSelect.setValue(channelSelectValues)
+								continue
+							}
+					}
+
+					(widget as? MentionableSelectMenuWidget)?.let { mentionableSelect ->
+						event.interaction.mentionableSelects[mentionableSelect.id]?.values.stringListToSnowflakeList()
+							?.let { mentionableSelectValues ->
+								mentionableSelect.setValue(mentionableSelectValues)
+								continue
+							}
+					}
+
+					(widget as? RoleSelectMenuWidget)?.let { roleSelect ->
+						event.interaction.roleSelects[roleSelect.id]?.values.stringListToSnowflakeList()
+							?.let { roleSelectValues ->
+								roleSelect.setValue(roleSelectValues)
+								continue
+							}
+					}
+
+					(widget as? StringSelectMenuWidget)?.let { stringSelect ->
+						event.interaction.stringSelects[stringSelect.id]?.values?.let { stringSelectValues ->
+							stringSelect.setValue(stringSelectValues)
+							continue
+						}
+					}
+
+					(widget as? UserSelectMenuWidget)?.let { userSelect ->
+						event.interaction.userSelects[userSelect.id]?.values.stringListToSnowflakeList()
+							?.let { userSelectValues ->
+								userSelect.setValue(userSelectValues)
+								continue
+							}
+					}
+
+					(widget as? FileUploadWidget)?.let { fileUpload ->
+						event.interaction.fileUploads[fileUpload.id]?.valueIds?.let { fileUploadValues ->
+							run {
+								fileUpload.setValue(fileUploadValues)
+								continue
+							}
+						}
+					}
+
+					(widget as? RadioGroupWidget)?.let { radioGroup ->
+						event.interaction.radioGroups[radioGroup.id]?.value?.let { radioGroupValues ->
+							radioGroup.setValue(radioGroupValues)
+							continue
+						}
+					}
+
+
+					(widget as? CheckboxGroupWidget)?.let { checkboxGroup ->
+						event.interaction.checkboxGroups[checkboxGroup.id]?.values?.let { checkboxGroupValues ->
+							checkboxGroup.setValue(checkboxGroupValues)
+							continue
+						}
+					}
+
+					(widget as? CheckboxWidget)?.let { checkbox ->
+						event.interaction.checkboxes[checkbox.id]?.value?.let { checkboxValue ->
+							checkbox.setValue(checkboxValue)
+							continue
+						}
+					}
+				}
 			}
 
 		bot.send(
@@ -274,7 +312,8 @@ public abstract class ModalForm : Form(), KordExKoinComponent {
 				.filter { it !in appliedWidgets }
 
 			if (filteredRow.isNotEmpty()) {
-				builder.actionRow {
+				// TODO is this legal?
+				builder.label(" ") {
 					filteredRow.forEach { widget ->
 						if (widget !in appliedWidgets) {
 							widget.apply(this, locale)

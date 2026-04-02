@@ -54,7 +54,7 @@ public abstract class SelectMenuWidget<C, T : SelectMenuWidget<C, T>> : Widget<L
 		@Suppress("UnnecessaryParentheses")
 		if (maxValues !in (MIN_VALUES + 1)..MAX_VALUES) {
 			error(
-				"Invalid value for maxValues provided: $maxValues - expected ${MIN_LENGTH + 1} - ${MAX_LENGTH}"
+				"Invalid value for maxValues provided: $maxValues - expected ${MIN_LENGTH + 1} - $MAX_LENGTH"
 			)
 		}
 

@@ -8,7 +8,7 @@
 
 package dev.kordex.core.components.forms.widgets.menus
 
-import dev.kord.rest.builder.component.ActionRowBuilder
+import dev.kord.rest.builder.component.LabelComponentBuilder
 import dev.kord.rest.builder.component.SelectOptionBuilder
 import dev.kordex.core.components.forms.widgets.MIN_LENGTH
 import java.util.Locale
@@ -18,7 +18,7 @@ public class StringSelectMenuWidget : SelectMenuWidget<String, StringSelectMenuW
 	/** Specified choices in a select menu.  **/
 	public val options: MutableList<SelectOptionBuilder> = mutableListOf()
 
-	override suspend fun apply(builder: ActionRowBuilder, locale: Locale) {
+	override suspend fun apply(builder: LabelComponentBuilder, locale: Locale) {
 		val translatedPlaceholder = placeholder
 			?.withLocale(locale)
 			?.translate()
