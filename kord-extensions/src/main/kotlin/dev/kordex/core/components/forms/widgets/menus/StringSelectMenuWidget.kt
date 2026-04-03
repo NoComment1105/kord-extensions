@@ -19,6 +19,10 @@ public class StringSelectMenuWidget : SelectMenuWidget<String, StringSelectMenuW
 	public val options: MutableList<SelectOptionBuilder> = mutableListOf()
 
 	override suspend fun apply(builder: LabelComponentBuilder, locale: Locale) {
+		val translatedDescription = description
+			?.withLocale(locale)
+			?.translate()
+
 		val translatedPlaceholder = placeholder
 			?.withLocale(locale)
 			?.translate()
@@ -32,6 +36,7 @@ public class StringSelectMenuWidget : SelectMenuWidget<String, StringSelectMenuW
 					"${MIN_LENGTH + 1} - $SELECT_PLACEHOLDER_LENGTH characters"
 			)
 		}
+		builder.description = translatedDescription
 
 		builder.stringSelect(id) {
 			this.options = this@StringSelectMenuWidget.options

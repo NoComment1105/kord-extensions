@@ -11,6 +11,7 @@ package dev.kordex.core.components.forms.widgets
 import dev.kord.common.entity.DiscordSelectOption
 import dev.kord.rest.builder.component.LabelComponentBuilder
 import dev.kordex.core.koin.KordExKoinComponent
+import dev.kordex.i18n.Key
 import java.util.*
 
 /** A checkbox widget that supports multiple checkboxes. **/
@@ -22,6 +23,10 @@ public class CheckboxGroupWidget : Widget<List<String>>(), KordExKoinComponent {
 
 	/** The widget's unique ID on Discord, defaulting to a UUID. **/
 	public var id: String = UUID.randomUUID().toString()
+
+	public override lateinit var label: Key
+
+	public override var description: Key? = null
 
 	/** The list of options to show. **/
 	public lateinit var options: List<DiscordSelectOption>
@@ -38,6 +43,10 @@ public class CheckboxGroupWidget : Widget<List<String>>(), KordExKoinComponent {
 	public override fun validate() {
 		if (this::options.isInitialized.not() || options.isEmpty()) {
 			error("You must provide options for the checkbox group!")
+		}
+
+		if (this::label.isInitialized.not() || label.key.isEmpty()) {
+			error("Widgets must be given a label, but not label was provided.")
 		}
 
 		@Suppress("UnnecessaryParentheses")
@@ -64,6 +73,12 @@ public class CheckboxGroupWidget : Widget<List<String>>(), KordExKoinComponent {
 	}
 
 	public override suspend fun apply(builder: LabelComponentBuilder, locale: Locale) {
+		val translatedDescription = description
+			?.withLocale(locale)
+			?.translate()
+
+		builder.description = translatedDescription
+
 		builder.checkboxGroup(id) {
 			this.options = this@CheckboxGroupWidget.options
 			this.minValues = this@CheckboxGroupWidget.minValues

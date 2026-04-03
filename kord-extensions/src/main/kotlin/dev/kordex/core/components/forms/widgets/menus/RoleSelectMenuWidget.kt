@@ -19,6 +19,10 @@ public class RoleSelectMenuWidget : SelectMenuWidget<Snowflake, RoleSelectMenuWi
 	public val defaultRoles: MutableList<Snowflake> = mutableListOf()
 
 	override suspend fun apply(builder: LabelComponentBuilder, locale: Locale) {
+		val translatedDescription = description
+			?.withLocale(locale)
+			?.translate()
+
 		val translatedPlaceholder = placeholder
 			?.withLocale(locale)
 			?.translate()
@@ -32,6 +36,8 @@ public class RoleSelectMenuWidget : SelectMenuWidget<Snowflake, RoleSelectMenuWi
 					"${MIN_LENGTH + 1} - $SELECT_PLACEHOLDER_LENGTH characters"
 			)
 		}
+
+		builder.description = translatedDescription
 
 		builder.roleSelect(id) {
 			this.defaultRoles.addAll(this@RoleSelectMenuWidget.defaultRoles)

@@ -22,6 +22,10 @@ public class MentionableSelectMenuWidget : SelectMenuWidget<Snowflake, Mentionab
 	public val defaultRoles: MutableList<Snowflake> = mutableListOf()
 
 	override suspend fun apply(builder: LabelComponentBuilder, locale: Locale) {
+		val translatedDescription = description
+			?.withLocale(locale)
+			?.translate()
+
 		val translatedPlaceholder = placeholder
 			?.withLocale(locale)
 			?.translate()
@@ -35,6 +39,8 @@ public class MentionableSelectMenuWidget : SelectMenuWidget<Snowflake, Mentionab
 					"${MIN_LENGTH + 1} - $SELECT_PLACEHOLDER_LENGTH characters"
 			)
 		}
+
+		builder.description = translatedDescription
 
 		builder.mentionableSelect(id) {
 			this.defaultUsers.addAll(this@MentionableSelectMenuWidget.defaultUsers)

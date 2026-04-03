@@ -312,10 +312,9 @@ public abstract class ModalForm : Form(), KordExKoinComponent {
 				.filter { it !in appliedWidgets }
 
 			if (filteredRow.isNotEmpty()) {
-				// TODO is this legal?
-				builder.label(" ") {
-					filteredRow.forEach { widget ->
-						if (widget !in appliedWidgets) {
+				filteredRow.forEach { widget ->
+					if (widget !in appliedWidgets) {
+						builder.label(widget.label.withLocale(locale).translate()) {
 							widget.apply(this, locale)
 							appliedWidgets.add(widget)
 						}

@@ -40,9 +40,10 @@ public abstract class TextInputWidget<T : TextInputWidget<T>> : Widget<String?>(
 	/** The [TextInputStyle], to be provided by a subtype. **/
 	public abstract val style: TextInputStyle
 
-	/** The widget's label, to be shown on Discord. **/
-	@Deprecated("The label field on a Text Input is deprecated in favor of label and description on the Label component.")
-	public lateinit var label: Key
+	// Applied at in ModalForm at the modal builder
+	public override lateinit var label: Key
+
+	public override var description: Key? = null
 
 	/** The widget's unique ID on Discord, defaulting to a UUID. **/
 	public var id: String = UUID.randomUUID().toString()
@@ -66,6 +67,10 @@ public abstract class TextInputWidget<T : TextInputWidget<T>> : Widget<String?>(
 	public var translateInitialValue: Boolean = false
 
 	public override fun validate() {
+		if (this::label.isInitialized.not() || label.key.isEmpty()) {
+			error("Widgets must be given a label, but no label was provided.")
+		}
+
 		@Suppress("UnnecessaryParentheses")
 		if (maxLength !in (MIN_LENGTH + 1)..MAX_LENGTH) {
 			error(
@@ -81,11 +86,13 @@ public abstract class TextInputWidget<T : TextInputWidget<T>> : Widget<String?>(
 	}
 
 	override suspend fun apply(builder: LabelComponentBuilder, locale: Locale) {
-		val translatedLabel = if (this::label.isInitialized.not() || label.key.isEmpty()) {
-			label
+		val translatedLabel = label
 				.withLocale(locale)
 				.translate()
-		} else { null }
+
+		val translatedDescription = description
+			?.withLocale(locale)
+			?.translate()
 
 		val translatedPlaceholder = placeholder
 			?.withLocale(locale)
@@ -106,7 +113,7 @@ public abstract class TextInputWidget<T : TextInputWidget<T>> : Widget<String?>(
 			initialValue?.key
 		}
 
-		if (translatedLabel != null && translatedLabel.length > LABEL_LENGTH) {
+		if (translatedLabel.length > LABEL_LENGTH) {
 			error(
 				"Labels must be shorter than $LABEL_LENGTH characters, but ${translatedLabel.length} " +
 					"characters were provided. $label -> $translatedLabel"
@@ -133,8 +140,9 @@ public abstract class TextInputWidget<T : TextInputWidget<T>> : Widget<String?>(
 			)
 		}
 
+		builder.description = translatedDescription
+
 		builder.textInput(style, id) {
-			this.label = translatedLabel
 			this.allowedLength = this@TextInputWidget.minLength..this@TextInputWidget.maxLength
 			this.required = this@TextInputWidget.required
 

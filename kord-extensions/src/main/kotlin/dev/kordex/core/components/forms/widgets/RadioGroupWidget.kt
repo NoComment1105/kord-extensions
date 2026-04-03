@@ -11,6 +11,7 @@ package dev.kordex.core.components.forms.widgets
 import dev.kord.common.entity.DiscordSelectOption
 import dev.kord.rest.builder.component.LabelComponentBuilder
 import dev.kordex.core.koin.KordExKoinComponent
+import dev.kordex.i18n.Key
 import java.util.*
 
 /** The min number of options for the radio group widget. **/
@@ -29,6 +30,10 @@ public class RadioGroupWidget : Widget<String?>(), KordExKoinComponent {
 	/** The widget's unique ID on Discord, defaulting to a UUID. **/
 	public var id: String = UUID.randomUUID().toString()
 
+	public override lateinit var label: Key
+
+	public override var description: Key? = null
+
 	/** The list of options to show to the user. **/
 	public lateinit var options: List<DiscordSelectOption>
 
@@ -46,6 +51,12 @@ public class RadioGroupWidget : Widget<String?>(), KordExKoinComponent {
 	}
 
 	public override suspend fun apply(builder: LabelComponentBuilder, locale: Locale) {
+		val translatedDescription = description
+			?.withLocale(locale)
+			?.translate()
+
+		builder.description = translatedDescription
+
 		builder.radioGroup(id) {
 			this.options = this@RadioGroupWidget.options
 			this.required = this@RadioGroupWidget.required

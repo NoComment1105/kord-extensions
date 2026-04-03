@@ -11,6 +11,7 @@ package dev.kordex.core.components.forms.widgets
 import dev.kord.common.entity.Snowflake
 import dev.kord.rest.builder.component.LabelComponentBuilder
 import dev.kordex.core.koin.KordExKoinComponent
+import dev.kordex.i18n.Key
 import java.util.Locale
 import java.util.UUID
 
@@ -30,6 +31,10 @@ public class FileUploadWidget : Widget<List<Snowflake>?>(), KordExKoinComponent 
 	/** The widget's unique ID on Discord, defaulting to a UUID. **/
 	public var id: String = UUID.randomUUID().toString()
 
+	public override lateinit var label: Key
+
+	public override var description: Key? = null
+
 	/** Whether this widget must be filled out for the form to be valid. **/
 	public var required: Boolean = true
 
@@ -40,6 +45,10 @@ public class FileUploadWidget : Widget<List<Snowflake>?>(), KordExKoinComponent 
 	public var maxValues: Int = MAX_VALUES
 
 	public override fun validate() {
+		if (this::label.isInitialized.not() || label.key.isEmpty()) {
+			error("Widgets must be given a label, but no label was provided.")
+		}
+
 		if (maxValues < minValues) {
 			error("maxValues cannot be less than minValues!")
 		}
@@ -59,6 +68,12 @@ public class FileUploadWidget : Widget<List<Snowflake>?>(), KordExKoinComponent 
 	}
 
 	public override suspend fun apply(builder: LabelComponentBuilder, locale: Locale) {
+		val translatedDescription = description
+			?.withLocale(locale)
+			?.translate()
+
+		builder.description = translatedDescription
+
 		builder.fileUpload(id) {
 			this.minValues = this@FileUploadWidget.minValues
 			this.maxValues = this@FileUploadWidget.maxValues

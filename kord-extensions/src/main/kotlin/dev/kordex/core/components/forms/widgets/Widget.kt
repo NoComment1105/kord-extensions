@@ -9,6 +9,7 @@
 package dev.kordex.core.components.forms.widgets
 
 import dev.kord.rest.builder.component.LabelComponentBuilder
+import dev.kordex.i18n.Key
 import java.util.*
 
 /** Abstract type representing a grid-based widget. **/
@@ -23,6 +24,14 @@ public abstract class Widget<T> {
 
 	/** The final value stored in this widget, as provided by the user. **/
 	public abstract var value: T
+		protected set
+
+	/** The label that will be given to the widget. Max 45 characters. **/
+	public abstract var label: Key
+		protected set
+
+	/** An optional description text for the label. Max 100 characters. **/
+	public abstract var description: Key?
 		protected set
 
 	override fun toString(): String =

@@ -19,6 +19,10 @@ public class ChannelSelectMenuWidget : SelectMenuWidget<Snowflake, ChannelSelect
 	public val defaultChannels: MutableList<Snowflake> = mutableListOf()
 
 	override suspend fun apply(builder: LabelComponentBuilder, locale: Locale) {
+		val translatedDescription = description
+			?.withLocale(locale)
+			?.translate()
+
 		val translatedPlaceholder = placeholder
 			?.withLocale(locale)
 			?.translate()
@@ -32,6 +36,8 @@ public class ChannelSelectMenuWidget : SelectMenuWidget<Snowflake, ChannelSelect
 					"${MIN_LENGTH + 1} - $SELECT_PLACEHOLDER_LENGTH characters"
 			)
 		}
+
+		builder.description = translatedDescription
 
 		builder.channelSelect(id) {
 			this.defaultChannels.addAll(this@ChannelSelectMenuWidget.defaultChannels)

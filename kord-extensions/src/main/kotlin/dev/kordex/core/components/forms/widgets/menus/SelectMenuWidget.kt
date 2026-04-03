@@ -31,6 +31,10 @@ public abstract class SelectMenuWidget<C, T : SelectMenuWidget<C, T>> : Widget<L
 	override var height: Int = 1
 	override var value: List<C?> = emptyList()
 
+	public override lateinit var label: Key
+
+	public override var description: Key? = null
+
 	/** The widget's unique ID on Discord, defaulting to a UUID. **/
 	public var id: String = UUID.randomUUID().toString()
 
@@ -47,6 +51,10 @@ public abstract class SelectMenuWidget<C, T : SelectMenuWidget<C, T>> : Widget<L
 	public var required: Boolean = true
 
 	public override fun validate() {
+		if (this::label.isInitialized.not() || label.key.isEmpty()) {
+			error("Widgets must be given a label, but no label was provided.")
+		}
+
 		if (maxValues < minValues) {
 			error("maxValues cannot be less than minValues!")
 		}
