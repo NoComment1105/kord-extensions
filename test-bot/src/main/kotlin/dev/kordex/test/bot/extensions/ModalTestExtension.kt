@@ -8,6 +8,8 @@
 
 package dev.kordex.test.bot.extensions
 
+import dev.kord.common.entity.Snowflake
+import dev.kord.rest.builder.component.SelectOptionBuilder
 import dev.kordex.core.commands.Arguments
 import dev.kordex.core.commands.application.slash.publicSubCommand
 import dev.kordex.core.commands.converters.impl.string
@@ -15,6 +17,11 @@ import dev.kordex.core.components.components
 import dev.kordex.core.components.forms.ModalForm
 import dev.kordex.core.components.forms.widgets.LineTextWidget
 import dev.kordex.core.components.forms.widgets.ParagraphTextWidget
+import dev.kordex.core.components.forms.widgets.menus.ChannelSelectMenuWidget
+import dev.kordex.core.components.forms.widgets.menus.MentionableSelectMenuWidget
+import dev.kordex.core.components.forms.widgets.menus.RoleSelectMenuWidget
+import dev.kordex.core.components.forms.widgets.menus.StringSelectMenuWidget
+import dev.kordex.core.components.forms.widgets.menus.UserSelectMenuWidget
 import dev.kordex.core.components.publicButton
 import dev.kordex.core.extensions.Extension
 import dev.kordex.core.extensions.publicMessageCommand
@@ -23,6 +30,7 @@ import dev.kordex.core.extensions.publicUserCommand
 import dev.kordex.i18n.Key
 import dev.kordex.i18n.toKey
 import dev.kordex.test.bot.Translations
+import kotlinx.coroutines.runBlocking
 
 public class ModalTestExtension : Extension() {
 	override val name: String = "kordex.modals"
@@ -149,6 +157,31 @@ public class ModalTestExtension : Extension() {
 							appendLine(modal.paragraph.value)
 							append("```")
 							appendLine()
+
+							appendLine("**Channel Select:** ```")
+							appendLine(modal.channelSelect.value)
+							append("```")
+							appendLine()
+
+							appendLine("**Mentionable Select:** ```")
+							appendLine(modal.mentionableSelect.value)
+							append("```")
+							appendLine()
+
+							appendLine("**Role Select:** ```")
+							appendLine(modal.roleSelect.value)
+							append("```")
+							appendLine()
+
+							appendLine("**String Select:** ```")
+							appendLine(modal.stringSelect.value)
+							append("```")
+							appendLine()
+
+							appendLine("**User Select:** ```")
+							appendLine(modal.userSelect.value)
+							append("```")
+							appendLine()
 						}
 					}
 				}
@@ -174,6 +207,40 @@ public class ModalTestExtension : Extension() {
 		public val paragraph: ParagraphTextWidget = paragraphText {
 			label = Translations.Modal.paragraph
 			placeholder = Translations.Modal.Paragraph.placeholder
+		}
+
+		public val channelSelect: ChannelSelectMenuWidget = channelSelect {
+			label = Translations.Modal.channelSelect
+			placeholder = Translations.Modal.ChannelSelect.placeholder
+			defaultChannel(Snowflake(""), Snowflake(""))
+		}
+
+		public val mentionableSelect: MentionableSelectMenuWidget = mentionableSelect {
+			label = Translations.Modal.mentionableSelect
+			placeholder = Translations.Modal.MentionableSelect.placeholder
+			defaultRole(Snowflake(""), Snowflake(""))
+			defaultUser(Snowflake(""), Snowflake(""))
+		}
+
+		public val roleSelect: RoleSelectMenuWidget = roleSelect {
+			label = Translations.Modal.roleSelect
+			placeholder = Translations.Modal.RoleSelect.placeholder
+			defaultRole(Snowflake(""), Snowflake(""))
+		}
+
+		public val stringSelect: StringSelectMenuWidget = stringSelect {
+			runBlocking {
+				label = Translations.Modal.stringSelect
+				placeholder = Translations.Modal.StringSelect.placeholder
+				option("Test option 1".toKey(), "test1")
+				option("Test option 2".toKey(), "test2")
+			}
+		}
+
+		public val userSelect: UserSelectMenuWidget = userSelect {
+			label = Translations.Modal.userSelect
+			placeholder = Translations.Modal.UserSelect.placeholder
+			defaultUser(Snowflake(""))
 		}
 	}
 }

@@ -83,6 +83,31 @@ internal object Translations {
 				.withBundle(bundle)
 		}
 
+		object ChannelSelect {
+			val placeholder = Key("modal.channelSelect.placeholder")
+				.withBundle(bundle)
+		}
+
+		object MentionableSelect {
+			val placeholder = Key("modal.mentionableSelect.placeholder")
+				.withBundle(bundle)
+		}
+
+		object RoleSelect {
+			val placeholder = Key("modal.roleSelect.placeholder")
+				.withBundle(bundle)
+		}
+
+		object StringSelect {
+			val placeholder = Key("modal.stringSelect.placeholder")
+				.withBundle(bundle)
+		}
+
+		object UserSelect {
+			val placeholder = Key("modal.userSelect.placeholder")
+				.withBundle(bundle)
+		}
+
 		val title = Key("modal.title")
 			.withBundle(bundle)
 
@@ -90,6 +115,21 @@ internal object Translations {
 			.withBundle(bundle)
 
 		val paragraph = Key("modal.paragraph")
+			.withBundle(bundle)
+
+		val channelSelect = Key("modal.channelSelect")
+			.withBundle(bundle)
+
+		val mentionableSelect = Key("modal.mentionableSelect")
+			.withBundle(bundle)
+
+		val roleSelect = Key("modal.roleSelect")
+			.withBundle(bundle)
+
+		val stringSelect = Key("modal.stringSelect")
+			.withBundle(bundle)
+
+		val userSelect = Key("modal.userSelect")
 			.withBundle(bundle)
 	}
 
