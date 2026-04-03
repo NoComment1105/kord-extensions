@@ -11,12 +11,12 @@ package dev.kordex.core.components.forms.widgets.menus
 import dev.kord.common.entity.Snowflake
 import dev.kord.rest.builder.component.LabelComponentBuilder
 import dev.kordex.core.components.forms.widgets.MIN_LENGTH
+import dev.kordex.core.components.menus.user.UserSelectMenu
 import java.util.*
 
 /** A select widget that supports users as options. **/
-public class UserSelectMenuWidget : SelectMenuWidget<Snowflake, UserSelectMenuWidget>() {
-	/** Default values for autopopulated select menu components. **/
-	public val defaultUsers: MutableList<Snowflake> = mutableListOf()
+public class UserSelectMenuWidget : SelectMenuWidget<Snowflake, UserSelectMenuWidget>(), UserSelectMenu {
+	public override var defaultUsers: MutableList<Snowflake> = mutableListOf()
 
 	override suspend fun apply(builder: LabelComponentBuilder, locale: Locale) {
 		val translatedDescription = description

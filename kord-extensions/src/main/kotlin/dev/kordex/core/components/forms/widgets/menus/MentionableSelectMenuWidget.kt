@@ -11,15 +11,14 @@ package dev.kordex.core.components.forms.widgets.menus
 import dev.kord.common.entity.Snowflake
 import dev.kord.rest.builder.component.LabelComponentBuilder
 import dev.kordex.core.components.forms.widgets.MIN_LENGTH
+import dev.kordex.core.components.menus.mentionable.MentionableSelectMenu
 import java.util.Locale
 
 /** A select widget that supports mentionables as options. **/
-public class MentionableSelectMenuWidget : SelectMenuWidget<Snowflake, MentionableSelectMenuWidget>() {
-	/** Default user values for autopopulated select menu components. **/
-	public val defaultUsers: MutableList<Snowflake> = mutableListOf()
+public class MentionableSelectMenuWidget : SelectMenuWidget<Snowflake, MentionableSelectMenuWidget>(), MentionableSelectMenu {
+	public override var defaultUsers: MutableList<Snowflake> = mutableListOf()
 
-	/** Default channel values for autopopulated select menu components. **/
-	public val defaultRoles: MutableList<Snowflake> = mutableListOf()
+	public override var defaultRoles: MutableList<Snowflake> = mutableListOf()
 
 	override suspend fun apply(builder: LabelComponentBuilder, locale: Locale) {
 		val translatedDescription = description

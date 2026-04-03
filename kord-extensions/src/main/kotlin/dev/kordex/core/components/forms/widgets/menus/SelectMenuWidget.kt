@@ -45,7 +45,7 @@ public abstract class SelectMenuWidget<C, T : SelectMenuWidget<C, T>> : Widget<L
 	public var maxValues: Int = 1
 
 	/** Placeholder text if nothing is selected, to be shown to the user on Discord. **/
-	public val placeholder: Key? = null
+	public var placeholder: Key? = null
 
 	/** Whether this widget must be filled out for the form to be valid. **/
 	public var required: Boolean = true

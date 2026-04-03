@@ -8,15 +8,18 @@
 
 package dev.kordex.core.components.forms.widgets.menus
 
+import dev.kord.common.entity.ChannelType
 import dev.kord.common.entity.Snowflake
 import dev.kord.rest.builder.component.LabelComponentBuilder
 import dev.kordex.core.components.forms.widgets.MIN_LENGTH
+import dev.kordex.core.components.menus.channel.ChannelSelectMenu
 import java.util.Locale
 
 /** A select widget that supports channels as options. **/
-public class ChannelSelectMenuWidget : SelectMenuWidget<Snowflake, ChannelSelectMenuWidget>() {
-	/** Default values for autopopulated select menu components. **/
-	public val defaultChannels: MutableList<Snowflake> = mutableListOf()
+public class ChannelSelectMenuWidget : SelectMenuWidget<Snowflake, ChannelSelectMenuWidget>(), ChannelSelectMenu {
+	public override var defaultChannels: MutableList<Snowflake> = mutableListOf()
+
+	public override var channelTypes: MutableList<ChannelType> = mutableListOf()
 
 	override suspend fun apply(builder: LabelComponentBuilder, locale: Locale) {
 		val translatedDescription = description
@@ -41,6 +44,7 @@ public class ChannelSelectMenuWidget : SelectMenuWidget<Snowflake, ChannelSelect
 
 		builder.channelSelect(id) {
 			this.defaultChannels.addAll(this@ChannelSelectMenuWidget.defaultChannels)
+			this.channelTypes?.addAll(this@ChannelSelectMenuWidget.channelTypes)
 			this.allowedValues = this@ChannelSelectMenuWidget.minValues..this@ChannelSelectMenuWidget.maxValues
 			// Wait for Kord to expose this before uncommenting
 			// this.required = this@ChannelSelectMenuWidget.required

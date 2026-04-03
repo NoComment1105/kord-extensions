@@ -11,12 +11,13 @@ package dev.kordex.core.components.forms.widgets.menus
 import dev.kord.rest.builder.component.LabelComponentBuilder
 import dev.kord.rest.builder.component.SelectOptionBuilder
 import dev.kordex.core.components.forms.widgets.MIN_LENGTH
+import dev.kordex.core.components.menus.string.StringSelectMenu
 import java.util.Locale
 
 /** A select widget that supports strings as options. **/
-public class StringSelectMenuWidget : SelectMenuWidget<String, StringSelectMenuWidget>() {
+public class StringSelectMenuWidget : SelectMenuWidget<String, StringSelectMenuWidget>(), StringSelectMenu {
 	/** Specified choices in a select menu.  **/
-	public val options: MutableList<SelectOptionBuilder> = mutableListOf()
+	public override val options: MutableList<SelectOptionBuilder> = mutableListOf()
 
 	override suspend fun apply(builder: LabelComponentBuilder, locale: Locale) {
 		val translatedDescription = description
