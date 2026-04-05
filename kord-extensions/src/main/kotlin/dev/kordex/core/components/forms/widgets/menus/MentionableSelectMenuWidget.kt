@@ -15,7 +15,8 @@ import dev.kordex.core.components.menus.mentionable.MentionableSelectMenu
 import java.util.Locale
 
 /** A select widget that supports mentionables as options. **/
-public class MentionableSelectMenuWidget : SelectMenuWidget<Snowflake, MentionableSelectMenuWidget>(), MentionableSelectMenu {
+public class MentionableSelectMenuWidget : SelectMenuWidget<Snowflake, MentionableSelectMenuWidget>(),
+	MentionableSelectMenu {
 	public override var defaultUsers: MutableList<Snowflake> = mutableListOf()
 
 	public override var defaultRoles: MutableList<Snowflake> = mutableListOf()
