@@ -18,6 +18,17 @@ import java.util.Locale
 public class RoleSelectMenuWidget : SelectMenuWidget<Snowflake, RoleSelectMenuWidget>(), RoleSelectMenu {
 	public override var defaultRoles: MutableList<Snowflake> = mutableListOf()
 
+	override fun validate() {
+		super.validate()
+
+		if (defaultRoles.size > maxValues) {
+			error(
+				"The number of default values set (${defaultRoles.size}) is greater than the maximum number of values" +
+					" that can be selected! ($maxValues)"
+			)
+		}
+	}
+
 	override suspend fun apply(builder: LabelComponentBuilder, locale: Locale) {
 		val translatedDescription = description
 			?.withLocale(locale)

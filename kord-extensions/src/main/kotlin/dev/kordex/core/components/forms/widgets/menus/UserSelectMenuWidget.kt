@@ -18,6 +18,17 @@ import java.util.*
 public class UserSelectMenuWidget : SelectMenuWidget<Snowflake, UserSelectMenuWidget>(), UserSelectMenu {
 	public override var defaultUsers: MutableList<Snowflake> = mutableListOf()
 
+	override fun validate() {
+		super.validate()
+
+		if (defaultUsers.size > maxValues) {
+			error(
+				"The number of default values set (${defaultUsers.size}) is greater than the maximum number of values" +
+					" that can be selected! ($maxValues)"
+			)
+		}
+	}
+
 	override suspend fun apply(builder: LabelComponentBuilder, locale: Locale) {
 		val translatedDescription = description
 			?.withLocale(locale)

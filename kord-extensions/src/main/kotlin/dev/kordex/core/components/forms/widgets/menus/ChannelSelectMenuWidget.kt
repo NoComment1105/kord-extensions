@@ -21,6 +21,17 @@ public class ChannelSelectMenuWidget : SelectMenuWidget<Snowflake, ChannelSelect
 
 	public override var channelTypes: MutableList<ChannelType> = mutableListOf()
 
+	override fun validate() {
+		super.validate()
+
+		if (defaultChannels.size > maxValues) {
+			error(
+				"The number of default values set (${defaultChannels.size}) is greater than the maximum number of" +
+					" values that can be selected! ($maxValues)"
+			)
+		}
+	}
+
 	override suspend fun apply(builder: LabelComponentBuilder, locale: Locale) {
 		val translatedDescription = description
 			?.withLocale(locale)

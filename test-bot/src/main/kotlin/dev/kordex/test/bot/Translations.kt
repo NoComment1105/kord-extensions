@@ -101,6 +101,12 @@ internal object Translations {
 		object StringSelect {
 			val placeholder = Key("modal.stringSelect.placeholder")
 				.withBundle(bundle)
+
+			val option1 = Key("modal.stringSelect.option1")
+				.withBundle(bundle)
+
+			val option2 = Key("modal.stringSelect.option2")
+				.withBundle(bundle)
 		}
 
 		object UserSelect {

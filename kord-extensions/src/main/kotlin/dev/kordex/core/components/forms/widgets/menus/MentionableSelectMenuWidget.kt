@@ -15,11 +15,24 @@ import dev.kordex.core.components.menus.mentionable.MentionableSelectMenu
 import java.util.Locale
 
 /** A select widget that supports mentionables as options. **/
-public class MentionableSelectMenuWidget : SelectMenuWidget<Snowflake, MentionableSelectMenuWidget>(),
-	MentionableSelectMenu {
+public class MentionableSelectMenuWidget :
+    SelectMenuWidget<Snowflake, MentionableSelectMenuWidget>(), MentionableSelectMenu {
 	public override var defaultUsers: MutableList<Snowflake> = mutableListOf()
 
 	public override var defaultRoles: MutableList<Snowflake> = mutableListOf()
+
+	override fun validate() {
+		super.validate()
+
+		val defaultTotals = defaultRoles.size + defaultUsers.size
+
+		if (defaultTotals > maxValues) {
+			error(
+				"The number of default values set ($defaultTotals) is greater than the maximum number of values" +
+					" that can be selected! ($maxValues)"
+			)
+		}
+	}
 
 	override suspend fun apply(builder: LabelComponentBuilder, locale: Locale) {
 		val translatedDescription = description
