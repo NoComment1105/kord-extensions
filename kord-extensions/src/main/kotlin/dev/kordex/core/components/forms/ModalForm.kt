@@ -11,6 +11,7 @@
 package dev.kordex.core.components.forms
 
 import dev.kord.common.annotation.KordUnsafe
+import dev.kord.common.entity.Snowflake
 import dev.kord.core.behavior.interaction.ModalParentInteractionBehavior
 import dev.kord.core.behavior.interaction.modal
 import dev.kord.core.behavior.interaction.response.EphemeralMessageInteractionResponseBehavior
@@ -22,10 +23,8 @@ import dev.kord.rest.builder.interaction.ModalBuilder
 import dev.kordex.core.ExtensibleBot
 import dev.kordex.core.components.ComponentContext
 import dev.kordex.core.components.ComponentRegistry
-import dev.kordex.core.components.forms.widgets.LineTextWidget
-import dev.kordex.core.components.forms.widgets.ParagraphTextWidget
-import dev.kordex.core.components.forms.widgets.TextInputWidget
-import dev.kordex.core.components.forms.widgets.Widget
+import dev.kordex.core.components.forms.widgets.*
+import dev.kordex.core.components.forms.widgets.menus.*
 import dev.kordex.core.events.EventContext
 import dev.kordex.core.events.ModalInteractionCompleteEvent
 import dev.kordex.core.koin.KordExKoinComponent
@@ -86,19 +85,214 @@ public abstract class ModalForm : Form(), KordExKoinComponent {
 		return widget
 	}
 
+	public fun channelSelect(
+		coordinate: CoordinatePair? = null,
+		builder: ChannelSelectMenuWidget.() -> Unit,
+	): ChannelSelectMenuWidget {
+		val widget = ChannelSelectMenuWidget()
+
+		builder(widget)
+		widget.validate()
+
+		grid.setAtCoordinateOrFirstRow(coordinate, widget)
+
+		return widget
+	}
+
+	public fun mentionableSelect(
+		coordinate: CoordinatePair? = null,
+		builder: MentionableSelectMenuWidget.() -> Unit,
+	): MentionableSelectMenuWidget {
+		val widget = MentionableSelectMenuWidget()
+
+		builder(widget)
+		widget.validate()
+
+		grid.setAtCoordinateOrFirstRow(coordinate, widget)
+
+		return widget
+	}
+
+	public fun roleSelect(
+		coordinate: CoordinatePair? = null,
+		builder: RoleSelectMenuWidget.() -> Unit,
+	): RoleSelectMenuWidget {
+		val widget = RoleSelectMenuWidget()
+
+		builder(widget)
+		widget.validate()
+
+		grid.setAtCoordinateOrFirstRow(coordinate, widget)
+
+		return widget
+	}
+
+	public fun stringSelect(
+		coordinate: CoordinatePair? = null,
+		builder: StringSelectMenuWidget.() -> Unit,
+	): StringSelectMenuWidget {
+		val widget = StringSelectMenuWidget()
+
+		builder(widget)
+		widget.validate()
+
+		grid.setAtCoordinateOrFirstRow(coordinate, widget)
+
+		return widget
+	}
+
+	public fun userSelect(
+		coordinate: CoordinatePair? = null,
+		builder: UserSelectMenuWidget.() -> Unit,
+	): UserSelectMenuWidget {
+		val widget = UserSelectMenuWidget()
+
+		builder(widget)
+		widget.validate()
+
+		grid.setAtCoordinateOrFirstRow(coordinate, widget)
+
+		return widget
+	}
+
+	public fun fileUpload(
+		coordinate: CoordinatePair? = null,
+		builder: FileUploadWidget.() -> Unit,
+	): FileUploadWidget {
+		val widget = FileUploadWidget()
+
+		builder(widget)
+		widget.validate()
+
+		grid.setAtCoordinateOrFirstRow(coordinate, widget)
+
+		return widget
+	}
+
+	public fun radioGroup(
+		coordinate: CoordinatePair? = null,
+		builder: RadioGroupWidget.() -> Unit,
+	): RadioGroupWidget {
+		val widget = RadioGroupWidget()
+
+		builder(widget)
+		widget.validate()
+
+		grid.setAtCoordinateOrFirstRow(coordinate, widget)
+
+		return widget
+	}
+
+	public fun checkboxGroup(
+		coordinate: CoordinatePair? = null,
+		builder: CheckboxGroupWidget.() -> Unit,
+	): CheckboxGroupWidget {
+		val widget = CheckboxGroupWidget()
+
+		builder(widget)
+		widget.validate()
+
+		grid.setAtCoordinateOrFirstRow(coordinate, widget)
+
+		return widget
+	}
+
+	public fun checkbox(
+		coordinate: CoordinatePair? = null,
+		builder: CheckboxWidget.() -> Unit,
+	): CheckboxWidget {
+		val widget = CheckboxWidget()
+
+		builder(widget)
+		widget.validate()
+
+		grid.setAtCoordinateOrFirstRow(coordinate, widget)
+
+		return widget
+	}
+
 	/** @suppress Internal function called by the component registry. **/
 	public suspend fun call(event: ModalSubmitInteractionCreateEvent) {
 		grid.filter { it.isNotEmpty() }
 			.forEach { row ->
-				row.filterNotNull()
-					.forEach { widget ->
-						val textInput = widget as TextInputWidget<*>
-						val value = event.interaction.textInputs[textInput.id]?.value
-
-						if (value != null) {
-							textInput.setValue(value)
+				@Suppress("LoopWithTooManyJumpStatements")
+				for (widget in row.filterNotNull()) {
+					(widget as? TextInputWidget<*>)?.let { textInput ->
+						event.interaction.textInputs[textInput.id]?.value?.let { textInputValue ->
+							textInput.setValue(textInputValue)
+							continue
 						}
 					}
+
+					(widget as? ChannelSelectMenuWidget)?.let { channelSelect ->
+						event.interaction.channelSelects[channelSelect.id]?.values.stringListToSnowflakeList()
+							?.let { channelSelectValues ->
+								channelSelect.setValue(channelSelectValues)
+								continue
+							}
+					}
+
+					(widget as? MentionableSelectMenuWidget)?.let { mentionableSelect ->
+						event.interaction.mentionableSelects[mentionableSelect.id]?.values.stringListToSnowflakeList()
+							?.let { mentionableSelectValues ->
+								mentionableSelect.setValue(mentionableSelectValues)
+								continue
+							}
+					}
+
+					(widget as? RoleSelectMenuWidget)?.let { roleSelect ->
+						event.interaction.roleSelects[roleSelect.id]?.values.stringListToSnowflakeList()
+							?.let { roleSelectValues ->
+								roleSelect.setValue(roleSelectValues)
+								continue
+							}
+					}
+
+					(widget as? StringSelectMenuWidget)?.let { stringSelect ->
+						event.interaction.stringSelects[stringSelect.id]?.values?.let { stringSelectValues ->
+							stringSelect.setValue(stringSelectValues)
+							continue
+						}
+					}
+
+					(widget as? UserSelectMenuWidget)?.let { userSelect ->
+						event.interaction.userSelects[userSelect.id]?.values.stringListToSnowflakeList()
+							?.let { userSelectValues ->
+								userSelect.setValue(userSelectValues)
+								continue
+							}
+					}
+
+					(widget as? FileUploadWidget)?.let { fileUpload ->
+						event.interaction.fileUploads[fileUpload.id]?.valueIds?.let { fileUploadValues ->
+							run {
+								fileUpload.setValue(fileUploadValues)
+								continue
+							}
+						}
+					}
+
+					(widget as? RadioGroupWidget)?.let { radioGroup ->
+						event.interaction.radioGroups[radioGroup.id]?.value?.let { radioGroupValues ->
+							radioGroup.setValue(radioGroupValues)
+							continue
+						}
+					}
+
+					(widget as? CheckboxGroupWidget)?.let { checkboxGroup ->
+						event.interaction.checkboxGroups[checkboxGroup.id]?.values?.let { checkboxGroupValues ->
+							checkboxGroup.setValue(checkboxGroupValues)
+							continue
+						}
+					}
+
+					(widget as? CheckboxWidget)?.let { checkbox ->
+						event.interaction.checkboxes[checkbox.id]?.value?.let { checkboxValue ->
+							checkbox.setValue(checkboxValue)
+							continue
+						}
+					}
+				}
 			}
 
 		bot.send(
@@ -118,9 +312,9 @@ public abstract class ModalForm : Form(), KordExKoinComponent {
 				.filter { it !in appliedWidgets }
 
 			if (filteredRow.isNotEmpty()) {
-				builder.actionRow {
-					filteredRow.forEach { widget ->
-						if (widget !in appliedWidgets) {
+				filteredRow.forEach { widget ->
+					if (widget !in appliedWidgets) {
+						builder.label(widget.label.withLocale(locale).translate()) {
 							widget.apply(this, locale)
 							appliedWidgets.add(widget)
 						}
@@ -283,5 +477,23 @@ public abstract class ModalForm : Form(), KordExKoinComponent {
 		context: ComponentContext<*>,
 	): PublicMessageInteractionResponseBehavior? = sendAndAwait(context) {
 		it?.deferPublicResponseUnsafe()
+	}
+
+	/**
+	 * Converts a list of strings to list of snowflakes
+	 *
+	 * For some reason, Kord will always return a List of Strings for select menu values, despite most of them being
+	 * lists of snowflakes. This function combats that safely and avoids unchecked cast warnings.
+	 */
+	private fun List<String>?.stringListToSnowflakeList(): List<Snowflake>? {
+		this ?: return null
+
+		val snowflakeList = mutableListOf<Snowflake>()
+
+		this.forEach {
+			snowflakeList.add(Snowflake(it))
+		}
+
+		return snowflakeList
 	}
 }

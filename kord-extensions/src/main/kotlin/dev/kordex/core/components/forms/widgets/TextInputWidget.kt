@@ -9,7 +9,7 @@
 package dev.kordex.core.components.forms.widgets
 
 import dev.kord.common.entity.TextInputStyle
-import dev.kord.rest.builder.component.ActionRowBuilder
+import dev.kord.rest.builder.component.LabelComponentBuilder
 import dev.kordex.core.koin.KordExKoinComponent
 import dev.kordex.i18n.EMPTY_VALUE_STRING
 import dev.kordex.i18n.Key
@@ -25,8 +25,8 @@ public const val MIN_LENGTH: Int = 0
 /** The limit for the length of the widget's label. **/
 public const val LABEL_LENGTH: Int = 45
 
-/** The maximum number of characters that can be present in the wdget's placeholder. **/
-public const val PLACEHOLDER_LENGTH: Int = 100
+/** The maximum number of characters that can be present in the text widget's placeholder. **/
+public const val TEXT_INPUT_PLACEHOLDER_LENGTH: Int = 100
 
 /** An abstract type representing a widget that accepts text from the user. */
 public abstract class TextInputWidget<T : TextInputWidget<T>> : Widget<String?>(), KordExKoinComponent {
@@ -40,8 +40,10 @@ public abstract class TextInputWidget<T : TextInputWidget<T>> : Widget<String?>(
 	/** The [TextInputStyle], to be provided by a subtype. **/
 	public abstract val style: TextInputStyle
 
-	/** The widget's label, to be shown on Discord. **/
-	public lateinit var label: Key
+	// Applied at in ModalForm at the modal builder
+	public override lateinit var label: Key
+
+	public override var description: Key? = null
 
 	/** The widget's unique ID on Discord, defaulting to a UUID. **/
 	public var id: String = UUID.randomUUID().toString()
@@ -66,7 +68,7 @@ public abstract class TextInputWidget<T : TextInputWidget<T>> : Widget<String?>(
 
 	public override fun validate() {
 		if (this::label.isInitialized.not() || label.key.isEmpty()) {
-			error("Text input widgets must be given a label, but no label was provided.")
+			error("Widgets must be given a label, but no label was provided.")
 		}
 
 		@Suppress("UnnecessaryParentheses")
@@ -83,10 +85,14 @@ public abstract class TextInputWidget<T : TextInputWidget<T>> : Widget<String?>(
 		}
 	}
 
-	override suspend fun apply(builder: ActionRowBuilder, locale: Locale) {
+	override suspend fun apply(builder: LabelComponentBuilder, locale: Locale) {
 		val translatedLabel = label
-			.withLocale(locale)
-			.translate()
+				.withLocale(locale)
+				.translate()
+
+		val translatedDescription = description
+			?.withLocale(locale)
+			?.translate()
 
 		val translatedPlaceholder = placeholder
 			?.withLocale(locale)
@@ -116,11 +122,11 @@ public abstract class TextInputWidget<T : TextInputWidget<T>> : Widget<String?>(
 
 		if (
 			translatedPlaceholder != null &&
-			(translatedPlaceholder.length > PLACEHOLDER_LENGTH || translatedPlaceholder.isEmpty())
+			(translatedPlaceholder.length > TEXT_INPUT_PLACEHOLDER_LENGTH || translatedPlaceholder.isEmpty())
 		) {
 			error(
 				"Invalid value for placeholder provided (${translatedPlaceholder.length} characters) - expected " +
-					"${MIN_LENGTH + 1} - $PLACEHOLDER_LENGTH characters"
+					"${MIN_LENGTH + 1} - $TEXT_INPUT_PLACEHOLDER_LENGTH characters"
 			)
 		}
 
@@ -134,7 +140,9 @@ public abstract class TextInputWidget<T : TextInputWidget<T>> : Widget<String?>(
 			)
 		}
 
-		builder.textInput(style, id, translatedLabel) {
+		builder.description = translatedDescription
+
+		builder.textInput(style, id) {
 			this.allowedLength = this@TextInputWidget.minLength..this@TextInputWidget.maxLength
 			this.required = this@TextInputWidget.required
 
