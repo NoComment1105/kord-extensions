@@ -14,7 +14,6 @@ import dev.kord.gateway.ALL
 import dev.kord.gateway.Intents
 import dev.kord.gateway.PrivilegedIntent
 import dev.kord.rest.builder.component.actionRow
-import dev.kord.rest.builder.message.actionRow
 import dev.kord.rest.builder.message.container
 import dev.kord.rest.builder.message.embed
 import dev.kordex.core.DISCORD_BLURPLE

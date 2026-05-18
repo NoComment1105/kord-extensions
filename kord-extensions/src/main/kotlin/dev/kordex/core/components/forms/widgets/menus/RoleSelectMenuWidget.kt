@@ -53,8 +53,7 @@ public class RoleSelectMenuWidget : SelectMenuWidget<Snowflake, RoleSelectMenuWi
 		builder.roleSelect(id) {
 			this.defaultRoles.addAll(this@RoleSelectMenuWidget.defaultRoles)
 			this.allowedValues = this@RoleSelectMenuWidget.minValues..this@RoleSelectMenuWidget.maxValues
-			// Wait for Kord to expose this before uncommenting
-			// this.required = this@RoleSelectMenuWidget.required
+			this.required = this@RoleSelectMenuWidget.required
 			this.placeholder = translatedPlaceholder
 		}
 	}

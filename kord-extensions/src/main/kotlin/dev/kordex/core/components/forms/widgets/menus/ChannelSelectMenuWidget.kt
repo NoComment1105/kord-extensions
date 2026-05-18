@@ -57,8 +57,7 @@ public class ChannelSelectMenuWidget : SelectMenuWidget<Snowflake, ChannelSelect
 			this.defaultChannels.addAll(this@ChannelSelectMenuWidget.defaultChannels)
 			this.channelTypes?.addAll(this@ChannelSelectMenuWidget.channelTypes)
 			this.allowedValues = this@ChannelSelectMenuWidget.minValues..this@ChannelSelectMenuWidget.maxValues
-			// Wait for Kord to expose this before uncommenting
-			// this.required = this@ChannelSelectMenuWidget.required
+			this.required = this@ChannelSelectMenuWidget.required
 			this.placeholder = translatedPlaceholder
 		}
 	}

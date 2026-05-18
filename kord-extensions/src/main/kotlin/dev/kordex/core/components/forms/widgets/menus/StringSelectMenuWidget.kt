@@ -42,8 +42,7 @@ public class StringSelectMenuWidget : SelectMenuWidget<String, StringSelectMenuW
 		builder.stringSelect(id) {
 			this.options = this@StringSelectMenuWidget.options
 			this.allowedValues = this@StringSelectMenuWidget.minValues..this@StringSelectMenuWidget.maxValues
-			// Wait for Kord to expose this before uncommenting
-			// this.required = this@StringSelectMenuWidget.required
+			this.required = this@StringSelectMenuWidget.required
 			this.placeholder = translatedPlaceholder
 		}
 	}

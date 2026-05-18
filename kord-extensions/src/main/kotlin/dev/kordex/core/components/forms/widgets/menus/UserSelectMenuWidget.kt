@@ -53,8 +53,7 @@ public class UserSelectMenuWidget : SelectMenuWidget<Snowflake, UserSelectMenuWi
 		builder.userSelect(id) {
 			this.defaultUsers.addAll(this@UserSelectMenuWidget.defaultUsers)
 			this.allowedValues = this@UserSelectMenuWidget.minValues..this@UserSelectMenuWidget.maxValues
-			// Wait for Kord to expose this before uncommenting
-			// this.required = this@UserSelectMenuWidget.required
+			this.required = this@UserSelectMenuWidget.required
 			this.placeholder = translatedPlaceholder
 		}
 	}

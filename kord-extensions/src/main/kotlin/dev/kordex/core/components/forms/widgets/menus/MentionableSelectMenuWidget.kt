@@ -59,8 +59,7 @@ public class MentionableSelectMenuWidget :
 			this.defaultUsers.addAll(this@MentionableSelectMenuWidget.defaultUsers)
 			this.defaultRoles.addAll(this@MentionableSelectMenuWidget.defaultRoles)
 			this.allowedValues = this@MentionableSelectMenuWidget.minValues..this@MentionableSelectMenuWidget.maxValues
-			// Wait for Kord to expose this before uncommenting
-			// this.required = this@MentionableSelectMenuWidget.required
+			this.required = this@MentionableSelectMenuWidget.required
 			this.placeholder = translatedPlaceholder
 		}
 	}
