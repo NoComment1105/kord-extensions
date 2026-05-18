@@ -32,6 +32,7 @@ import dev.kordex.core.utils.waitFor
 import dev.kordex.i18n.Key
 import org.koin.core.component.inject
 import java.util.*
+import kotlin.collections.flatten
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 
@@ -213,94 +214,39 @@ public abstract class ModalForm : Form(), KordExKoinComponent {
 
 	/** @suppress Internal function called by the component registry. **/
 	public suspend fun call(event: ModalSubmitInteractionCreateEvent) {
-		grid.filter { it.isNotEmpty() }
-			.forEach { row ->
-				@Suppress("LoopWithTooManyJumpStatements")
-				for (widget in row.filterNotNull()) {
-					(widget as? TextInputWidget<*>)?.let { textInput ->
-						event.interaction.textInputs[textInput.id]?.value?.let { textInputValue ->
-							textInput.setValue(textInputValue)
-							continue
-						}
-					}
+		val interaction = event.interaction
 
-					(widget as? ChannelSelectMenuWidget)?.let { channelSelect ->
-						event.interaction.channelSelects[channelSelect.id]?.values.stringListToSnowflakeList()
-							?.let { channelSelectValues ->
-								channelSelect.setValue(channelSelectValues)
-								continue
-							}
-					}
+		grid.filter { it.isNotEmpty() }.flatten().forEach { widget -> getWidgetValue(widget, interaction)  }
 
-					(widget as? MentionableSelectMenuWidget)?.let { mentionableSelect ->
-						event.interaction.mentionableSelects[mentionableSelect.id]?.values.stringListToSnowflakeList()
-							?.let { mentionableSelectValues ->
-								mentionableSelect.setValue(mentionableSelectValues)
-								continue
-							}
-					}
+		bot.send(ModalInteractionCompleteEvent(id, interaction))
+	}
 
-					(widget as? RoleSelectMenuWidget)?.let { roleSelect ->
-						event.interaction.roleSelects[roleSelect.id]?.values.stringListToSnowflakeList()
-							?.let { roleSelectValues ->
-								roleSelect.setValue(roleSelectValues)
-								continue
-							}
-					}
+	private fun getWidgetValue(widget: Widget<*>?, interaction: ModalSubmitInteraction) {
+		when (widget) {
+			is TextInputWidget<*> -> interaction.textInputs[widget.id]?.value?.let(widget::setValue)
 
-					(widget as? StringSelectMenuWidget)?.let { stringSelect ->
-						event.interaction.stringSelects[stringSelect.id]?.values?.let { stringSelectValues ->
-							stringSelect.setValue(stringSelectValues)
-							continue
-						}
-					}
+			is ChannelSelectMenuWidget ->
+				interaction.channelSelects[widget.id]?.values.stringListToSnowflakeList()?.let(widget::setValue)
 
-					(widget as? UserSelectMenuWidget)?.let { userSelect ->
-						event.interaction.userSelects[userSelect.id]?.values.stringListToSnowflakeList()
-							?.let { userSelectValues ->
-								userSelect.setValue(userSelectValues)
-								continue
-							}
-					}
+			is MentionableSelectMenuWidget ->
+				interaction.mentionableSelects[widget.id]?.values.stringListToSnowflakeList()?.let(widget::setValue)
 
-					(widget as? FileUploadWidget)?.let { fileUpload ->
-						event.interaction.fileUploads[fileUpload.id]?.valueIds?.let { fileUploadValues ->
-							run {
-								fileUpload.setValue(fileUploadValues)
-								continue
-							}
-						}
-					}
+			is RoleSelectMenuWidget ->
+				interaction.roleSelects[widget.id]?.values.stringListToSnowflakeList()?.let(widget::setValue)
 
-					(widget as? RadioGroupWidget)?.let { radioGroup ->
-						event.interaction.radioGroups[radioGroup.id]?.value?.let { radioGroupValues ->
-							radioGroup.setValue(radioGroupValues)
-							continue
-						}
-					}
+			is StringSelectMenuWidget -> interaction.stringSelects[widget.id]?.values?.let(widget::setValue)
 
-					(widget as? CheckboxGroupWidget)?.let { checkboxGroup ->
-						event.interaction.checkboxGroups[checkboxGroup.id]?.values?.let { checkboxGroupValues ->
-							checkboxGroup.setValue(checkboxGroupValues)
-							continue
-						}
-					}
+			is UserSelectMenuWidget ->
+				interaction.userSelects[widget.id]?.values.stringListToSnowflakeList()?.let(widget::setValue)
 
-					(widget as? CheckboxWidget)?.let { checkbox ->
-						event.interaction.checkboxes[checkbox.id]?.value?.let { checkboxValue ->
-							checkbox.setValue(checkboxValue)
-							continue
-						}
-					}
-				}
-			}
+			is FileUploadWidget -> interaction.fileUploads[widget.id]?.valueIds?.let(widget::setValue)
 
-		bot.send(
-			ModalInteractionCompleteEvent(
-				id,
-				event.interaction
-			)
-		)
+			is RadioGroupWidget -> interaction.radioGroups[widget.id]?.value?.let(widget::setValue)
+
+			is CheckboxGroupWidget -> interaction.checkboxGroups[widget.id]?.values?.let(widget::setValue)
+
+			is CheckboxWidget -> interaction.checkboxes[widget.id]?.value?.let(widget::setValue)
+		}
 	}
 
 	/** Given a ModalBuilder, apply this modal's widgets for display on Discord. **/

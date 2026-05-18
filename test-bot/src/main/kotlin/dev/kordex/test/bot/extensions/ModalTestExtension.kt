@@ -14,6 +14,8 @@ import dev.kordex.core.commands.application.slash.publicSubCommand
 import dev.kordex.core.commands.converters.impl.string
 import dev.kordex.core.components.components
 import dev.kordex.core.components.forms.ModalForm
+import dev.kordex.core.components.forms.widgets.LineTextWidget
+import dev.kordex.core.components.forms.widgets.ParagraphTextWidget
 import dev.kordex.core.components.forms.widgets.menus.ChannelSelectMenuWidget
 import dev.kordex.core.components.forms.widgets.menus.MentionableSelectMenuWidget
 import dev.kordex.core.components.forms.widgets.menus.RoleSelectMenuWidget
@@ -46,38 +48,23 @@ public class ModalTestExtension : Extension() {
 							return@buildString
 						}
 
-// 						append("**Line:** `")
-// 						appendLine(modal.line.value)
-// 						append("`")
-// 						appendLine()
-//
-// 						appendLine("**Paragraph:** ```")
-// 						appendLine(modal.paragraph.value)
-// 						append("```")
-// 						appendLine()
+ 						append("**Line:** `")
+ 						appendLine(modal.line.value)
+ 						append("`")
+ 						appendLine()
 
-						appendLine("**Channel Select:** ```")
-						appendLine(modal.channelSelect.value)
-						append("```")
-						appendLine()
+ 						appendLine("**Paragraph:** ```")
+ 						appendLine(modal.paragraph.value)
+ 						append("```")
+ 						appendLine()
 
 						appendLine("**Mentionable Select:** ```")
 						appendLine(modal.mentionableSelect.value)
 						append("```")
 						appendLine()
 
-						appendLine("**Role Select:** ```")
-						appendLine(modal.roleSelect.value)
-						append("```")
-						appendLine()
-
 						appendLine("**String Select:** ```")
 						appendLine(modal.stringSelect.value)
-						append("```")
-						appendLine()
-
-						appendLine("**User Select:** ```")
-						appendLine(modal.userSelect.value)
 						append("```")
 						appendLine()
 					}
@@ -97,15 +84,15 @@ public class ModalTestExtension : Extension() {
 							return@buildString
 						}
 
-// 						append("**Line:** `")
-// 						appendLine(modal.line.value)
-// 						append("`")
-// 						appendLine()
-//
-// 						appendLine("**Paragraph:** ```")
-// 						appendLine(modal.paragraph.value)
-// 						append("```")
-// 						appendLine()
+ 						append("**Line:** `")
+ 						appendLine(modal.line.value)
+ 						append("`")
+ 						appendLine()
+
+ 						appendLine("**Paragraph:** ```")
+ 						appendLine(modal.paragraph.value)
+ 						append("```")
+ 						appendLine()
 
 						appendLine("**Channel Select:** ```")
 						appendLine(modal.channelSelect.value)
@@ -117,18 +104,8 @@ public class ModalTestExtension : Extension() {
 						append("```")
 						appendLine()
 
-						appendLine("**Role Select:** ```")
-						appendLine(modal.roleSelect.value)
-						append("```")
-						appendLine()
-
 						appendLine("**String Select:** ```")
 						appendLine(modal.stringSelect.value)
-						append("```")
-						appendLine()
-
-						appendLine("**User Select:** ```")
-						appendLine(modal.userSelect.value)
 						append("```")
 						appendLine()
 					}
@@ -159,15 +136,15 @@ public class ModalTestExtension : Extension() {
 												return@buildString
 											}
 
-// 											append("**Line:** `")
-// 											appendLine(modal.line.value)
-// 											append("`")
-// 											appendLine()
-//
-// 											appendLine("**Paragraph:** ```")
-// 											appendLine(modal.paragraph.value)
-// 											append("```")
-// 											appendLine()
+ 											append("**Line:** `")
+ 											appendLine(modal.line.value)
+ 											append("`")
+ 											appendLine()
+
+ 											appendLine("**Paragraph:** ```")
+ 											appendLine(modal.paragraph.value)
+ 											append("```")
+ 											appendLine()
 
 											appendLine("**Channel Select:** ```")
 											appendLine(modal.channelSelect.value)
@@ -179,18 +156,8 @@ public class ModalTestExtension : Extension() {
 											append("```")
 											appendLine()
 
-											appendLine("**Role Select:** ```")
-											appendLine(modal.roleSelect.value)
-											append("```")
-											appendLine()
-
 											appendLine("**String Select:** ```")
 											appendLine(modal.stringSelect.value)
-											append("```")
-											appendLine()
-
-											appendLine("**User Select:** ```")
-											appendLine(modal.userSelect.value)
 											append("```")
 											appendLine()
 										}
@@ -220,15 +187,15 @@ public class ModalTestExtension : Extension() {
 								return@buildString
 							}
 
-// 							append("**Line:** `")
-// 							appendLine(modal.line.value)
-// 							append("`")
-// 							appendLine()
-//
-// 							appendLine("**Paragraph:** ```")
-// 							appendLine(modal.paragraph.value)
-// 							append("```")
-// 							appendLine()
+ 							append("**Line:** `")
+ 							appendLine(modal.line.value)
+ 							append("`")
+ 							appendLine()
+
+ 							appendLine("**Paragraph:** ```")
+ 							appendLine(modal.paragraph.value)
+ 							append("```")
+ 							appendLine()
 
 							appendLine("**Channel Select:** ```")
 							appendLine(modal.channelSelect.value)
@@ -240,18 +207,8 @@ public class ModalTestExtension : Extension() {
 							append("```")
 							appendLine()
 
-							appendLine("**Role Select:** ```")
-							appendLine(modal.roleSelect.value)
-							append("```")
-							appendLine()
-
 							appendLine("**String Select:** ```")
 							appendLine(modal.stringSelect.value)
-							append("```")
-							appendLine()
-
-							appendLine("**User Select:** ```")
-							appendLine(modal.userSelect.value)
 							append("```")
 							appendLine()
 						}
@@ -261,46 +218,35 @@ public class ModalTestExtension : Extension() {
 		}
 	}
 
-	public inner class Args : Arguments() {
+	public class Args : Arguments() {
 		public val str: String by string {
 			name = "string".toKey()
 			description = "A string argument".toKey()
 		}
 	}
 
-	public inner class Modal : ModalForm() {
+	public class Modal : ModalForm() {
 		override var title: Key = Translations.Modal.title
 
-// 		public val line: LineTextWidget = lineText {
-// 			label = Translations.Modal.line
-// 			placeholder = Translations.Modal.Line.placeholder
-// 		}
-//
-// 		public val paragraph: ParagraphTextWidget = paragraphText {
-// 			label = Translations.Modal.paragraph
-// 			placeholder = Translations.Modal.Paragraph.placeholder
-// 		}
+ 		public val line: LineTextWidget = lineText {
+ 			label = Translations.Modal.line
+ 			placeholder = Translations.Modal.Line.placeholder
+ 		}
+
+ 		public val paragraph: ParagraphTextWidget = paragraphText {
+ 			label = Translations.Modal.paragraph
+ 			placeholder = Translations.Modal.Paragraph.placeholder
+ 		}
 
 		public val channelSelect: ChannelSelectMenuWidget = channelSelect {
 			label = Translations.Modal.channelSelect
 			placeholder = Translations.Modal.ChannelSelect.placeholder
-			defaultChannel(Snowflake(""))
 		}
 
 		public val mentionableSelect: MentionableSelectMenuWidget = mentionableSelect {
 			label = Translations.Modal.mentionableSelect
 			placeholder = Translations.Modal.MentionableSelect.placeholder
-			defaultRole(Snowflake(""))
-			defaultUser(Snowflake(""))
 			maxValues = 3
-		}
-
-		public val roleSelect: RoleSelectMenuWidget = roleSelect {
-			label = Translations.Modal.roleSelect
-			placeholder = Translations.Modal.RoleSelect.placeholder
-			defaultRole(Snowflake(""), Snowflake(""))
-			minValues = 2
-			maxValues = 4
 		}
 
 		public val stringSelect: StringSelectMenuWidget = stringSelect {
@@ -310,12 +256,6 @@ public class ModalTestExtension : Extension() {
 				option(Translations.Modal.StringSelect.option1, "test1")
 				option(Translations.Modal.StringSelect.option2, "test2")
 			}
-		}
-
-		public val userSelect: UserSelectMenuWidget = userSelect {
-			label = Translations.Modal.userSelect
-			placeholder = Translations.Modal.UserSelect.placeholder
-			defaultUser(Snowflake(""))
 		}
 	}
 }

@@ -10,6 +10,7 @@ package dev.kordex.core.components.forms.widgets.menus
 
 import dev.kordex.core.components.forms.widgets.MAX_LENGTH
 import dev.kordex.core.components.forms.widgets.MIN_LENGTH
+import dev.kordex.core.components.forms.widgets.MIN_VALUES
 import dev.kordex.core.components.forms.widgets.Widget
 import dev.kordex.core.koin.KordExKoinComponent
 import dev.kordex.i18n.Key
@@ -17,9 +18,6 @@ import java.util.*
 
 /** The absolute max number of items that can be chosen. **/
 public const val MAX_VALUES: Int = 25
-
-/** The absolute min number of items that must be chosen. **/
-public const val MIN_VALUES: Int = 0
 
 /** The maximum number of characters that can be present in the select widget's placeholder. **/
 public const val SELECT_PLACEHOLDER_LENGTH: Int = 150

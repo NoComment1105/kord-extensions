@@ -26,11 +26,11 @@ public abstract class Widget<T> {
 	public abstract var value: T
 		protected set
 
-	/** The label that will be given to the widget. Max 45 characters. **/
+	/** The Widget's label, displayed on Discord. **/
 	public abstract var label: Key
 		protected set
 
-	/** An optional description text for the label. Max 100 characters. **/
+	/** An optional description for the Widget. Displayed on Discord. **/
 	public abstract var description: Key?
 		protected set
 

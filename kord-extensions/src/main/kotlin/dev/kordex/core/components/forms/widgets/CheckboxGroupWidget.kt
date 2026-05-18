@@ -35,7 +35,7 @@ public class CheckboxGroupWidget : Widget<List<String>>(), KordExKoinComponent {
 	public var required: Boolean = true
 
 	/** The minimum number of items that must be chosen. **/
-	public var minValues: Int = if (required) MIN_VALUES + 1 else MIN_VALUES
+	public var minValues: Int? = null
 
 	/** The maximum number of items that can be chosen. **/
 	public var maxValues: Int = MAX_VALUES
@@ -46,7 +46,7 @@ public class CheckboxGroupWidget : Widget<List<String>>(), KordExKoinComponent {
 		}
 
 		if (this::label.isInitialized.not() || label.key.isEmpty()) {
-			error("Widgets must be given a label, but not label was provided.")
+			error("Widgets must be given a label, but no label was provided.")
 		}
 
 		@Suppress("UnnecessaryParentheses")
@@ -54,7 +54,11 @@ public class CheckboxGroupWidget : Widget<List<String>>(), KordExKoinComponent {
 			error("Invalid number of options provided: ${options.size} - expected ${MIN_VALUES + 1} - $MAX_VALUES")
 		}
 
-		if (maxValues < minValues) {
+		if (minValues == null && required) {
+			minValues = MIN_VALUES + 1
+		}
+
+		if (minValues != null && maxValues < minValues!!) {
 			error("maxValues cannot be less than minValues!")
 		}
 

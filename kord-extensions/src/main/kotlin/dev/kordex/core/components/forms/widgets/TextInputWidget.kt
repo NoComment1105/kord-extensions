@@ -40,7 +40,7 @@ public abstract class TextInputWidget<T : TextInputWidget<T>> : Widget<String?>(
 	/** The [TextInputStyle], to be provided by a subtype. **/
 	public abstract val style: TextInputStyle
 
-	// Applied at in ModalForm at the modal builder
+	// Applied in ModalForm at the modal builder
 	public override lateinit var label: Key
 
 	public override var description: Key? = null

@@ -15,12 +15,6 @@ import dev.kordex.i18n.Key
 import java.util.Locale
 import java.util.UUID
 
-/** The min number of values for the widget. **/
-public const val MIN_VALUES: Int = 0
-
-/** The max number of values for the widget. **/
-public const val MAX_VALUES: Int = 10
-
 /** A widget for uploading files to discord. **/
 public class FileUploadWidget : Widget<List<Snowflake>?>(), KordExKoinComponent {
 	@Suppress("MagicNumber")
@@ -38,8 +32,8 @@ public class FileUploadWidget : Widget<List<Snowflake>?>(), KordExKoinComponent 
 	/** Whether this widget must be filled out for the form to be valid. **/
 	public var required: Boolean = true
 
-	/** The minimum number of items that must be uploaded. If [required] is omitted/true, set to 1. Otherwise 0. **/
-	public var minValues: Int = if (required) MIN_VALUES + 1 else MIN_VALUES
+	/** The minimum number of items that must be uploaded. **/
+	public var minValues: Int? = null
 
 	/** The maximum number of items that can be uploaded. **/
 	public var maxValues: Int = MAX_VALUES
@@ -49,7 +43,11 @@ public class FileUploadWidget : Widget<List<Snowflake>?>(), KordExKoinComponent 
 			error("Widgets must be given a label, but no label was provided.")
 		}
 
-		if (maxValues < minValues) {
+		if (minValues == null && required) {
+			minValues = MIN_VALUES + 1
+		}
+
+		if (minValues != null && maxValues < minValues!!) {
 			error("maxValues cannot be less than minValues!")
 		}
 

@@ -13,7 +13,9 @@ import dev.kord.common.entity.Snowflake
 import dev.kord.gateway.ALL
 import dev.kord.gateway.Intents
 import dev.kord.gateway.PrivilegedIntent
+import dev.kord.rest.builder.component.actionRow
 import dev.kord.rest.builder.message.actionRow
+import dev.kord.rest.builder.message.container
 import dev.kord.rest.builder.message.embed
 import dev.kordex.core.DISCORD_BLURPLE
 import dev.kordex.core.ExtensibleBot
@@ -71,17 +73,19 @@ public suspend fun main() {
 						}
 					}
 
-					actionRow {
-						linkButton("https://docs.kordex.dev") {
-							label = "Docs"
-						}
+					container {
+						actionRow {
+							linkButton("https://docs.kordex.dev") {
+								label = "Docs"
+							}
 
-						linkButton("https://ko-fi.com/gsc") {
-							label = "Donate"
-						}
+							linkButton("https://ko-fi.com/gsc") {
+								label = "Donate"
+							}
 
-						linkButton("https://github.com/Kord-Extensions/kord-extensions") {
-							label = "Source Code"
+							linkButton("https://github.com/Kord-Extensions/kord-extensions") {
+								label = "Source Code"
+							}
 						}
 					}
 				}
@@ -155,9 +159,9 @@ public suspend fun main() {
 				extPluralKit()
 			}
 
- 			if (envOrNull("MAPPINGS_TESTING") != null) {
- 				extMappings { }
- 			}
+			if (envOrNull("MAPPINGS_TESTING") != null) {
+				extMappings { }
+			}
 
 			add(::ArgumentTestExtension)
 			add(::BenchmarkExtension)
@@ -171,7 +175,7 @@ public suspend fun main() {
 
 		plugins {
 			pluginPath("test-bot/plugins/")
- 			pluginPath("modules/functionality/func-mappings/build/generated/ksp/main/resources")
+			pluginPath("modules/functionality/func-mappings/build/generated/ksp/main/resources")
 		}
 	}
 

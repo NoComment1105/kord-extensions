@@ -32,7 +32,7 @@ public class CheckboxWidget : Widget<Boolean?>(), KordExKoinComponent {
 
 	public override fun validate() {
 		if (this::label.isInitialized.not() || label.key.isEmpty()) {
-			error("Widgets must be given a label, but no label was provided")
+			error("Checkboxes must be given a label, but no label was provided")
 		}
 	}
 
